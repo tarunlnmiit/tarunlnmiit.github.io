@@ -1,7 +1,12 @@
-<!DOCTYPE html> {% load staticfiles %}
-<!--[if lt IE 8 ]><html class="no-js ie ie7" lang="en"> <![endif]-->
-<!--[if IE 8 ]><html class="no-js ie ie8" lang="en"> <![endif]-->
-<!--[if (gte IE 8)|!(IE)]><!-->
+<!DOCTYPE htm
+<!--[if lt IE 8 ]>
+<html class="no-js ie ie7" lang="en">
+<![endif]-->
+<!--[if IE 8 ]>
+<html class="no-js ie ie8" lang="en">
+<![endif]-->
+<!--[if (gte IE 8)|!(IE)]>
+<!-->
 <html class="no-js" lang="en">
 <!--<![endif]-->
 
@@ -17,22 +22,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <!-- CSS
     ================================================== -->
-    <link rel="stylesheet" href="{% static 'css/default.css' %}">
-    <link rel="stylesheet" href="{% static 'css/layout.css' %}">
-    <link rel="stylesheet" href="{% static 'css/media-queries.css' %}">
-    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="css/default.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/media-queries.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
     <!-- Script
    ================================================== -->
-    <script src="{% static 'js/modernizr.js' %}"></script>
+    <script src="js/modernizr.js"></script>
     <!-- Favicons
    ================================================== -->
     <link rel="shortcut icon" href="favicon.png">
 </head>
 
 <body>
-
-    <!-- Header
-   ================================================== -->
+    <!-- Header================================================== -->
     <header id="home">
         <nav id="nav-wrap">
             <a class="mobile-btn" href="#nav-wrap" title="Show navigation">Show navigation</a>
@@ -64,14 +67,11 @@
         </p>
     </header>
     <!-- Header End -->
-
-    {% load staticfiles %}
-    <!-- About Section
-   ================================================== -->
+    <!-- About Section================================================== -->
     <section id="about">
         <div class="row">
             <div class="three columns">
-                <img class="profile-pic" src="{% static 'images/tarun.jpg' %}" alt="" />
+                <img class="profile-pic" src="images/tarun.jpg" alt="" />
             </div>
             <div class="nine columns main-col">
                 <h2>About Me</h2>
@@ -103,7 +103,7 @@
                     </div>
                     <div class="columns download">
                         <p>
-                            <a href="{% static 'Tarun Gupta Resume.pdf' %}" class="button" target="_blank"><i class="fa fa-download"></i>Download Resume</a>
+                            <a href="Tarun Gupta Resume.pdf" class="button" target="_blank"><i class="fa fa-download"></i>Download Resume</a>
                         </p>
                     </div>
                 </div>
@@ -113,9 +113,7 @@
         </div>
     </section>
     <!-- About Section End-->
-
-    <!-- Resume Section
-   ================================================== -->
+    <!-- Resume Section================================================== -->
     <section id="resume">
         <!-- Skills -->
         <div class="row skill">
@@ -252,8 +250,6 @@
         <!-- End Education -->
     </section>
     <!-- Resume Section End-->
-
-    {% load staticfiles %}
     <!-- Portfolio Section
    ================================================== -->
     <section id="portfolio">
@@ -265,7 +261,7 @@
                     <div class="columns portfolio-item">
                         <div class="item-wrap">
                             <a href="#modal-01" title="">
-                                <img alt="" src="{% static 'images/portfolio/startupstories.jpg' %}">
+                                <img alt="" src="images/portfolio/startupstories.jpg">
                                 <div class="overlay">
                                     <div class="portfolio-item-meta">
                                         <h5>StartupStories</h5>
@@ -280,7 +276,7 @@
                     <div class="columns portfolio-item">
                         <div class="item-wrap">
                             <a href="#modal-02" title="">
-                                <img alt="" src="{% static 'images/portfolio/wireless.png' %}">
+                                <img alt="" src="images/portfolio/wireless.png">
                                 <div class="overlay">
                                     <div class="portfolio-item-meta">
                                         <h5>Wireless Modulations</h5>
@@ -295,7 +291,7 @@
                     <div class="columns portfolio-item">
                         <div class="item-wrap">
                             <a href="#modal-05" title="">
-                                <img alt="" src="{% static 'images/portfolio/parse.png' %}">
+                                <img alt="" src="images/portfolio/parse.png">
                                 <div class="overlay">
                                     <div class="portfolio-item-meta">
                                         <h5>Data Parsing</h5>
@@ -310,7 +306,7 @@
                     <div class="columns portfolio-item">
                         <div class="item-wrap">
                             <a href="#modal-06" title="">
-                                <img alt="" src="{% static 'images/portfolio/trends.jpg' %}">
+                                <img alt="" src="images/portfolio/trends.jpg">
                                 <div class="overlay">
                                     <div class="portfolio-item-meta">
                                         <h5>Twitter Trends</h5>
@@ -332,7 +328,7 @@
                     <a href="https://github.com/tarunlnmiit/startupStories">Github Source Code</a>
                     <a class="popup-modal-dismiss">Close</a>
                 </div>
-                <img class="scale-with-grid" src="{% static 'images/portfolio/startupstories.jpg' %}" alt="" />
+                <img class="scale-with-grid" src="images/portfolio/startupstories.jpg" alt="" />
                 <div class="description-box">
                     <h4>StartupStories</h4>
                     <span class="categories"><i class="fa fa-tag"></i>Web Development</span>
@@ -352,7 +348,7 @@
                     <a href="https://github.com/tarunlnmiit/wireless-modulations-btp">Github Source Code</a>
                     <a class="popup-modal-dismiss">Close</a>
                 </div>
-                <img class="scale-with-grid" src="{% static 'images/portfolio/wireless.png' %}" alt="" />
+                <img class="scale-with-grid" src="images/portfolio/wireless.png" alt="" />
                 <div class="description-box">
                     <h4>Wireless Modulations (B.Tech. Project)</h4>
                     <span class="categories"><i class="fa fa-tag"></i>Wireless Modulations</span>
@@ -372,7 +368,7 @@
                     <a href="https://github.com/tarunlnmiit/data-parsing">Github Source Code</a>
                     <a class="popup-modal-dismiss">Close</a>
                 </div>
-                <img class="scale-with-grid" src="{% static 'images/portfolio/parse.png' %}" alt="" />
+                <img class="scale-with-grid" src="images/portfolio/parse.png" alt="" />
                 <div class="description-box">
                     <h4>Data Parsing</h4>
                     <span class="categories"><i class="fa fa-tag"></i>Data Parsing, Web Crawling</span>
@@ -392,7 +388,7 @@
                     <a href="https://github.com/tarunlnmiit/twitterTrends">Github Source Code</a>
                     <a class="popup-modal-dismiss">Close</a>
                 </div>
-                <img class="scale-with-grid" src="{% static 'images/portfolio/trends.jpg' %}" alt="" />
+                <img class="scale-with-grid" src="images/portfolio/trends.jpg" alt="" />
                 <div class="description-box">
                     <h4>Twitter Trends</h4>
                     <span class="categories"><i class="fa fa-tag"></i>Trends Script</span>
@@ -411,7 +407,6 @@
         <!-- row End -->
     </section>
     <!-- Portfolio Section End-->
-
     <!-- Testimonials Section
    ================================================== -->
     <section id="testimonials">
@@ -451,8 +446,6 @@
         <!-- text-container ends -->
     </section>
     <!-- Testimonials Section End-->
-
-    {% load staticfiles %}
     <!-- Contact Section
    ================================================== -->
     <section id="contact">
@@ -491,7 +484,7 @@
                         <div>
                             <button class="submit">Submit</button>
                             <span id="image-loader">
-                        <img alt="" src="{% static 'images/loader.gif' %}">
+                        <img alt="" src="images/loader.gif">
                      </span>
                         </div>
                     </fieldset>
@@ -521,7 +514,6 @@
         </div>
     </section>
     <!-- Contact Section End-->
-
     <!-- footer
    ================================================== -->
     <footer>
@@ -537,46 +529,9 @@
         </div>
     </footer>
     <!-- Footer End-->
-
-    {% load staticfiles %}
     <!-- Java Script
    ================================================== -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="{% static 'js/jquery-1.10.2.min.js' %}">
-        < \/script> <
-        script type = "text/javascript"
-        src = "{% static 'js/jquery-migrate-1.2.1.min.js' %}" >
-    </script>
-    <script src="{% static 'js/jquery.flexslider.js' %}"></script>
-    <script src="{% static 'js/waypoints.js' %}"></script>
-    <script src="{% static 'js/jquery.fittext.js' %}"></script>
-    <script src="{% static 'js/magnific-popup.js' %}"></script>
-    <script src="{% static 'js/init.js' %}"></script>
-    <script type="text/javascript">
-        $(document).on('submit', '#contactForm', function(e) {
-            e.preventDefault();
-
-            $.ajax({
-                type: "POST",
-                url: '/register/',
-                data: {
-                    name: $('#contactName').val(),
-                    email: $('#contactEmail').val(),
-                    subject: $('#contactSubject').val(),
-                    message: $('#contactMessage').val(),
-                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
-                },
-                success: function() {
-                    alert('Received');
-                },
-                error: function() {
-                    alert('Error');
-                }
-            });
-        });
-    </script>
-
-
 </body>
 
 </html>
