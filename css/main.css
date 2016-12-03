@@ -1,0 +1,17 @@
+#contact iframe {
+    width: 100%;
+    height: 75%;
+}
+
+#contact {
+    padding-bottom: 0;
+    padding-top: 0;
+}
+
+#nav-wrap {
+    background: #313131;
+}
+
+.icon-up-open {
+    padding-top: 5rem;
+}
