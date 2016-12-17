@@ -184,7 +184,7 @@ header .scrolldown a:hover {
 
 /* hide toggle button */
 
-#nav-wrap > a.mobile-btn {
+#nav-wrap>a.mobile-btn {
     display: none;
 }
 
@@ -630,7 +630,7 @@ ul#nav li.current a {
     -moz-transition: opacity 0.3s ease-in-out;
     -o-transition: opacity 0.3s ease-in-out;
     transition: opacity 0.3s ease-in-out;
-    background: url(../images/overlay-bg.png) repeat;
+    background: url(../images/overlay-bg.jpg) repeat;
 }
 
 .portfolio-item .item-wrap .link-icon {
@@ -979,14 +979,14 @@ call-to-action .button {
     zoom: 1;
 }
 
-.flexslider .slides > li {
+.flexslider .slides>li {
     position: relative;
 }
 
 
 /* Hide the slides before the JS is loaded. Avoids image jumping */
 
-.flexslider .slides > li {
+.flexslider .slides>li {
     display: none;
     -webkit-backface-visibility: hidden;
 }
@@ -1019,7 +1019,7 @@ call-to-action .button {
 /* If you are not using another script, such as Modernizr, make sure you
  * include js that eliminates this class on page load */
 
-.no-js .slides > li:first-child {
+.no-js .slides>li:first-child {
     display: block;
 }
 
@@ -1030,7 +1030,7 @@ call-to-action .button {
     zoom: 1;
 }
 
-.slides > li {
+.slides>li {
     /*margin-right: 5px; */
     overflow: hidden;
 }
