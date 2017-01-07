@@ -15,3 +15,18 @@
 .fa-arrow-up {
     padding-top: 2rem;
 }
+
+.item-wrap {
+    height: 160px;
+    width: 210px;
+}
+
+.item-wrap img {
+    width: 100%;
+    height: 100%;
+}
+
+#nav-wrap:not(:target)>a:first-of-type,
+#nav-wrap:target>a:last-of-type {
+    display: block;
+}
