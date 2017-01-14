@@ -63,7 +63,10 @@
 }
 
 @media only screen and (max-width:767px) {
-    #nav-wrap:not(: target)>a:first-of-type, #nav-wrap:target>a:last-of-type, ul#nav li, ul#nav li a {
+    #nav-wrap:not(:target)>a:first-of-type,
+    #nav-wrap:target>a:last-of-type,
+    ul#nav li,
+    ul#nav li a {
         display: block
     }
     #nav-wrap {
