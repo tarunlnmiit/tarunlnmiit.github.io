@@ -363,13 +363,13 @@ ul#nav li.current a {
 }
 
 .node {
-    width: 65%;
+    width: 70%;
     -moz-animation: illustrator 2s ease;
     -webkit-animation: illustrator 2s ease
 }
 
 .mysql {
-    width: 60%;
+    width: 70%;
     -moz-animation: wordpress 2s ease;
     -webkit-animation: wordpress 2s ease
 }
@@ -386,9 +386,14 @@ ul#nav li.current a {
     -webkit-animation: html5 2s ease
 }
 
-.jquery,
-.php {
+.jquery {
     width: 40%;
+    -moz-animation: jquery 2s ease;
+    -webkit-animation: jquery 2s ease
+}
+
+.angular {
+    width: 60%;
     -moz-animation: jquery 2s ease;
     -webkit-animation: jquery 2s ease
 }
