@@ -217,14 +217,16 @@ ul#nav li.current a {
 
 #about p {
     line-height: 30px;
-    color: #7A7A7A
+    /*color: #7A7A7A*/
 }
 
 #about .profile-pic {
     position: relative;
-    width: 120px;
-    height: 120px;
-    border-radius: 100%
+    width: 160px;
+    height: 160px;
+    border-radius: 100%;
+    margin-top: 20%;
+    margin-left: 20%;
 }
 
 #about .contact-details {
@@ -387,7 +389,7 @@ ul#nav li.current a {
 }
 
 .jquery {
-    width: 40%;
+    width: 50%;
     -moz-animation: jquery 2s ease;
     -webkit-animation: jquery 2s ease
 }
