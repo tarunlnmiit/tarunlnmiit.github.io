@@ -40,3 +40,13 @@
 	color:#ffffff;
     color:rgba(0, 0, 0, 0.4);
 }
+
+.popup {
+    text-align: center;
+}
+
+#portfolio img {
+    width: 240px;
+    height: 200px;
+    border-radius: 20px;
+}
