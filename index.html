@@ -18,8 +18,9 @@
         <link rel="stylesheet" href="css/fontello.css">
         <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="css/main.css">
-        <!-- Favicons==================================================-->
-        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/modals.css"> link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+        <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
         <script src="js/modernizr.js"></script>
         <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
             crossorigin="anonymous">
@@ -202,104 +203,97 @@
                 <div class="twelve columns collapsed">
                     <h1>Check Out Some of My Works.</h1>
                     <div id="portfolio-wrapper" class="bgrid-quarters s-bgrid-thirds cf">
-                        <div class="columns portfolio-item">
-                            <div class="item-wrap">
-                                <a href="#modal-01" title=""> <img alt="" src="images/portfolio/startupstories.jpg">
-                                    <div class="overlay">
-                                        <div class="portfolio-item-meta">
-                                            <h5>StartupStories</h5>
-                                            <p>Website</p>
-                                        </div>
+                            <a class="btn" data-popup-open="popup-1" href="#"><img alt="" src="images/portfolio/startupstories.jpg"></a>
+                            <div class="popup" data-popup="popup-1">
+                                <div class="popup-inner">
+                                    <h2>StartupStories</h2>
+                                    <a href="https://github.com/tarunlnmiit/startupStories" target="_blank"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                            Github Source Code</button>
+                            </a>
+                                    <div class="description-box">
+                                        <h4>StartupStories</h4> <span class="categories"><i class="fa fa-tag"></i>Web Development</span>
+                                        <ul>
+                                            <li> <b>Lead Developer</b> of the project where the basic idea is to create a website
+                                                where stories about companies how they started, when they started, who started
+                                                them, their current status at a single point. </li>
+                                            <li> This project is written in <b>Python</b> using <b>Django</b> web framework along
+                                                with the use of Google's material design. </li>
+                                        </ul>
                                     </div>
-                                    <div class="link-icon"><i class="icon-plus"></i></div>
-                                </a>
+                                    <a data-popup-close="popup-1" href="#">
+                                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Close</button></a>
+                                    </button>
+                                    <a class="popup-close" data-popup-close="popup-1" href="#">x</a>
                             </div>
                         </div>
-                        <div class="columns portfolio-item">
-                            <div class="item-wrap">
-                                <a href="#modal-02" title=""> <img alt="" src="images/portfolio/wireless.jpg">
-                                    <div class="overlay">
-                                        <div class="portfolio-item-meta">
-                                            <h5>Wireless Modulations</h5>
-                                            <p>B.Tech. Project</p>
-                                        </div>
+                        &nbsp&nbsp<!--====================-->
+                            <a class="btn" data-popup-open="popup-2" href="#"><img alt="" src="images/portfolio/wireless.jpg"></a>
+                            <div class="popup" data-popup="popup-2">
+                                <div class="popup-inner">
+                                    <h2>Wireless Modulations</h2>
+                                    <a href="https://github.com/tarunlnmiit/wireless-modulations-btp" target="_blank"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                            Github Source Code</button>
+                            </a>
+                                    <div class="description-box">
+                                        <h4>Wireless Modulations (B.Tech. Project)</h4> <span class="categories"><i class="fa fa-tag"></i>Wireless Modulations</span>
+                                        <ul>
+                                            <li> <b>Implementation</b> of various modulation techniques for wireless systems in
+                                                future perspective of real time video transmission. </li>
+                                            <li> Written fully in <b>Python 2.7</b> using <b>numpy, scipy and matplotlib</b>.
+                                            </li>
+                                        </ul>
                                     </div>
-                                    <div class="link-icon"><i class="icon-plus"></i></div>
-                                </a>
+                                    <a data-popup-close="popup-2" href="#">
+                                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Close</button></a>
+                                    </button>
+                                    <a class="popup-close" data-popup-close="popup-2" href="#">x</a>
                             </div>
                         </div>
-                        <div class="columns portfolio-item">
-                            <div class="item-wrap">
-                                <a href="#modal-05" title=""> <img alt="" src="images/portfolio/parse.jpg">
-                                    <div class="overlay">
-                                        <div class="portfolio-item-meta">
-                                            <h5>Data Parsing</h5>
-                                            <p>Web Crawlers</p>
-                                        </div>
+                        &nbsp&nbsp<!--=======================-->
+                            <a class="btn" data-popup-open="popup-3" href="#"><img alt="" src="images/portfolio/parse.jpg"></a>
+                            <div class="popup" data-popup="popup-3">
+                                <div class="popup-inner">
+                                    <h2>Data Parsing</h2>
+                                    <a href="https://github.com/tarunlnmiit/data-parsing" target="_blank"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                            Github Source Code</button>
+                            </a>
+                                    <div class="description-box">
+                                        <h4>Data Parsing</h4> <span class="categories"><i class="fa fa-tag"></i>Data Parsing, Web Crawling</span>
+                                        <ul>
+                                            <li> <b>Conceived</b> basic scrappers for both offline and online data using <b>Python 3.4</b>.
+                                            </li>
+                                            <li> <b>Acquired</b> knowledge on how to work with BeautifulSoup, Requests, Requests,
+                                                pymysql, pdfminer, pillow, pytesseract, selenium. </li>
+                                        </ul>
                                     </div>
-                                    <div class="link-icon"><i class="icon-plus"></i></div>
-                                </a>
+                                    <a data-popup-close="popup-3" href="#">
+                                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Close</button></a>
+                                    </button>
+                                    <a class="popup-close" data-popup-close="popup-3" href="#">x</a>
                             </div>
                         </div>
-                        <div class="columns portfolio-item">
-                            <div class="item-wrap">
-                                <a href="#modal-06" title=""> <img alt="" src="images/portfolio/trends.jpg">
-                                    <div class="overlay">
-                                        <div class="portfolio-item-meta">
-                                            <h5>Twitter Trends</h5>
-                                            <p>Trends Script</p>
-                                        </div>
+                        &nbsp&nbsp<!--=========================-->
+                            <a class="btn" data-popup-open="popup-4" href="#"><img alt="" src="images/portfolio/trends.jpg"></a>
+                            <div class="popup" data-popup="popup-4">
+                                <div class="popup-inner">
+                                    <h2>Data Parsing</h2>
+                                    <a href="https://github.com/tarunlnmiit/twitterTrends" target="_blank"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                            Github Source Code</button>
+                            </a>
+                                    <div class="description-box">
+                                        <h4>Twitter Trends</h4> <span class="categories"><i class="fa fa-tag"></i>Trends Script</span>
+                                        <ul>
+                                            <li> <b>Conceived</b> a Python script using official twitter python module which determines
+                                                the current trends in the world and among a few major Indian cities. </li>
+                                            <li> The trends are displayed on STDOUT along with the common trends among them. </li>
+                                        </ul>
                                     </div>
-                                    <div class="link-icon"><i class="icon-plus"></i></div>
-                                </a>
+                                    <a data-popup-close="popup-4" href="#">
+                                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Close</button></a>
+                                    </button>
+                                    <a class="popup-close" data-popup-close="popup-4" href="#">x</a>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div id="modal-01" class="popup-modal mfp-hide">
-                    <div class="link-box"> <a href="https://github.com/tarunlnmiit/startupStories">Github Source Code</a> <a class="popup-modal-dismiss">Close</a>                        </div><img class="scale-with-grid" src="images/portfolio/startupstories.jpg" alt="" />
-                    <div class="description-box">
-                        <h4>StartupStories</h4> <span class="categories"><i class="fa fa-tag"></i>Web Development</span>
-                        <ul>
-                            <li> <b>Lead Developer</b> of the project where the basic idea is to create a website where stories
-                                about companies how they started, when they started, who started them, their current status
-                                at a single point. </li>
-                            <li> This project is written in <b>Python</b> using <b>Django</b> web framework along with the use
-                                of Google's material design. </li>
-                        </ul>
-                    </div>
-                </div>
-                <div id="modal-02" class="popup-modal mfp-hide">
-                    <div class="link-box"> <a href="https://github.com/tarunlnmiit/wireless-modulations-btp">Github Source Code</a> <a class="popup-modal-dismiss">Close</a>                        </div><img class="scale-with-grid" src="images/portfolio/wireless.jpg" alt="" />
-                    <div class="description-box">
-                        <h4>Wireless Modulations (B.Tech. Project)</h4> <span class="categories"><i class="fa fa-tag"></i>Wireless Modulations</span>
-                        <ul>
-                            <li> <b>Implementation</b> of various modulation techniques for wireless systems in future perspective
-                                of real time video transmission. </li>
-                            <li> Written fully in <b>Python 2.7</b> using <b>numpy, scipy and matplotlib</b>. </li>
-                        </ul>
-                    </div>
-                </div>
-                <div id="modal-05" class="popup-modal mfp-hide">
-                    <div class="link-box"> <a href="https://github.com/tarunlnmiit/data-parsing">Github Source Code</a> <a class="popup-modal-dismiss">Close</a>                        </div><img class="scale-with-grid" src="images/portfolio/parse.jpg" alt="" />
-                    <div class="description-box">
-                        <h4>Data Parsing</h4> <span class="categories"><i class="fa fa-tag"></i>Data Parsing, Web Crawling</span>
-                        <ul>
-                            <li> <b>Conceived</b> basic scrappers for both offline and online data using <b>Python 3.4</b>. </li>
-                            <li> <b>Acquired</b> knowledge on how to work with BeautifulSoup, Requests, Requests, pymysql, pdfminer,
-                                pillow, pytesseract, selenium. </li>
-                        </ul>
-                    </div>
-                </div>
-                <div id="modal-06" class="popup-modal mfp-hide">
-                    <div class="link-box"> <a href="https://github.com/tarunlnmiit/twitterTrends">Github Source Code</a> <a class="popup-modal-dismiss">Close</a>                        </div><img class="scale-with-grid" src="images/portfolio/trends.jpg" alt="" />
-                    <div class="description-box">
-                        <h4>Twitter Trends</h4> <span class="categories"><i class="fa fa-tag"></i>Trends Script</span>
-                        <ul>
-                            <li> <b>Conceived</b> a Python script using official twitter python module which determines the current
-                                trends in the world and among a few major Indian cities. </li>
-                            <li> The trends are displayed on STDOUT along with the common trends among them. </li>
-                        </ul>
                     </div>
                 </div>
             </div>
@@ -323,6 +317,7 @@
                 <div id="go-top"><a class="smoothscroll" title="Back to Top" href="#home"><i class="fa fa-arrow-up" aria-hidden="true"></i></a></div>
             </div>
         </footer>
+        <script src="js/modals.js"></script>
     </body>
 
 </html>
