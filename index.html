@@ -266,10 +266,20 @@
   <div class="section-label">Open Source &amp; Personal Projects</div>
   <h2>Projects</h2>
   <div class="projects-grid">
-    <div class="project-card featured">
+    <div class="project-card featured" id="mm-card">
       <span class="feat-badge">⭐ Featured</span>
       <h3>MindMorph — Adaptive AI Learning Platform</h3>
       <p>Multi-agent orchestration platform routing learner queries to lesson/content/exercise pipelines via LangGraph + CrewAI. Custom Model Router across GPT/Claude/Gemini. RAG with Pinecone, in-browser JupyterLite execution, Kafka-driven personalization loop.</p>
+      <div class="project-visual" id="mm-visual">
+        <svg class="pipeline-svg" id="mm-svg" viewBox="0 0 540 180" preserveAspectRatio="xMidYMid meet"></svg>
+        <div class="pipe-tooltip" id="mm-tooltip"></div>
+      </div>
+      <div class="cm-stats">
+        <div class="cm-stat"><span class="cm-stat-num" data-target="3">0</span><span class="cm-stat-label">LLM Providers</span></div>
+        <div class="cm-stat"><span class="cm-stat-num" data-target="3">0</span><span class="cm-stat-label">Agent Pipelines</span></div>
+        <div class="cm-stat"><span class="cm-stat-num" data-target="9">0</span><span class="cm-stat-label">Stack Layers</span></div>
+        <div class="cm-stat"><span class="cm-stat-num" data-target="100" data-suffix="%">0</span><span class="cm-stat-label">Adaptive</span></div>
+      </div>
       <div class="project-stack">
         <span class="stack-tag">LangGraph</span><span class="stack-tag">CrewAI</span><span class="stack-tag">FastAPI</span>
         <span class="stack-tag">Next.js</span><span class="stack-tag">Pinecone</span><span class="stack-tag">Kafka</span>
@@ -1061,6 +1071,378 @@
     requestAnimationFrame(tick);
   }
   tick();
+})();
+</script>
+<script>
+(function() {
+  var svg = document.getElementById('mm-svg');
+  if (!svg) return;
+  var ns = 'http://www.w3.org/2000/svg';
+
+  var MODEL_X  = 35;
+  var ROUTER_X = 155;
+  var LG_X     = 285;
+  var AGENT_X  = 405;
+  var OUT_X    = 500;
+
+  var models = [
+    { label: 'GPT-4',  y: 30,  color: '#10b981', tip: 'OpenAI GPT-4 — reasoning & instruction following' },
+    { label: 'Claude', y: 90,  color: '#f59e0b', tip: 'Anthropic Claude — long-form comprehension & coding' },
+    { label: 'Gemini', y: 150, color: '#3b82f6', tip: 'Google Gemini — multimodal understanding' }
+  ];
+
+  var agents = [
+    { label: 'Lesson',   y: 32,  color: '#3b82f6', tip: 'Lesson Agent — structured curriculum delivery via LangGraph' },
+    { label: 'Content',  y: 90,  color: '#10b981', tip: 'Content Agent — RAG-grounded explanations from Pinecone' },
+    { label: 'Exercise', y: 148, color: '#f97316', tip: 'Exercise Agent — in-browser JupyterLite Python execution' }
+  ];
+
+  /* defs: glow filter */
+  var defs = document.createElementNS(ns, 'defs');
+  var filt = document.createElementNS(ns, 'filter');
+  filt.setAttribute('id', 'mmglow');
+  filt.setAttribute('x', '-80%'); filt.setAttribute('y', '-80%');
+  filt.setAttribute('width', '260%'); filt.setAttribute('height', '260%');
+  var fe = document.createElementNS(ns, 'feGaussianBlur');
+  fe.setAttribute('stdDeviation', '2.5'); fe.setAttribute('result', 'b');
+  var fm = document.createElementNS(ns, 'feMerge');
+  ['b', 'SourceGraphic'].forEach(function(src) {
+    var mn = document.createElementNS(ns, 'feMergeNode');
+    mn.setAttribute('in', src);
+    fm.appendChild(mn);
+  });
+  filt.appendChild(fe); filt.appendChild(fm);
+  defs.appendChild(filt);
+  svg.appendChild(defs);
+
+  /* fan-in paths: models → router */
+  var fanInPaths = models.map(function(m) {
+    var path = document.createElementNS(ns, 'path');
+    path.setAttribute('d', 'M '+(MODEL_X+12)+','+m.y+' C 100,'+m.y+' 110,90 '+(ROUTER_X-22)+',90');
+    path.setAttribute('stroke', m.color); path.setAttribute('stroke-width', '1.5');
+    path.setAttribute('fill', 'none'); path.setAttribute('opacity', '0.25');
+    svg.appendChild(path);
+    return path;
+  });
+
+  /* straight connector: router → langgraph */
+  var rLine = document.createElementNS(ns, 'line');
+  rLine.setAttribute('x1', ROUTER_X+22); rLine.setAttribute('y1', '90');
+  rLine.setAttribute('x2', LG_X-20);    rLine.setAttribute('y2', '90');
+  rLine.setAttribute('stroke', '#1e2044'); rLine.setAttribute('stroke-width', '2');
+  svg.appendChild(rLine);
+
+  /* pinecone rag feed line: top → langgraph (dashed) */
+  var ragLine = document.createElementNS(ns, 'line');
+  ragLine.setAttribute('x1', LG_X); ragLine.setAttribute('y1', '27');
+  ragLine.setAttribute('x2', LG_X); ragLine.setAttribute('y2', '70');
+  ragLine.setAttribute('stroke', '#06b6d4'); ragLine.setAttribute('stroke-width', '1.5');
+  ragLine.setAttribute('stroke-dasharray', '3 3'); ragLine.setAttribute('opacity', '0.45');
+  svg.appendChild(ragLine);
+
+  /* fan-out paths: langgraph → agents */
+  var fanOutPaths = agents.map(function(a) {
+    var path = document.createElementNS(ns, 'path');
+    path.setAttribute('d', 'M '+(LG_X+20)+',90 C '+(LG_X+55)+',90 '+(LG_X+55)+','+a.y+' '+(AGENT_X-13)+','+a.y);
+    path.setAttribute('stroke', a.color); path.setAttribute('stroke-width', '1.5');
+    path.setAttribute('fill', 'none'); path.setAttribute('opacity', '0.25');
+    svg.appendChild(path);
+    return path;
+  });
+
+  /* convergence lines: agents → jupyterlite output */
+  agents.forEach(function(a) {
+    var line = document.createElementNS(ns, 'line');
+    line.setAttribute('x1', AGENT_X+13); line.setAttribute('y1', a.y);
+    line.setAttribute('x2', OUT_X-15);   line.setAttribute('y2', '90');
+    line.setAttribute('stroke', a.color); line.setAttribute('stroke-width', '1');
+    line.setAttribute('opacity', '0.12');
+    svg.appendChild(line);
+  });
+
+  /* kafka personalization loop: bottom arc output → router */
+  var kafkaPath = document.createElementNS(ns, 'path');
+  kafkaPath.setAttribute('d', 'M '+OUT_X+',95 C '+(OUT_X+12)+',172 '+(ROUTER_X-12)+',172 '+ROUTER_X+',95');
+  kafkaPath.setAttribute('stroke', '#f97316'); kafkaPath.setAttribute('stroke-width', '1.5');
+  kafkaPath.setAttribute('fill', 'none');
+  kafkaPath.setAttribute('stroke-dasharray', '4 3'); kafkaPath.setAttribute('opacity', '0.3');
+  svg.appendChild(kafkaPath);
+
+  var kafkaLabel = document.createElementNS(ns, 'text');
+  kafkaLabel.setAttribute('x', String((ROUTER_X + OUT_X) / 2));
+  kafkaLabel.setAttribute('y', '177');
+  kafkaLabel.setAttribute('text-anchor', 'middle');
+  kafkaLabel.setAttribute('fill', '#f97316'); kafkaLabel.setAttribute('font-size', '5.5');
+  kafkaLabel.setAttribute('font-family', 'system-ui,sans-serif');
+  kafkaLabel.setAttribute('font-weight', '600'); kafkaLabel.setAttribute('opacity', '0.45');
+  kafkaLabel.textContent = 'Kafka personalization loop';
+  svg.appendChild(kafkaLabel);
+
+  /* ── NODES ── */
+  var visual  = document.getElementById('mm-visual');
+  var tooltip = document.getElementById('mm-tooltip');
+
+  function showTip(tip, el) {
+    var r = visual.getBoundingClientRect();
+    var er = el.getBoundingClientRect();
+    tooltip.textContent = tip;
+    tooltip.style.left = Math.max(0, er.left - r.left - 30) + 'px';
+    tooltip.style.top  = Math.max(0, er.top  - r.top  - 30) + 'px';
+    tooltip.style.opacity = '1';
+  }
+
+  /* model nodes (left fan-in) */
+  models.forEach(function(m) {
+    var g = document.createElementNS(ns, 'g');
+    g.setAttribute('class', 'pipe-node');
+    var c = document.createElementNS(ns, 'circle');
+    c.setAttribute('cx', MODEL_X); c.setAttribute('cy', m.y); c.setAttribute('r', '12');
+    c.setAttribute('fill', m.color); c.setAttribute('fill-opacity', '0.14');
+    c.setAttribute('stroke', m.color); c.setAttribute('stroke-width', '1.5');
+    g.appendChild(c);
+    var t = document.createElementNS(ns, 'text');
+    t.setAttribute('x', MODEL_X); t.setAttribute('y', m.y);
+    t.setAttribute('text-anchor', 'middle'); t.setAttribute('dy', '0.35em');
+    t.setAttribute('fill', m.color); t.setAttribute('font-size', '5.5');
+    t.setAttribute('font-family', 'system-ui,sans-serif'); t.setAttribute('font-weight', '700');
+    t.textContent = m.label;
+    g.appendChild(t);
+    g.addEventListener('mouseenter', function() { showTip(m.tip, c); });
+    g.addEventListener('mouseleave', function() { tooltip.style.opacity = '0'; });
+    svg.appendChild(g);
+  });
+
+  /* model router node */
+  var routerG = document.createElementNS(ns, 'g');
+  routerG.setAttribute('class', 'pipe-node');
+  routerG.setAttribute('transform', 'translate('+ROUTER_X+',90)');
+  var routerRing = document.createElementNS(ns, 'circle');
+  routerRing.setAttribute('r', '28'); routerRing.setAttribute('fill', 'none');
+  routerRing.setAttribute('stroke', '#8b5cf6'); routerRing.setAttribute('stroke-width', '1');
+  routerRing.setAttribute('opacity', '0.18'); routerRing.setAttribute('class', 'mm-router-ring');
+  routerG.appendChild(routerRing);
+  var routerC = document.createElementNS(ns, 'circle');
+  routerC.setAttribute('r', '22');
+  routerC.setAttribute('fill', '#8b5cf6'); routerC.setAttribute('fill-opacity', '0.14');
+  routerC.setAttribute('stroke', '#8b5cf6'); routerC.setAttribute('stroke-width', '2');
+  routerG.appendChild(routerC);
+  [['Model', '-0.15em'], ['Router', '1.1em']].forEach(function(pair) {
+    var t = document.createElementNS(ns, 'text');
+    t.setAttribute('text-anchor', 'middle'); t.setAttribute('dy', pair[1]);
+    t.setAttribute('fill', '#8b5cf6'); t.setAttribute('font-size', '6');
+    t.setAttribute('font-family', 'system-ui,sans-serif'); t.setAttribute('font-weight', '700');
+    t.textContent = pair[0];
+    routerG.appendChild(t);
+  });
+  routerG.addEventListener('mouseenter', function() { showTip('Custom router selects optimal LLM per query type — GPT-4 / Claude / Gemini', routerC); });
+  routerG.addEventListener('mouseleave', function() { tooltip.style.opacity = '0'; });
+  svg.appendChild(routerG);
+
+  /* pinecone rag node (top center) */
+  var ragG = document.createElementNS(ns, 'g');
+  ragG.setAttribute('class', 'pipe-node');
+  var ragC = document.createElementNS(ns, 'circle');
+  ragC.setAttribute('cx', LG_X); ragC.setAttribute('cy', '15'); ragC.setAttribute('r', '13');
+  ragC.setAttribute('fill', '#06b6d4'); ragC.setAttribute('fill-opacity', '0.14');
+  ragC.setAttribute('stroke', '#06b6d4'); ragC.setAttribute('stroke-width', '1.5');
+  ragG.appendChild(ragC);
+  var ragT = document.createElementNS(ns, 'text');
+  ragT.setAttribute('x', LG_X); ragT.setAttribute('y', '15');
+  ragT.setAttribute('text-anchor', 'middle'); ragT.setAttribute('dy', '0.35em');
+  ragT.setAttribute('fill', '#06b6d4'); ragT.setAttribute('font-size', '5.5');
+  ragT.setAttribute('font-family', 'system-ui,sans-serif'); ragT.setAttribute('font-weight', '700');
+  ragT.textContent = 'Pinecone';
+  ragG.appendChild(ragT);
+  ragG.addEventListener('mouseenter', function() { showTip('Pinecone RAG — vector similarity search grounds every agent response', ragC); });
+  ragG.addEventListener('mouseleave', function() { tooltip.style.opacity = '0'; });
+  svg.appendChild(ragG);
+
+  /* langgraph node (center brain — pulsing rings) */
+  var lgG = document.createElementNS(ns, 'g');
+  lgG.setAttribute('class', 'pipe-node');
+  lgG.setAttribute('transform', 'translate('+LG_X+',90)');
+  [44, 34, 25].forEach(function(r) {
+    var ring = document.createElementNS(ns, 'circle');
+    ring.setAttribute('r', r); ring.setAttribute('fill', 'none');
+    ring.setAttribute('stroke', '#ec4899'); ring.setAttribute('stroke-width', '1');
+    ring.setAttribute('opacity', '0.08'); ring.setAttribute('class', 'mm-brain-ring');
+    lgG.appendChild(ring);
+  });
+  var lgC = document.createElementNS(ns, 'circle');
+  lgC.setAttribute('r', '20');
+  lgC.setAttribute('fill', '#ec4899'); lgC.setAttribute('fill-opacity', '0.14');
+  lgC.setAttribute('stroke', '#ec4899'); lgC.setAttribute('stroke-width', '2');
+  lgG.appendChild(lgC);
+  [['LangGraph', '-0.15em'], ['+ CrewAI', '1.1em']].forEach(function(pair) {
+    var t = document.createElementNS(ns, 'text');
+    t.setAttribute('text-anchor', 'middle'); t.setAttribute('dy', pair[1]);
+    t.setAttribute('fill', '#ec4899'); t.setAttribute('font-size', pair[0] === 'LangGraph' ? '6' : '5.5');
+    t.setAttribute('font-family', 'system-ui,sans-serif'); t.setAttribute('font-weight', '700');
+    t.textContent = pair[0];
+    lgG.appendChild(t);
+  });
+  lgG.addEventListener('mouseenter', function() { showTip('LangGraph + CrewAI — multi-agent state machine routing queries to specialist pipelines', lgC); });
+  lgG.addEventListener('mouseleave', function() { tooltip.style.opacity = '0'; });
+  svg.appendChild(lgG);
+
+  /* agent nodes (right fan-out) */
+  agents.forEach(function(a) {
+    var g = document.createElementNS(ns, 'g');
+    g.setAttribute('class', 'pipe-node');
+    var c = document.createElementNS(ns, 'circle');
+    c.setAttribute('cx', AGENT_X); c.setAttribute('cy', a.y); c.setAttribute('r', '13');
+    c.setAttribute('fill', a.color); c.setAttribute('fill-opacity', '0.14');
+    c.setAttribute('stroke', a.color); c.setAttribute('stroke-width', '1.5');
+    g.appendChild(c);
+    var t = document.createElementNS(ns, 'text');
+    t.setAttribute('x', AGENT_X); t.setAttribute('y', a.y);
+    t.setAttribute('text-anchor', 'middle'); t.setAttribute('dy', '0.35em');
+    t.setAttribute('fill', a.color); t.setAttribute('font-size', '5.5');
+    t.setAttribute('font-family', 'system-ui,sans-serif'); t.setAttribute('font-weight', '700');
+    t.textContent = a.label;
+    g.appendChild(t);
+    g.addEventListener('mouseenter', function() { showTip(a.tip, c); });
+    g.addEventListener('mouseleave', function() { tooltip.style.opacity = '0'; });
+    svg.appendChild(g);
+  });
+
+  /* jupyterlite output node (far right) */
+  var outG = document.createElementNS(ns, 'g');
+  outG.setAttribute('class', 'pipe-node');
+  outG.setAttribute('transform', 'translate('+OUT_X+',90)');
+  var outC = document.createElementNS(ns, 'circle');
+  outC.setAttribute('r', '16');
+  outC.setAttribute('fill', '#6366f1'); outC.setAttribute('fill-opacity', '0.14');
+  outC.setAttribute('stroke', '#6366f1'); outC.setAttribute('stroke-width', '2');
+  outG.appendChild(outC);
+  [['Jupyter', '-0.15em'], ['Lite', '1.1em']].forEach(function(pair) {
+    var t = document.createElementNS(ns, 'text');
+    t.setAttribute('text-anchor', 'middle'); t.setAttribute('dy', pair[1]);
+    t.setAttribute('fill', '#6366f1'); t.setAttribute('font-size', '5.5');
+    t.setAttribute('font-family', 'system-ui,sans-serif'); t.setAttribute('font-weight', '700');
+    t.textContent = pair[0];
+    outG.appendChild(t);
+  });
+  outG.addEventListener('mouseenter', function() { showTip('JupyterLite — in-browser Python execution for interactive exercises, zero install', outC); });
+  outG.addEventListener('mouseleave', function() { tooltip.style.opacity = '0'; });
+  svg.appendChild(outG);
+
+  /* ── ANIMATED DOTS ── */
+
+  var fanInDots = models.map(function(m, i) {
+    return { pathEl: fanInPaths[i], color: m.color, speed: 0.006 + i * 0.0008, t: i / models.length };
+  });
+
+  var routerDots = [
+    { x1: ROUTER_X+22, y1: 90, x2: LG_X-20, y2: 90, color: '#8b5cf6', speed: 0.009, t: 0 },
+    { x1: ROUTER_X+22, y1: 90, x2: LG_X-20, y2: 90, color: '#8b5cf6', speed: 0.009, t: 0.5 }
+  ];
+
+  var ragDot = { y1: 28, y2: 70, color: '#06b6d4', speed: 0.007, t: 0.4 };
+
+  var fanOutDots = agents.map(function(a, i) {
+    return { pathEl: fanOutPaths[i], color: a.color, speed: 0.005 + i * 0.0007, t: i / agents.length };
+  });
+
+  var kafkaDot = { pathEl: kafkaPath, color: '#f97316', speed: 0.003, t: 0 };
+
+  var outDot = { x1: AGENT_X+13, y1: 90, x2: OUT_X-16, y2: 90, color: '#10b981', speed: 0.011, t: 0.2 };
+
+  function makeDotEl(color, r) {
+    var c = document.createElementNS(ns, 'circle');
+    c.setAttribute('r', r || '2.5'); c.setAttribute('fill', color);
+    c.setAttribute('filter', 'url(#mmglow)');
+    svg.appendChild(c);
+    return c;
+  }
+
+  var fanInEls   = fanInDots.map(function(d)  { return makeDotEl(d.color); });
+  var routerEls  = routerDots.map(function(d) { return makeDotEl(d.color); });
+  var ragDotEl   = makeDotEl('#06b6d4');
+  var fanOutEls  = fanOutDots.map(function(d) { return makeDotEl(d.color); });
+  var kafkaDotEl = makeDotEl('#f97316', '3');
+  var outDotEl   = makeDotEl('#10b981');
+
+  var brainRings   = lgG.querySelectorAll('.mm-brain-ring');
+  var routerRingEl = routerG.querySelector('.mm-router-ring');
+  var pulseT = 0;
+
+  function tick() {
+    fanInDots.forEach(function(d, i) {
+      d.t = (d.t + d.speed) % 1;
+      var pt = d.pathEl.getPointAtLength(d.t * d.pathEl.getTotalLength());
+      fanInEls[i].setAttribute('cx', pt.x);
+      fanInEls[i].setAttribute('cy', pt.y);
+      fanInEls[i].setAttribute('opacity', Math.sin(d.t * Math.PI) * 0.9);
+    });
+
+    routerDots.forEach(function(d, i) {
+      d.t = (d.t + d.speed) % 1;
+      routerEls[i].setAttribute('cx', d.x1 + (d.x2 - d.x1) * d.t);
+      routerEls[i].setAttribute('cy', '90');
+      routerEls[i].setAttribute('opacity', Math.sin(d.t * Math.PI));
+    });
+
+    ragDot.t = (ragDot.t + ragDot.speed) % 1;
+    ragDotEl.setAttribute('cx', LG_X);
+    ragDotEl.setAttribute('cy', ragDot.y1 + (ragDot.y2 - ragDot.y1) * ragDot.t);
+    ragDotEl.setAttribute('opacity', Math.sin(ragDot.t * Math.PI) * 0.8);
+
+    fanOutDots.forEach(function(d, i) {
+      d.t = (d.t + d.speed) % 1;
+      var pt = d.pathEl.getPointAtLength(d.t * d.pathEl.getTotalLength());
+      fanOutEls[i].setAttribute('cx', pt.x);
+      fanOutEls[i].setAttribute('cy', pt.y);
+      fanOutEls[i].setAttribute('opacity', Math.sin(d.t * Math.PI) * 0.9);
+    });
+
+    kafkaDot.t = (kafkaDot.t + kafkaDot.speed) % 1;
+    var kpt = kafkaDot.pathEl.getPointAtLength(kafkaDot.t * kafkaDot.pathEl.getTotalLength());
+    kafkaDotEl.setAttribute('cx', kpt.x);
+    kafkaDotEl.setAttribute('cy', kpt.y);
+    kafkaDotEl.setAttribute('opacity', Math.sin(kafkaDot.t * Math.PI) * 0.75);
+
+    outDot.t = (outDot.t + outDot.speed) % 1;
+    outDotEl.setAttribute('cx', outDot.x1 + (outDot.x2 - outDot.x1) * outDot.t);
+    outDotEl.setAttribute('cy', '90');
+    outDotEl.setAttribute('opacity', Math.sin(outDot.t * Math.PI) * 0.7);
+
+    pulseT += 0.02;
+    brainRings.forEach(function(ring, i) {
+      var phase = i * (Math.PI * 2 / 3);
+      var baseR = [44, 34, 25][i];
+      ring.setAttribute('r', baseR + Math.sin(pulseT + phase) * 4);
+      ring.setAttribute('opacity', Math.max(0.02, 0.07 + Math.sin(pulseT + phase) * 0.05));
+    });
+
+    if (routerRingEl) {
+      routerRingEl.setAttribute('r', 27 + Math.sin(pulseT * 1.3) * 3);
+      routerRingEl.setAttribute('opacity', 0.12 + Math.sin(pulseT * 1.3) * 0.07);
+    }
+
+    requestAnimationFrame(tick);
+  }
+  tick();
+
+  var card = document.getElementById('mm-card');
+  if (card && 'IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries) {
+      if (!entries[0].isIntersecting) return;
+      obs.disconnect();
+      card.querySelectorAll('.cm-stat-num').forEach(function(el) {
+        var target = parseInt(el.dataset.target, 10);
+        var suffix = el.dataset.suffix || '';
+        var current = 0;
+        var step = Math.max(1, Math.ceil(target / 40));
+        var iv = setInterval(function() {
+          current = Math.min(current + step, target);
+          el.textContent = current + suffix;
+          if (current >= target) clearInterval(iv);
+        }, 35);
+      });
+    }, { threshold: 0.4 });
+    obs.observe(card);
+  }
 })();
 </script>
 </body>
