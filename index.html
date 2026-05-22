@@ -301,12 +301,23 @@
         <a href="https://github.com/tarunlnmiit/ai-content-machine" target="_blank" rel="noopener">⎋ GitHub</a>
       </div>
     </div>
-    <div class="project-card">
+    <div class="project-card featured" id="jh-card">
+      <span class="feat-badge">⭐ Featured</span>
       <h3>AI Job Hunt Tool</h3>
-      <p>Scrapes 12 job portals (LinkedIn, Indeed, Naukri, Greenhouse, Lever, +7 more). Gemini Flash AI scoring for real-time fit ranking. End-to-end automation from discovery to ranked shortlist.</p>
+      <p>Scrapes 6 contractual job portals (Andela, Arc.dev, Braintrust, Mercor, Turing, Uplers). Claude CLI AI scoring for real-time fit ranking. End-to-end automation from scraping to ranked shortlist in Streamlit.</p>
+      <div class="project-visual" id="jh-visual">
+        <svg class="pipeline-svg" id="jh-svg" viewBox="0 0 540 180" preserveAspectRatio="xMidYMid meet"></svg>
+        <div class="pipe-tooltip" id="jh-tooltip"></div>
+      </div>
+      <div class="cm-stats">
+        <div class="cm-stat"><span class="cm-stat-num" data-target="6">0</span><span class="cm-stat-label">Portals</span></div>
+        <div class="cm-stat"><span class="cm-stat-num" data-target="137" data-suffix="+">0</span><span class="cm-stat-label">Jobs Tracked</span></div>
+        <div class="cm-stat"><span class="cm-stat-num" data-target="100" data-suffix="%">0</span><span class="cm-stat-label">Automated</span></div>
+        <div class="cm-stat"><span class="cm-stat-num" data-target="10" data-suffix="x">0</span><span class="cm-stat-label">Faster Hunt</span></div>
+      </div>
       <div class="project-stack">
-        <span class="stack-tag">Python</span><span class="stack-tag">Gemini Flash</span><span class="stack-tag">Playwright</span>
-        <span class="stack-tag">BeautifulSoup</span><span class="stack-tag">Streamlit</span><span class="stack-tag">FastAPI</span>
+        <span class="stack-tag">Python</span><span class="stack-tag">Claude CLI</span><span class="stack-tag">Playwright</span>
+        <span class="stack-tag">BeautifulSoup</span><span class="stack-tag">Streamlit</span><span class="stack-tag">SQLite</span>
       </div>
       <div class="project-links">
         <a href="https://github.com/tarunlnmiit/ai-job-engine" target="_blank" rel="noopener">⎋ GitHub</a>
@@ -619,6 +630,221 @@
 
   /* counter animation on scroll */
   var card = document.getElementById('cm-card');
+  if (card && 'IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries) {
+      if (!entries[0].isIntersecting) return;
+      obs.disconnect();
+      card.querySelectorAll('.cm-stat-num').forEach(function(el) {
+        var target = parseInt(el.dataset.target, 10);
+        var suffix = el.dataset.suffix || '';
+        var current = 0;
+        var step = Math.max(1, Math.ceil(target / 40));
+        var iv = setInterval(function() {
+          current = Math.min(current + step, target);
+          el.textContent = current + suffix;
+          if (current >= target) clearInterval(iv);
+        }, 35);
+      });
+    }, { threshold: 0.4 });
+    obs.observe(card);
+  }
+})();
+</script>
+<script>
+(function() {
+  var svg = document.getElementById('jh-svg');
+  if (!svg) return;
+  var ns = 'http://www.w3.org/2000/svg';
+
+  var portals = [
+    { label: 'Andela',     y: 12,  color: '#8b5cf6', tip: 'Remote tech roles, auth-protected scraping' },
+    { label: 'Arc.dev',    y: 40,  color: '#0ea5e9', tip: 'Vetted remote developer jobs' },
+    { label: 'Braintrust', y: 68,  color: '#f97316', tip: 'Decentralized talent network' },
+    { label: 'Mercor',     y: 96,  color: '#ec4899', tip: 'AI-matched contract roles' },
+    { label: 'Turing',     y: 124, color: '#10b981', tip: 'Remote engineering contracts' },
+    { label: 'Uplers',     y: 150, color: '#f59e0b', tip: 'Global remote talent platform' }
+  ];
+
+  var PORTAL_X = 45;
+
+  var mainNodes = [
+    { id: 'scraper', label: 'Scrapers',   x: 165, y: 90, r: 19, color: '#3b82f6', tip: 'Playwright + BeautifulSoup scraping 6 portals' },
+    { id: 'db',      label: 'SQLite DB',  x: 290, y: 90, r: 17, color: '#6366f1', tip: 'Tracks jobs, status, and scores across sessions' },
+    { id: 'claude',  label: 'Claude CLI', x: 415, y: 90, r: 20, color: '#f59e0b', tip: 'AI scoring via Claude subprocess — ranks job fit' },
+    { id: 'ui',      label: 'Streamlit',  x: 510, y: 90, r: 16, color: '#10b981', tip: 'Job Feed, Batch Scorer & Database View dashboard' }
+  ];
+
+  /* defs: glow filter */
+  var defs = document.createElementNS(ns, 'defs');
+  var filt = document.createElementNS(ns, 'filter');
+  filt.setAttribute('id', 'jhglow');
+  filt.setAttribute('x', '-80%'); filt.setAttribute('y', '-80%');
+  filt.setAttribute('width', '260%'); filt.setAttribute('height', '260%');
+  var fe = document.createElementNS(ns, 'feGaussianBlur');
+  fe.setAttribute('stdDeviation', '2.5'); fe.setAttribute('result', 'b');
+  var fm = document.createElementNS(ns, 'feMerge');
+  ['b', 'SourceGraphic'].forEach(function(src) {
+    var mn = document.createElementNS(ns, 'feMergeNode');
+    mn.setAttribute('in', src);
+    fm.appendChild(mn);
+  });
+  filt.appendChild(fe); filt.appendChild(fm);
+  defs.appendChild(filt);
+  svg.appendChild(defs);
+
+  /* fan-in paths: portals → scraper */
+  var fanPathEls = portals.map(function(p) {
+    var path = document.createElementNS(ns, 'path');
+    var py = p.y + 6;
+    path.setAttribute('d', 'M '+(PORTAL_X+11)+','+py+' C 110,'+py+' 115,90 146,90');
+    path.setAttribute('stroke', p.color);
+    path.setAttribute('stroke-width', '1.5');
+    path.setAttribute('fill', 'none');
+    path.setAttribute('opacity', '0.25');
+    svg.appendChild(path);
+    return path;
+  });
+
+  /* straight connectors between main nodes */
+  [[184,90,273,90],[307,90,395,90],[435,90,494,90]].forEach(function(c) {
+    var line = document.createElementNS(ns, 'line');
+    ['x1','y1','x2','y2'].forEach(function(a,i){ line.setAttribute(a, c[i]); });
+    line.setAttribute('stroke', '#1e2044'); line.setAttribute('stroke-width', '2');
+    svg.appendChild(line);
+  });
+
+  /* tooltip helpers */
+  var visual = document.getElementById('jh-visual');
+  var tooltip = document.getElementById('jh-tooltip');
+
+  function showTip(tip, el) {
+    var r = visual.getBoundingClientRect();
+    var er = el.getBoundingClientRect();
+    tooltip.textContent = tip;
+    tooltip.style.left = Math.max(0, er.left - r.left - 30) + 'px';
+    tooltip.style.top  = Math.max(0, er.top  - r.top  - 30) + 'px';
+    tooltip.style.opacity = '1';
+  }
+
+  /* portal nodes */
+  portals.forEach(function(p) {
+    var g = document.createElementNS(ns, 'g');
+    g.setAttribute('class', 'pipe-node');
+
+    var circle = document.createElementNS(ns, 'circle');
+    circle.setAttribute('cx', PORTAL_X); circle.setAttribute('cy', p.y + 6);
+    circle.setAttribute('r', '11');
+    circle.setAttribute('fill', p.color); circle.setAttribute('fill-opacity', '0.14');
+    circle.setAttribute('stroke', p.color); circle.setAttribute('stroke-width', '1.5');
+    g.appendChild(circle);
+
+    var txt = document.createElementNS(ns, 'text');
+    txt.setAttribute('x', PORTAL_X); txt.setAttribute('y', p.y + 6);
+    txt.setAttribute('text-anchor', 'middle'); txt.setAttribute('dy', '0.35em');
+    txt.setAttribute('fill', p.color); txt.setAttribute('font-size', '5.5');
+    txt.setAttribute('font-family', 'system-ui,sans-serif'); txt.setAttribute('font-weight', '700');
+    txt.textContent = p.label;
+    g.appendChild(txt);
+
+    g.addEventListener('mouseenter', function() { showTip(p.tip, circle); });
+    g.addEventListener('mouseleave', function() { tooltip.style.opacity = '0'; });
+    svg.appendChild(g);
+  });
+
+  /* main pipeline nodes */
+  mainNodes.forEach(function(n) {
+    var g = document.createElementNS(ns, 'g');
+    g.setAttribute('class', 'pipe-node');
+    g.setAttribute('transform', 'translate('+n.x+','+n.y+')');
+
+    if (n.id === 'claude') {
+      var ring = document.createElementNS(ns, 'circle');
+      ring.setAttribute('r', '25'); ring.setAttribute('fill', 'none');
+      ring.setAttribute('stroke', n.color); ring.setAttribute('stroke-width', '1.5');
+      ring.setAttribute('opacity', '0.35'); ring.setAttribute('class', 'jh-claude-ring');
+      g.appendChild(ring);
+    }
+
+    var circle = document.createElementNS(ns, 'circle');
+    circle.setAttribute('r', n.r);
+    circle.setAttribute('fill', n.color); circle.setAttribute('fill-opacity', '0.14');
+    circle.setAttribute('stroke', n.color); circle.setAttribute('stroke-width', '2');
+    g.appendChild(circle);
+
+    var txt = document.createElementNS(ns, 'text');
+    txt.setAttribute('text-anchor', 'middle'); txt.setAttribute('dy', '0.35em');
+    txt.setAttribute('fill', n.color);
+    txt.setAttribute('font-size', n.id === 'claude' ? '6.5' : '7');
+    txt.setAttribute('font-family', 'system-ui,sans-serif'); txt.setAttribute('font-weight', '700');
+    txt.textContent = n.label;
+    g.appendChild(txt);
+
+    g.addEventListener('mouseenter', function() { showTip(n.tip, circle); });
+    g.addEventListener('mouseleave', function() { tooltip.style.opacity = '0'; });
+    svg.appendChild(g);
+  });
+
+  /* animated dots */
+  var fanDots = portals.map(function(p, i) {
+    return { pathEl: fanPathEls[i], color: p.color, speed: 0.005 + i * 0.0007, t: i / portals.length };
+  });
+
+  var straightDots = [
+    { x1:184, y1:90, x2:273, y2:90, color:'#3b82f6', speed:0.009, t:0 },
+    { x1:184, y1:90, x2:273, y2:90, color:'#3b82f6', speed:0.009, t:0.5 },
+    { x1:307, y1:90, x2:395, y2:90, color:'#6366f1', speed:0.009, t:0.25 },
+    { x1:307, y1:90, x2:395, y2:90, color:'#6366f1', speed:0.009, t:0.75 },
+    { x1:435, y1:90, x2:494, y2:90, color:'#f59e0b', speed:0.011, t:0 },
+    { x1:435, y1:90, x2:494, y2:90, color:'#f59e0b', speed:0.011, t:0.5 }
+  ];
+
+  var fanDotEls = fanDots.map(function(d) {
+    var c = document.createElementNS(ns, 'circle');
+    c.setAttribute('r', '3'); c.setAttribute('fill', d.color);
+    c.setAttribute('filter', 'url(#jhglow)');
+    svg.appendChild(c);
+    return c;
+  });
+
+  var straightDotEls = straightDots.map(function(d) {
+    var c = document.createElementNS(ns, 'circle');
+    c.setAttribute('r', '3'); c.setAttribute('fill', d.color);
+    c.setAttribute('filter', 'url(#jhglow)');
+    svg.appendChild(c);
+    return c;
+  });
+
+  var jhRing = svg.querySelector('.jh-claude-ring');
+  var pulseT = 0;
+
+  function tick() {
+    fanDots.forEach(function(d, i) {
+      d.t = (d.t + d.speed) % 1;
+      var pt = d.pathEl.getPointAtLength(d.t * d.pathEl.getTotalLength());
+      fanDotEls[i].setAttribute('cx', pt.x);
+      fanDotEls[i].setAttribute('cy', pt.y);
+      fanDotEls[i].setAttribute('opacity', Math.sin(d.t * Math.PI) * 0.9);
+    });
+
+    straightDots.forEach(function(d, i) {
+      d.t = (d.t + d.speed) % 1;
+      straightDotEls[i].setAttribute('cx', d.x1 + (d.x2 - d.x1) * d.t);
+      straightDotEls[i].setAttribute('cy', d.y1 + (d.y2 - d.y1) * d.t);
+      straightDotEls[i].setAttribute('opacity', Math.sin(d.t * Math.PI));
+    });
+
+    pulseT += 0.025;
+    if (jhRing) {
+      jhRing.setAttribute('r', 23 + Math.sin(pulseT) * 4);
+      jhRing.setAttribute('opacity', 0.15 + Math.sin(pulseT) * 0.12);
+    }
+
+    requestAnimationFrame(tick);
+  }
+  tick();
+
+  /* scroll-triggered counter */
+  var card = document.getElementById('jh-card');
   if (card && 'IntersectionObserver' in window) {
     var obs = new IntersectionObserver(function(entries) {
       if (!entries[0].isIntersecting) return;
