@@ -93,6 +93,15 @@
     .project-card.featured { border-color: rgba(99,102,241,0.4); }
     .project-card.featured::before { opacity: 1; background: linear-gradient(90deg, var(--accent2), var(--gold)); }
     .feat-badge { display: inline-block; background: rgba(99,102,241,0.15); color: #a5b4fc; font-size: 0.7rem; padding: 0.2rem 0.6rem; border-radius: 999px; margin-bottom: 0.75rem; border: 1px solid rgba(99,102,241,0.3); }
+    .project-visual { position: relative; width: 100%; height: 180px; margin-bottom: 1rem; border-radius: 8px; overflow: hidden; background: #08080f; }
+    .pipeline-svg { width: 100%; height: 100%; }
+    .pipe-node { cursor: pointer; }
+    .pipe-node:hover .node-circle { filter: brightness(1.5); }
+    .pipe-tooltip { position: absolute; background: var(--card); border: 1px solid var(--accent); color: var(--text); font-size: 0.68rem; padding: 0.3rem 0.65rem; border-radius: 6px; pointer-events: none; opacity: 0; transition: opacity 0.2s; white-space: nowrap; z-index: 10; }
+    .cm-stats { display: flex; gap: 1.4rem; margin: 0.6rem 0 1rem; flex-wrap: wrap; }
+    .cm-stat { text-align: center; }
+    .cm-stat-num { font-size: 1.35rem; font-weight: 700; color: var(--accent); display: block; }
+    .cm-stat-label { font-size: 0.62rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
     .project-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
     .project-card p { font-size: 0.88rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.6; }
     .project-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
@@ -270,12 +279,23 @@
         <a href="https://github.com/ATV-TECH-SOLUTIONS/MindMorph_Learning_Platform" target="_blank" rel="noopener">⎋ GitHub</a>
       </div>
     </div>
-    <div class="project-card">
+    <div class="project-card featured" id="cm-card">
+      <span class="feat-badge">⭐ Featured</span>
       <h3>AI Content Machine</h3>
-      <p>Produces 200+ content pieces/month across 7 platforms from a single brief. 45+ Python scripts, 85% reduction in manual work. Analytics pipeline normalising 14K+ data points from YouTube/Twitter/Instagram/Medium.</p>
+      <p>End-to-end automated content pipeline: Claude AI generates blogs, video scripts, and social posts across 3 niches, then orchestrates publishing to 7 platforms via 45+ Python scripts. 85% reduction in manual work. Analytics pipeline normalising 14K+ data points.</p>
+      <div class="project-visual" id="cm-visual">
+        <svg class="pipeline-svg" id="cm-svg" viewBox="0 0 540 180" preserveAspectRatio="xMidYMid meet"></svg>
+        <div class="pipe-tooltip" id="cm-tooltip"></div>
+      </div>
+      <div class="cm-stats">
+        <div class="cm-stat"><span class="cm-stat-num" data-target="200" data-suffix="+">0</span><span class="cm-stat-label">Pieces/Month</span></div>
+        <div class="cm-stat"><span class="cm-stat-num" data-target="7">0</span><span class="cm-stat-label">Platforms</span></div>
+        <div class="cm-stat"><span class="cm-stat-num" data-target="45" data-suffix="+">0</span><span class="cm-stat-label">Scripts</span></div>
+        <div class="cm-stat"><span class="cm-stat-num" data-target="85" data-suffix="%">0</span><span class="cm-stat-label">Less Manual Work</span></div>
+      </div>
       <div class="project-stack">
         <span class="stack-tag">Python</span><span class="stack-tag">Claude AI</span><span class="stack-tag">FFmpeg</span>
-        <span class="stack-tag">Notion API</span><span class="stack-tag">n8n</span><span class="stack-tag">Vector DB</span>
+        <span class="stack-tag">Notion API</span><span class="stack-tag">YouTube API</span><span class="stack-tag">Substack</span>
       </div>
       <div class="project-links">
         <a href="https://github.com/tarunlnmiit/ai-content-machine" target="_blank" rel="noopener">⎋ GitHub</a>
@@ -416,5 +436,208 @@
   <p style="margin-top:0.5rem;font-size:0.72rem;">Host free on GitHub Pages: push index.html → Settings → Pages → Deploy from main/root</p>
 </footer>
 
+<script>
+(function() {
+  var svg = document.getElementById('cm-svg');
+  if (!svg) return;
+  var ns = 'http://www.w3.org/2000/svg';
+
+  var nodes = [
+    { id: 'idea',     label: 'Input',      x: 55,  y: 90, r: 17, color: '#3b82f6', tip: 'Blog ideas, research notes, source material' },
+    { id: 'claude',   label: 'Claude AI',  x: 185, y: 90, r: 21, color: '#f59e0b', tip: 'Generates blogs, scripts, social posts, design briefs' },
+    { id: 'pipeline', label: 'Pipeline',   x: 315, y: 90, r: 17, color: '#6366f1', tip: '45+ Python scripts orchestrate content production' }
+  ];
+
+  var platforms = [
+    { label: 'YouTube',   y: 18,  color: '#ef4444', tip: 'Video scripts + auto-upload' },
+    { label: 'Substack',  y: 48,  color: '#f97316', tip: 'Long-form newsletters' },
+    { label: 'Twitter',   y: 78,  color: '#38bdf8', tip: 'Threads + micro-content' },
+    { label: 'Instagram', y: 108, color: '#ec4899', tip: 'Carousels + reels' },
+    { label: 'LinkedIn',  y: 138, color: '#0ea5e9', tip: 'Professional posts' },
+    { label: 'Medium',    y: 162, color: '#84cc16', tip: 'Tech + data articles' }
+  ];
+
+  var PLAT_X = 450;
+
+  /* defs: glow filter */
+  var defs = document.createElementNS(ns, 'defs');
+  var filt = document.createElementNS(ns, 'filter');
+  filt.setAttribute('id', 'cmglow');
+  filt.setAttribute('x', '-80%'); filt.setAttribute('y', '-80%');
+  filt.setAttribute('width', '260%'); filt.setAttribute('height', '260%');
+  var fe = document.createElementNS(ns, 'feGaussianBlur');
+  fe.setAttribute('stdDeviation', '2.5'); fe.setAttribute('result', 'b');
+  var fm = document.createElementNS(ns, 'feMerge');
+  ['b', 'SourceGraphic'].forEach(function(src) {
+    var mn = document.createElementNS(ns, 'feMergeNode');
+    mn.setAttribute('in', src);
+    fm.appendChild(mn);
+  });
+  filt.appendChild(fe); filt.appendChild(fm);
+  defs.appendChild(filt);
+  svg.appendChild(defs);
+
+  /* straight connector lines */
+  [[80,90,160,90],[210,90,290,90]].forEach(function(c) {
+    var line = document.createElementNS(ns, 'line');
+    ['x1','y1','x2','y2'].forEach(function(a,i){ line.setAttribute(a, c[i]); });
+    line.setAttribute('stroke', '#1e2044'); line.setAttribute('stroke-width', '2');
+    svg.appendChild(line);
+  });
+
+  /* fan paths from pipeline → platforms */
+  var pathEls = platforms.map(function(p) {
+    var path = document.createElementNS(ns, 'path');
+    path.setAttribute('d', 'M 340,90 C 390,90 395,'+(p.y+6)+' '+(PLAT_X-25)+','+(p.y+6));
+    path.setAttribute('stroke', p.color);
+    path.setAttribute('stroke-width', '1.5');
+    path.setAttribute('fill', 'none');
+    path.setAttribute('opacity', '0.25');
+    svg.appendChild(path);
+    return path;
+  });
+
+  /* main nodes */
+  var visual = document.getElementById('cm-visual');
+  var tooltip = document.getElementById('cm-tooltip');
+
+  function showTip(tip, el) {
+    var r = visual.getBoundingClientRect();
+    var er = el.getBoundingClientRect();
+    tooltip.textContent = tip;
+    tooltip.style.left = Math.max(0, er.left - r.left - 30) + 'px';
+    tooltip.style.top  = Math.max(0, er.top  - r.top  - 30) + 'px';
+    tooltip.style.opacity = '1';
+  }
+
+  nodes.forEach(function(n) {
+    var g = document.createElementNS(ns, 'g');
+    g.setAttribute('class', 'pipe-node');
+    g.setAttribute('transform', 'translate('+n.x+','+n.y+')');
+
+    if (n.id === 'claude') {
+      var ring = document.createElementNS(ns, 'circle');
+      ring.setAttribute('r', '26'); ring.setAttribute('fill', 'none');
+      ring.setAttribute('stroke', n.color); ring.setAttribute('stroke-width', '1.5');
+      ring.setAttribute('opacity', '0.35'); ring.setAttribute('class', 'claude-ring');
+      g.appendChild(ring);
+    }
+
+    var circle = document.createElementNS(ns, 'circle');
+    circle.setAttribute('r', n.r); circle.setAttribute('class', 'node-circle');
+    circle.setAttribute('fill', n.color); circle.setAttribute('fill-opacity', '0.14');
+    circle.setAttribute('stroke', n.color); circle.setAttribute('stroke-width', '2');
+    g.appendChild(circle);
+
+    var txt = document.createElementNS(ns, 'text');
+    txt.setAttribute('text-anchor', 'middle'); txt.setAttribute('dy', '0.35em');
+    txt.setAttribute('fill', n.color); txt.setAttribute('font-size', n.id === 'claude' ? '7' : '7.5');
+    txt.setAttribute('font-family', 'system-ui,sans-serif'); txt.setAttribute('font-weight', '700');
+    txt.textContent = n.label;
+    g.appendChild(txt);
+
+    g.addEventListener('mouseenter', function() { showTip(n.tip, circle); });
+    g.addEventListener('mouseleave', function() { tooltip.style.opacity = '0'; });
+    svg.appendChild(g);
+  });
+
+  /* platform nodes */
+  platforms.forEach(function(p, i) {
+    var g = document.createElementNS(ns, 'g');
+    g.setAttribute('class', 'pipe-node');
+
+    var circle = document.createElementNS(ns, 'circle');
+    circle.setAttribute('cx', PLAT_X); circle.setAttribute('cy', p.y + 6);
+    circle.setAttribute('r', '13'); circle.setAttribute('fill', p.color);
+    circle.setAttribute('fill-opacity', '0.14'); circle.setAttribute('stroke', p.color);
+    circle.setAttribute('stroke-width', '1.5');
+    g.appendChild(circle);
+
+    var txt = document.createElementNS(ns, 'text');
+    txt.setAttribute('x', PLAT_X); txt.setAttribute('y', p.y + 6);
+    txt.setAttribute('text-anchor', 'middle'); txt.setAttribute('dy', '0.35em');
+    txt.setAttribute('fill', p.color); txt.setAttribute('font-size', '6');
+    txt.setAttribute('font-family', 'system-ui,sans-serif'); txt.setAttribute('font-weight', '700');
+    txt.textContent = p.label;
+    g.appendChild(txt);
+
+    g.addEventListener('mouseenter', function() { showTip(p.tip, circle); });
+    g.addEventListener('mouseleave', function() { tooltip.style.opacity = '0'; });
+    svg.appendChild(g);
+  });
+
+  /* animated dots */
+  var straightDots = [
+    { x1:80,  y1:90, x2:160, y2:90, color:'#3b82f6', speed:0.009, t:0 },
+    { x1:80,  y1:90, x2:160, y2:90, color:'#3b82f6', speed:0.009, t:0.5 },
+    { x1:210, y1:90, x2:290, y2:90, color:'#f59e0b', speed:0.009, t:0.25 },
+    { x1:210, y1:90, x2:290, y2:90, color:'#f59e0b', speed:0.009, t:0.75 }
+  ];
+
+  var fanDots = platforms.map(function(p, i) {
+    return { pathEl: pathEls[i], color: p.color, speed: 0.005 + i * 0.0007, t: i / platforms.length };
+  });
+
+  var allDotEls = straightDots.concat(fanDots).map(function(d) {
+    var c = document.createElementNS(ns, 'circle');
+    c.setAttribute('r', '3'); c.setAttribute('fill', d.color);
+    c.setAttribute('filter', 'url(#cmglow)');
+    svg.appendChild(c);
+    return c;
+  });
+
+  var claudeRing = svg.querySelector('.claude-ring');
+  var pulseT = 0;
+
+  function tick() {
+    straightDots.forEach(function(d, i) {
+      d.t = (d.t + d.speed) % 1;
+      allDotEls[i].setAttribute('cx', d.x1 + (d.x2 - d.x1) * d.t);
+      allDotEls[i].setAttribute('cy', d.y1 + (d.y2 - d.y1) * d.t);
+      allDotEls[i].setAttribute('opacity', Math.sin(d.t * Math.PI));
+    });
+
+    fanDots.forEach(function(d, i) {
+      d.t = (d.t + d.speed) % 1;
+      var len = d.pathEl.getTotalLength();
+      var pt  = d.pathEl.getPointAtLength(d.t * len);
+      var el  = allDotEls[straightDots.length + i];
+      el.setAttribute('cx', pt.x);
+      el.setAttribute('cy', pt.y);
+      el.setAttribute('opacity', Math.sin(d.t * Math.PI) * 0.9);
+    });
+
+    pulseT += 0.025;
+    if (claudeRing) {
+      claudeRing.setAttribute('r', 24 + Math.sin(pulseT) * 4);
+      claudeRing.setAttribute('opacity', 0.15 + Math.sin(pulseT) * 0.12);
+    }
+
+    requestAnimationFrame(tick);
+  }
+  tick();
+
+  /* counter animation on scroll */
+  var card = document.getElementById('cm-card');
+  if (card && 'IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries) {
+      if (!entries[0].isIntersecting) return;
+      obs.disconnect();
+      card.querySelectorAll('.cm-stat-num').forEach(function(el) {
+        var target = parseInt(el.dataset.target, 10);
+        var suffix = el.dataset.suffix || '';
+        var current = 0;
+        var step = Math.max(1, Math.ceil(target / 40));
+        var iv = setInterval(function() {
+          current = Math.min(current + step, target);
+          el.textContent = current + suffix;
+          if (current >= target) clearInterval(iv);
+        }, 35);
+      });
+    }, { threshold: 0.4 });
+    obs.observe(card);
+  }
+})();
+</script>
 </body>
 </html>
