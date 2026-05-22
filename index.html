@@ -323,8 +323,12 @@
         <a href="https://github.com/tarunlnmiit/ai-job-engine" target="_blank" rel="noopener">⎋ GitHub</a>
       </div>
     </div>
-    <div class="project-card">
+    <div class="project-card featured" id="tf-card">
       <h3>TinyFish Job Engine</h3>
+      <div class="project-visual" id="tf-visual">
+        <svg class="pipeline-svg" id="tf-svg" viewBox="0 0 540 180" preserveAspectRatio="xMidYMid meet"></svg>
+        <div class="pipe-tooltip" id="tf-tooltip"></div>
+      </div>
       <p>1,000+ job postings scored daily at 70%+ precision. Zero-shot LLM feature extraction across 90+ ATS sources. 60% API cost reduction via multi-provider fallback. ~95% uptime with incremental state management.</p>
       <div class="project-stack">
         <span class="stack-tag">Python</span><span class="stack-tag">OpenRouter</span><span class="stack-tag">LLM fallback</span>
@@ -863,6 +867,200 @@
     }, { threshold: 0.4 });
     obs.observe(card);
   }
+})();
+</script>
+<script>
+(function () {
+  var svg = document.getElementById('tf-svg');
+  if (!svg) return;
+  var ns = 'http://www.w3.org/2000/svg';
+
+  var companies = [
+    { label: 'Wise',        y: 8,   color: '#0ea5e9', tip: 'Fintech — London/Tallinn, EU-friendly' },
+    { label: 'Revolut',     y: 36,  color: '#8b5cf6', tip: 'Neobank — 35+ offices across EU' },
+    { label: 'Mistral AI',  y: 64,  color: '#f97316', tip: 'Paris-based frontier AI lab' },
+    { label: 'DeepMind',    y: 92,  color: '#ec4899', tip: 'Google DeepMind — London & remote' },
+    { label: 'HuggingFace', y: 120, color: '#10b981', tip: 'Open-source AI — remote EU' },
+    { label: '+135 more',   y: 148, color: '#64748b', tip: '140 companies across EU / NZ / Remote' }
+  ];
+
+  var COMP_X = 42;
+
+  var mainNodes = [
+    { id: 'crawler', label: 'TinyFish',   x: 165, y: 90, r: 20, color: '#3b82f6', tip: 'Crawls 140 company ATS pages via TinyFish API' },
+    { id: 'llm',     label: 'LLM Scorer', x: 285, y: 90, r: 18, color: '#f59e0b', tip: 'Zero-shot scoring: title, stack, location, fit reason (0–100)' },
+    { id: 'notify',  label: 'Telegram',   x: 390, y: 90, r: 17, color: '#6366f1', tip: "Sends ranked matches → reply 'apply to #N' to draft" },
+    { id: 'drafter', label: 'Drafter',    x: 490, y: 90, r: 16, color: '#22c55e', tip: 'Generates tailored resume + cover letter per JD' }
+  ];
+
+  /* glow filter */
+  var defs = document.createElementNS(ns, 'defs');
+  var filt = document.createElementNS(ns, 'filter');
+  filt.setAttribute('id', 'tfglow');
+  filt.setAttribute('x', '-80%'); filt.setAttribute('y', '-80%');
+  filt.setAttribute('width', '260%'); filt.setAttribute('height', '260%');
+  var fe = document.createElementNS(ns, 'feGaussianBlur');
+  fe.setAttribute('stdDeviation', '2.5'); fe.setAttribute('result', 'b');
+  var fm = document.createElementNS(ns, 'feMerge');
+  ['b', 'SourceGraphic'].forEach(function (src) {
+    var mn = document.createElementNS(ns, 'feMergeNode');
+    mn.setAttribute('in', src);
+    fm.appendChild(mn);
+  });
+  filt.appendChild(fe); filt.appendChild(fm);
+  defs.appendChild(filt);
+  svg.appendChild(defs);
+
+  /* fan-in paths: companies → TinyFish */
+  var fanPathEls = companies.map(function (c) {
+    var path = document.createElementNS(ns, 'path');
+    var cy = c.y + 6;
+    path.setAttribute('d', 'M ' + (COMP_X + 13) + ',' + cy + ' C 110,' + cy + ' 115,90 145,90');
+    path.setAttribute('stroke', c.color);
+    path.setAttribute('stroke-width', '1.5');
+    path.setAttribute('fill', 'none');
+    path.setAttribute('opacity', '0.25');
+    svg.appendChild(path);
+    return path;
+  });
+
+  /* straight connectors between main nodes */
+  [
+    [185, 90, 267, 90],
+    [303, 90, 373, 90],
+    [407, 90, 474, 90]
+  ].forEach(function (c) {
+    var line = document.createElementNS(ns, 'line');
+    ['x1', 'y1', 'x2', 'y2'].forEach(function (a, i) { line.setAttribute(a, c[i]); });
+    line.setAttribute('stroke', '#1e2044');
+    line.setAttribute('stroke-width', '2');
+    svg.appendChild(line);
+  });
+
+  /* tooltip helpers */
+  var visual = document.getElementById('tf-visual');
+  var tooltip = document.getElementById('tf-tooltip');
+
+  function showTip(tip, el) {
+    var r = visual.getBoundingClientRect();
+    var er = el.getBoundingClientRect();
+    tooltip.textContent = tip;
+    tooltip.style.left = Math.max(0, er.left - r.left - 30) + 'px';
+    tooltip.style.top  = Math.max(0, er.top  - r.top  - 30) + 'px';
+    tooltip.style.opacity = '1';
+  }
+
+  /* company nodes */
+  companies.forEach(function (c) {
+    var g = document.createElementNS(ns, 'g');
+    g.setAttribute('class', 'pipe-node');
+
+    var circle = document.createElementNS(ns, 'circle');
+    circle.setAttribute('cx', COMP_X); circle.setAttribute('cy', c.y + 6);
+    circle.setAttribute('r', '13');
+    circle.setAttribute('fill', c.color); circle.setAttribute('fill-opacity', '0.14');
+    circle.setAttribute('stroke', c.color); circle.setAttribute('stroke-width', '1.5');
+    g.appendChild(circle);
+
+    var txt = document.createElementNS(ns, 'text');
+    txt.setAttribute('x', COMP_X); txt.setAttribute('y', c.y + 6);
+    txt.setAttribute('text-anchor', 'middle'); txt.setAttribute('dy', '0.35em');
+    txt.setAttribute('fill', c.color); txt.setAttribute('font-size', '5.5');
+    txt.setAttribute('font-family', 'system-ui,sans-serif'); txt.setAttribute('font-weight', '700');
+    txt.textContent = c.label;
+    g.appendChild(txt);
+
+    g.addEventListener('mouseenter', function () { showTip(c.tip, circle); });
+    g.addEventListener('mouseleave', function () { tooltip.style.opacity = '0'; });
+    svg.appendChild(g);
+  });
+
+  /* main pipeline nodes */
+  mainNodes.forEach(function (n) {
+    var g = document.createElementNS(ns, 'g');
+    g.setAttribute('class', 'pipe-node');
+    g.setAttribute('transform', 'translate(' + n.x + ',' + n.y + ')');
+
+    if (n.id === 'llm') {
+      var ring = document.createElementNS(ns, 'circle');
+      ring.setAttribute('r', '25'); ring.setAttribute('fill', 'none');
+      ring.setAttribute('stroke', n.color); ring.setAttribute('stroke-width', '1.5');
+      ring.setAttribute('opacity', '0.35'); ring.setAttribute('class', 'tf-llm-ring');
+      g.appendChild(ring);
+    }
+
+    var circle = document.createElementNS(ns, 'circle');
+    circle.setAttribute('r', n.r);
+    circle.setAttribute('fill', n.color); circle.setAttribute('fill-opacity', '0.14');
+    circle.setAttribute('stroke', n.color); circle.setAttribute('stroke-width', '2');
+    circle.setAttribute('class', 'node-circle');
+    g.appendChild(circle);
+
+    var txt = document.createElementNS(ns, 'text');
+    txt.setAttribute('text-anchor', 'middle'); txt.setAttribute('dy', '0.35em');
+    txt.setAttribute('fill', n.color);
+    txt.setAttribute('font-size', n.id === 'llm' ? '6.5' : '7');
+    txt.setAttribute('font-family', 'system-ui,sans-serif'); txt.setAttribute('font-weight', '700');
+    txt.textContent = n.label;
+    g.appendChild(txt);
+
+    g.addEventListener('mouseenter', function () { showTip(n.tip, circle); });
+    g.addEventListener('mouseleave', function () { tooltip.style.opacity = '0'; });
+    svg.appendChild(g);
+  });
+
+  /* animated dots */
+  var fanDots = companies.map(function (c, i) {
+    return { pathEl: fanPathEls[i], color: c.color, speed: 0.005 + i * 0.0008, t: i / companies.length };
+  });
+
+  var straightDots = [
+    { x1: 185, y1: 90, x2: 267, y2: 90, color: '#3b82f6', speed: 0.009, t: 0 },
+    { x1: 185, y1: 90, x2: 267, y2: 90, color: '#3b82f6', speed: 0.009, t: 0.5 },
+    { x1: 303, y1: 90, x2: 373, y2: 90, color: '#f59e0b', speed: 0.009, t: 0.25 },
+    { x1: 303, y1: 90, x2: 373, y2: 90, color: '#f59e0b', speed: 0.009, t: 0.75 },
+    { x1: 407, y1: 90, x2: 474, y2: 90, color: '#6366f1', speed: 0.011, t: 0 },
+    { x1: 407, y1: 90, x2: 474, y2: 90, color: '#6366f1', speed: 0.011, t: 0.5 }
+  ];
+
+  var allDotEls = fanDots.concat(straightDots).map(function (d) {
+    var c = document.createElementNS(ns, 'circle');
+    c.setAttribute('r', '3');
+    c.setAttribute('fill', d.color);
+    c.setAttribute('filter', 'url(#tfglow)');
+    svg.appendChild(c);
+    return c;
+  });
+
+  var llmRing = svg.querySelector('.tf-llm-ring');
+  var pulseT = 0;
+
+  function tick() {
+    fanDots.forEach(function (d, i) {
+      d.t = (d.t + d.speed) % 1;
+      var len = d.pathEl.getTotalLength();
+      var pt  = d.pathEl.getPointAtLength(d.t * len);
+      allDotEls[i].setAttribute('cx', pt.x);
+      allDotEls[i].setAttribute('cy', pt.y);
+      allDotEls[i].setAttribute('opacity', Math.sin(d.t * Math.PI) * 0.9);
+    });
+
+    straightDots.forEach(function (d, i) {
+      d.t = (d.t + d.speed) % 1;
+      allDotEls[fanDots.length + i].setAttribute('cx', d.x1 + (d.x2 - d.x1) * d.t);
+      allDotEls[fanDots.length + i].setAttribute('cy', d.y1 + (d.y2 - d.y1) * d.t);
+      allDotEls[fanDots.length + i].setAttribute('opacity', Math.sin(d.t * Math.PI));
+    });
+
+    pulseT += 0.025;
+    if (llmRing) {
+      llmRing.setAttribute('r', 23 + Math.sin(pulseT) * 4);
+      llmRing.setAttribute('opacity', 0.15 + Math.sin(pulseT) * 0.12);
+    }
+
+    requestAnimationFrame(tick);
+  }
+  tick();
 })();
 </script>
 </body>
