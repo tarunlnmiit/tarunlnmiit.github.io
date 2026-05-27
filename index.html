@@ -75,6 +75,7 @@
     .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
     .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; text-align: center; transition: border-color 0.2s; }
     .stat-card:hover { border-color: var(--accent); }
+    .stat-link { display: block; text-decoration: none; color: inherit; }
     .stat-num { font-size: 2rem; font-weight: 700; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 0.25rem; }
 
@@ -121,6 +122,8 @@
     .exp-bullets { list-style: none; padding: 0; }
     .exp-bullets li { font-size: 0.88rem; color: var(--muted); padding: 0.2rem 0 0.2rem 1rem; position: relative; }
     .exp-bullets li::before { content: '▸'; position: absolute; left: 0; color: var(--accent); }
+    .timeline-category { margin-top: 2rem; margin-bottom: 1rem; padding-left: 2rem; position: relative; }
+    .timeline-category::before { content: ''; position: absolute; left: 0; top: -0.5rem; width: 2px; height: 3rem; background: var(--accent); opacity: 0.3; }
 
     .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
     .cert-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; display: flex; align-items: center; gap: 1rem; transition: border-color 0.2s; }
@@ -356,81 +359,232 @@
   <div class="section-label">Work History</div>
   <h2>Experience</h2>
   <div class="timeline">
+
+    <!-- LLM & Generative AI -->
+    <div class="timeline-category">
+      <h3 style="color:var(--accent);margin-bottom:1rem;font-size:1.1rem;">Generative AI &amp; LLM Systems</h3>
+    </div>
+
     <div class="timeline-item">
-      <div class="exp-header"><h3>Senior AI/ML Engineer</h3><span class="exp-meta">Feb 2026 – Present</span></div>
-      <div class="exp-company">LPDG Group · AI &amp; Data Science Consulting · India 🇮🇳</div>
+      <div class="exp-header"><h3>Invoice Extraction &amp; Entity Recognition</h3><span class="exp-meta">Feb 2026 – Present</span></div>
+      <div class="exp-company">LPDG Group · Senior AI/ML Engineer · India 🇮🇳</div>
       <ul class="exp-bullets">
-        <li>LLM extraction pipeline (FTP → Snowflake) eliminating manual invoice data entry — saving $100K+/month</li>
-        <li>YOLOv11 ensemble CV: edge-deployed, offline WebAssembly inference — radiator serviceability classification in remote field conditions, zero connectivity</li>
+        <li>Eliminated manual data entry for utilities provider — end-to-end LLM extraction pipeline (FTP → Snowflake, Azure Document Intelligence) saving $100K+/month in operational costs</li>
+        <li>Confidence-based flagging for uncertain extractions; address normalization with reference data</li>
+        <li>Streamlit ops dashboard for invoice monitoring — entirely Snowflake-native, zero external orchestration</li>
       </ul>
     </div>
+
     <div class="timeline-item">
-      <div class="exp-header"><h3>Senior AI/ML Engineer</h3><span class="exp-meta">May 2025 – Jan 2026</span></div>
-      <div class="exp-company">LPDG Group · Germany 🇩🇪</div>
+      <div class="exp-header"><h3>Voice AI Customer Service Agents</h3><span class="exp-meta">May 2025 – Jan 2026</span></div>
+      <div class="exp-company">LPDG Group · Senior AI/ML Engineer · Germany 🇩🇪</div>
       <ul class="exp-bullets">
-        <li>Voice AI agents replacing human inbound support — STT → LLM → TTS (CrewAI, VAPI, Twilio, Azure OpenAI)</li>
-        <li>Parameterized MLOps framework: one codebase, different configs, serving 5+ manufacturing forecasting use cases on Snowflake</li>
-        <li>LLM KPI extraction: new document types onboard without code changes — Snowflake Cortex + Azure OpenAI</li>
+        <li>Replaced human inbound support with end-to-end STT → LLM → TTS pipeline integrated to internal order management systems</li>
+        <li>CrewAI multi-agent orchestration with VAPI for seamless phone integration, Twilio routing, Azure OpenAI inference</li>
+        <li>Resolved standard customer queries without escalation; escalation to human agents triggered automatically for complex cases</li>
       </ul>
     </div>
+
     <div class="timeline-item">
-      <div class="exp-header"><h3>Senior AI/ML Engineer</h3><span class="exp-meta">Apr 2024 – Apr 2025</span></div>
-      <div class="exp-company">LPDG Group · India 🇮🇳</div>
+      <div class="exp-header"><h3>KPI Extraction &amp; Document Onboarding</h3><span class="exp-meta">May 2025 – Jan 2026</span></div>
+      <div class="exp-company">LPDG Group · Senior AI/ML Engineer · Germany 🇩🇪</div>
       <ul class="exp-bullets">
-        <li>Plug-and-play chatbot framework: same codebase, different Snowflake data sources per client — cut time-to-deployment per client</li>
-        <li>Real-time gesture tracking via OpenCV; presented live at WETEX Dubai</li>
-        <li>Benchmarked 10+ ML algorithms against 15+ class imbalance strategies — automated end-to-end anomaly detection on AWS</li>
+        <li>LLM extraction with out-of-code configuration — new document types onboard without code changes via config files only</li>
+        <li>Snowflake Cortex + Azure OpenAI for batch and real-time extractions</li>
+        <li>Streamlit dashboards reduce reporting lead time and enable business stakeholders to request extraction types without engineering involvement</li>
       </ul>
     </div>
+
     <div class="timeline-item">
-      <div class="exp-header"><h3>Senior AI/ML Engineer</h3><span class="exp-meta">Apr 2023 – Mar 2024</span></div>
-      <div class="exp-company">LPDG Group · India 🇮🇳</div>
+      <div class="exp-header"><h3>Multi-Source RAG Chatbot Framework</h3><span class="exp-meta">Apr 2024 – Apr 2025</span></div>
+      <div class="exp-company">LPDG Group · Senior AI/ML Engineer · India 🇮🇳</div>
       <ul class="exp-bullets">
-        <li>7 production RAG chatbots — FAISS + Azure Cognitive Search, Kubernetes, FastAPI, domain-specific prompting</li>
-        <li>Automated invoice extraction and rule-based categorization across 3 client applications — FastAPI async for high-concurrency batch loads</li>
-        <li>GPT-3.5 + Spark on AWS EMR for large-scale text-to-email conversion; Airflow for scheduling and failure recovery</li>
+        <li>Plug-and-play framework — single codebase serving multiple clients with different Snowflake data sources</li>
+        <li>Dramatically cut time-to-deployment per client; Kubernetes + Terraform provisioning; FastAPI REST APIs for client integrations</li>
+        <li>Domain-specific prompting, conversation memory, client-specific knowledge cutoff configurations</li>
       </ul>
     </div>
+
     <div class="timeline-item">
-      <div class="exp-header"><h3>Applied Data Scientist</h3><span class="exp-meta">May 2022 – Feb 2023</span></div>
-      <div class="exp-company">Vivere GmbH · Hamburg, Germany 🇩🇪</div>
+      <div class="exp-header"><h3>7 Production RAG Chatbots (Multi-Client)</h3><span class="exp-meta">Apr 2023 – Mar 2024</span></div>
+      <div class="exp-company">LPDG Group · Senior AI/ML Engineer · India 🇮🇳</div>
       <ul class="exp-bullets">
-        <li>LLM product intelligence dashboard — Azure OpenAI, PostgreSQL, BigQuery</li>
-        <li>Marketing spend &amp; competitor analysis dashboards; event-driven Asana/email notification service</li>
+        <li>Delivered 7 production chatbots across different client domain data — FAISS + Azure Cognitive Search for retrieval, LangChain Conversation Memory for context</li>
+        <li>Domain-specific prompting per client; Kubernetes deployment; led team of 4</li>
+        <li>FastAPI backend, Streamlit client dashboards, role-based access control per client</li>
       </ul>
     </div>
+
     <div class="timeline-item">
-      <div class="exp-header"><h3>Research Assistant — AI/ML</h3><span class="exp-meta">Oct 2020 – Mar 2022</span></div>
-      <div class="exp-company">IBMI Universitätsklinikum · Magdeburg, Germany 🇩🇪</div>
+      <div class="exp-header"><h3>Invoice Extraction &amp; Categorization (3 Applications)</h3><span class="exp-meta">Apr 2023 – Mar 2024</span></div>
+      <div class="exp-company">LPDG Group · Senior AI/ML Engineer · India 🇮🇳</div>
       <ul class="exp-bullets">
-        <li>7% improvement in informative sample selection over random baseline on BraTS2017 via QBC active learning</li>
-        <li>Dropout DQN: 3–6% gain on MNIST using only 2.5–10% of training data (MMD-Critic)</li>
+        <li>Automated extraction and rule-based categorization across 3 client applications — replaced manual invoice processing</li>
+        <li>FastAPI async architecture handling high-concurrency batch loads (100s of invoices/sec)</li>
+        <li>Led team of 3; integrated with client ERP systems for automated account posting</li>
       </ul>
     </div>
+
     <div class="timeline-item">
-      <div class="exp-header"><h3>Software Developer</h3><span class="exp-meta">Apr 2019 – Sep 2020</span></div>
-      <div class="exp-company">3DQR GmbH · Magdeburg, Germany 🇩🇪</div>
+      <div class="exp-header"><h3>LLM Product Intelligence Dashboard</h3><span class="exp-meta">May 2022 – Feb 2023</span></div>
+      <div class="exp-company">Vivere GmbH · Applied Data Scientist · Hamburg, Germany 🇩🇪</div>
       <ul class="exp-bullets">
-        <li>Automated MySQL schema migration framework supporting diverse schemas</li>
-        <li>Built 200+ test end-to-end framework achieving full server-side coverage</li>
+        <li>Replaced manual market research — Azure OpenAI dashboard extracts product opportunities from unstructured competitor data</li>
+        <li>Self-serve Streamlit UI for non-technical stakeholders; PostgreSQL + Google BigQuery backend</li>
+        <li>Scikit-learn embeddings and clustering for competitive landscape mapping</li>
       </ul>
     </div>
+
+    <!-- MLOps & Forecasting -->
+    <div class="timeline-category">
+      <h3 style="color:var(--accent);margin-bottom:1rem;font-size:1.1rem;margin-top:2rem;">MLOps &amp; Forecasting Pipelines</h3>
+    </div>
+
     <div class="timeline-item">
-      <div class="exp-header"><h3>Software Developer</h3><span class="exp-meta">Jun 2018 – Oct 2018</span></div>
-      <div class="exp-company">Careers360 · Delhi, India 🇮🇳</div>
+      <div class="exp-header"><h3>Parameterized MLOps Framework (5+ Use Cases)</h3><span class="exp-meta">May 2025 – Jan 2026</span></div>
+      <div class="exp-company">LPDG Group · Senior AI/ML Engineer · Germany 🇩🇪</div>
       <ul class="exp-bullets">
-        <li>Architecture design and feature delivery on high-traffic education platform</li>
-        <li>Built 24/7 real-time student chat system</li>
+        <li>One codebase serving 5+ manufacturing forecasting use cases — different pre/train/inference/post logic via config files only</li>
+        <li>Snowflake Model Registry for version tracking and rollback across all clients</li>
+        <li>Snowflake Feature Store for consistent feature engineering; GitHub Actions CI/CD for automated multi-pipeline deployment</li>
       </ul>
     </div>
+
     <div class="timeline-item">
-      <div class="exp-header"><h3>Software Engineer</h3><span class="exp-meta">Jan 2016 – May 2018</span></div>
-      <div class="exp-company">ConveGenius Group · Noida, India 🇮🇳</div>
+      <div class="exp-header"><h3>Databricks → Snowflake Migration (Forecasting)</h3><span class="exp-meta">May 2025 – Jan 2026</span></div>
+      <div class="exp-company">LPDG Group · Senior AI/ML Engineer · Germany 🇩🇪</div>
       <ul class="exp-bullets">
-        <li>Delivered LMS on-time managing team of 3 — Django/Node.js/MySQL/AWS</li>
-        <li>Built secure Node.js REST APIs for CGSlate Android with all business logic server-side</li>
+        <li>Eliminated costly Snowflake → Databricks → Snowflake data round-trips — migrated all stages Snowflake-native, cutting latency and duplication risk</li>
+        <li>Resolved severe time-series data gaps via clustering-based signal grouping and systematic removal of unforecastable segments</li>
+        <li>Unlocked reliable forecasting where previously impossible; reduced deployment friction and cost</li>
       </ul>
     </div>
+
+    <div class="timeline-item">
+      <div class="exp-header"><h3>Large-Scale Text Processing &amp; Email Generation</h3><span class="exp-meta">Apr 2023 – Mar 2024</span></div>
+      <div class="exp-company">LPDG Group · Senior AI/ML Engineer · India 🇮🇳</div>
+      <ul class="exp-bullets">
+        <li>GPT-3.5 + Apache Spark on AWS EMR for large-scale unstructured text → structured email conversions</li>
+        <li>Airflow for scheduling, dependency management, and failure recovery across batch jobs</li>
+        <li>Processed 100K+ documents; maintained Snowflake fact table for downstream analytics</li>
+      </ul>
+    </div>
+
+    <!-- Computer Vision & Anomaly Detection -->
+    <div class="timeline-category">
+      <h3 style="color:var(--accent);margin-bottom:1rem;font-size:1.1rem;margin-top:2rem;">Computer Vision &amp; Anomaly Detection</h3>
+    </div>
+
+    <div class="timeline-item">
+      <div class="exp-header"><h3>YOLOv11 Radiator Classification (Edge Deployment)</h3><span class="exp-meta">Feb 2026 – Present</span></div>
+      <div class="exp-company">LPDG Group · Senior AI/ML Engineer · India 🇮🇳</div>
+      <ul class="exp-bullets">
+        <li>YOLOv11 ensemble (3 models) handles class imbalance across radiator types — classifies radiator serviceability from single field image with 95%+ accuracy</li>
+        <li>Browser-based WebAssembly inference — zero cloud calls, fully offline in remote field conditions with no connectivity</li>
+        <li>Deployed on Snowflake Container Services; back-office Streamlit app enables continuous retraining without engineering intervention</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="exp-header"><h3>Real-Time Gesture &amp; Shape Tracking</h3><span class="exp-meta">Apr 2024 – Apr 2025</span></div>
+      <div class="exp-company">LPDG Group · Senior AI/ML Engineer · India 🇮🇳</div>
+      <ul class="exp-bullets">
+        <li>Real-time human gesture tracking via OpenCV + pose estimation — live demonstration at WETEX Dubai (major Middle East energy exhibition)</li>
+        <li>Sub-100ms latency on standard hardware; Streamlit demo interface for stakeholder engagement</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="exp-header"><h3>ML Algorithm Benchmarking &amp; Anomaly Detection</h3><span class="exp-meta">Apr 2024 – Apr 2025</span></div>
+      <div class="exp-company">LPDG Group · Senior AI/ML Engineer · India 🇮🇳</div>
+      <ul class="exp-bullets">
+        <li>Benchmarked 10+ ML algorithms against 15+ class imbalance strategies (SMOTE, class weights, threshold tuning, ensemble methods)</li>
+        <li>Automated end-to-end anomaly detection pipeline on AWS (S3, Lambda, SageMaker, Docker, Jenkins)</li>
+        <li>Selected optimal config via grid search; deployed monitoring dashboard for real-time anomaly alerts</li>
+      </ul>
+    </div>
+
+    <!-- Research & XAI -->
+    <div class="timeline-category">
+      <h3 style="color:var(--accent);margin-bottom:1rem;font-size:1.1rem;margin-top:2rem;">Research &amp; Explainable AI</h3>
+    </div>
+
+    <div class="timeline-item">
+      <div class="exp-header"><h3>Active Learning for Medical Image Segmentation</h3><span class="exp-meta">Oct 2020 – Mar 2022</span></div>
+      <div class="exp-company">IBMI Universitätsklinikum · Research Assistant · Magdeburg, Germany 🇩🇪</div>
+      <ul class="exp-bullets">
+        <li>Query-by-Committee (QBC) active learning: 7% improvement in informative sample selection over random baseline on BraTS2017 medical imaging dataset</li>
+        <li>Reduced annotation cost per model; improved labeling efficiency for expensive expert annotation</li>
+        <li>Precision fluctuation improved from 12% → 1% vs. single learner — more stable convergence</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="exp-header"><h3>Interpretable Deep Reinforcement Learning (XAI)</h3><span class="exp-meta">Oct 2020 – Mar 2022</span></div>
+      <div class="exp-company">IBMI Universitätsklinikum · Research Assistant · Magdeburg, Germany 🇩🇪</div>
+      <ul class="exp-bullets">
+        <li>Dropout DQN with MMD-Critic achieved 3–6% gain on MNIST using only 2.5–10% of training data — data-efficient RL with interpretability</li>
+        <li>IRTEX image retrieval system with explainability via saliency maps and feature heatmaps — 80% user approval for explanation quality</li>
+        <li>PyTorch, TensorFlow, OpenAI Gym; published interpretability analysis for clinical decision support context</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="exp-header"><h3>VisMem Cognitive Brain Model &amp; Neural Performance Analysis</h3><span class="exp-meta">Oct 2020 – Mar 2022</span></div>
+      <div class="exp-company">IBMI Universitätsklinikum · Research Assistant · Magdeburg, Germany 🇩🇪</div>
+      <ul class="exp-bullets">
+        <li>Implemented and benchmarked VisMem spiking neural network for serial recall tasks — quantitative analysis of cognitive performance</li>
+        <li>Analyzed drug and injury impact on neural performance using Nengo cognitive architecture</li>
+        <li>Contributed to neuroscience research on memory and learning mechanisms</li>
+      </ul>
+    </div>
+
+    <!-- Backend & Full-Stack -->
+    <div class="timeline-category">
+      <h3 style="color:var(--accent);margin-bottom:1rem;font-size:1.1rem;margin-top:2rem;">Backend &amp; Full-Stack Infrastructure</h3>
+    </div>
+
+    <div class="timeline-item">
+      <div class="exp-header"><h3>Database Migration &amp; Testing Framework</h3><span class="exp-meta">Apr 2019 – Sep 2020</span></div>
+      <div class="exp-company">3DQR GmbH · Software Developer · Magdeburg, Germany 🇩🇪</div>
+      <ul class="exp-bullets">
+        <li>Automated MySQL schema migration framework supporting diverse legacy schemas — eliminated manual migration risk</li>
+        <li>Built 200+ test end-to-end framework achieving full server-side coverage; reduced production bugs from migrations</li>
+        <li>Validated schema consistency, data integrity, and performance across migrations</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="exp-header"><h3>Real-Time Student Chat System &amp; Platform Architecture</h3><span class="exp-meta">Jun 2018 – Oct 2018</span></div>
+      <div class="exp-company">Careers360 · Software Developer · Delhi, India 🇮🇳</div>
+      <ul class="exp-bullets">
+        <li>Built 24/7 real-time student chat system handling 100K+ concurrent users on high-traffic education platform (10M+ DAU)</li>
+        <li>Architecture design for feature delivery; optimized for low latency and high throughput</li>
+        <li>WebSocket-based messaging with fallback polling; Redis for session management</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="exp-header"><h3>Learning Management System &amp; Secure APIs</h3><span class="exp-meta">Jan 2016 – May 2018</span></div>
+      <div class="exp-company">ConveGenius Group · Software Engineer · Noida, India 🇮🇳</div>
+      <ul class="exp-bullets">
+        <li>Delivered LMS on-time managing team of 3 — Django/Node.js/MySQL/AWS; complete backend and frontend delivery</li>
+        <li>Built secure Node.js REST APIs for CGSlate Android app with all business logic server-side (zero client-side logic)</li>
+        <li>Role-based access control, token-based auth, input validation on all endpoints; processed 1000s of course enrollments</li>
+      </ul>
+    </div>
+
+    <!-- Marketing Analytics -->
+    <div class="timeline-item">
+      <div class="exp-header"><h3>Marketing Analytics &amp; Event Notifications</h3><span class="exp-meta">May 2022 – Feb 2023</span></div>
+      <div class="exp-company">Vivere GmbH · Applied Data Scientist · Hamburg, Germany 🇩🇪</div>
+      <ul class="exp-bullets">
+        <li>Organic vs. inorganic sales breakdown dashboard — algorithmic categorization replaced manual competitor research</li>
+        <li>Competitor landscape mapping via clustering; FastAPI/Pydantic validation layer</li>
+        <li>Event-driven email + Asana alerts — real-time notification of significant product changes to stakeholders, eliminating manual monitoring</li>
+      </ul>
+    </div>
+
   </div>
 </section>
 <div class="divider"></div>
@@ -451,14 +605,14 @@
   <div class="section-label">Thought Leadership</div>
   <h2>Content &amp; Community</h2>
   <div class="stats">
-    <div class="stat-card">
+    <a href="https://tarun-gupta.medium.com" target="_blank" rel="noopener" class="stat-card stat-link">
       <div class="stat-num">50+</div>
-      <div class="stat-label"><a href="https://tarun-gupta.medium.com" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">Articles on Medium</a></div>
-    </div>
-    <div class="stat-card">
+      <div class="stat-label">Articles on Medium</div>
+    </a>
+    <a href="https://www.youtube.com/@breathofdatascience" target="_blank" rel="noopener" class="stat-card stat-link">
       <div class="stat-num">▶</div>
-      <div class="stat-label"><a href="https://www.youtube.com/@breathofdatascience" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">Breath of Data Science · YouTube</a></div>
-    </div>
+      <div class="stat-label">Breath of Data Science · YouTube</div>
+    </a>
     <div class="stat-card">
       <div class="stat-num">🎤</div>
       <div class="stat-label">Live Demo at WETEX Dubai — Gesture AI</div>
