@@ -142,10 +142,22 @@
     .contact-card h4 { font-size: 0.88rem; font-weight: 600; }
     .contact-card p { font-size: 0.78rem; color: var(--muted); word-break: break-all; }
 
+    .contact-form { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; max-width: 600px; margin-top: 2rem; }
+    .form-group { margin-bottom: 1.5rem; }
+    .form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--text); margin-bottom: 0.5rem; }
+    .form-group input, .form-group textarea { width: 100%; padding: 0.75rem; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: inherit; font-size: 0.9rem; transition: border-color 0.2s; }
+    .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--accent); }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .form-submit { background: var(--accent); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+    .form-submit:hover { background: #2563eb; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(59,130,246,0.4); }
+
+    .exp-category-title { font-size: 1.15rem; font-weight: 700; color: var(--gold); margin-top: 2.5rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+
     footer { text-align: center; padding: 2rem; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.8rem; }
 
     @media (max-width: 768px) {
       .projects-grid { grid-template-columns: 1fr; }
+      .contact-form { padding: 1.5rem; }
     }
 
     @media (max-width: 640px) {
@@ -368,9 +380,7 @@
   <div class="timeline">
 
     <!-- LLM & Generative AI -->
-    <div class="timeline-category">
-      <h3 style="color:var(--accent);margin-bottom:1rem;font-size:1.1rem;">Generative AI &amp; LLM Systems</h3>
-    </div>
+    <h3 class="exp-category-title">Generative AI &amp; LLM Systems</h3>
 
     <div class="timeline-item">
       <div class="exp-header"><h3>Invoice Extraction &amp; Entity Recognition</h3><span class="exp-meta">Feb 2026 – Present</span></div>
@@ -443,9 +453,7 @@
     </div>
 
     <!-- MLOps & Forecasting -->
-    <div class="timeline-category">
-      <h3 style="color:var(--accent);margin-bottom:1rem;font-size:1.1rem;margin-top:2rem;">MLOps &amp; Forecasting Pipelines</h3>
-    </div>
+    <h3 class="exp-category-title">MLOps &amp; Forecasting Pipelines</h3>
 
     <div class="timeline-item">
       <div class="exp-header"><h3>Parameterized MLOps Framework (5+ Use Cases)</h3><span class="exp-meta">May 2025 – Jan 2026</span></div>
@@ -478,9 +486,7 @@
     </div>
 
     <!-- Computer Vision & Anomaly Detection -->
-    <div class="timeline-category">
-      <h3 style="color:var(--accent);margin-bottom:1rem;font-size:1.1rem;margin-top:2rem;">Computer Vision &amp; Anomaly Detection</h3>
-    </div>
+    <h3 class="exp-category-title">Computer Vision &amp; Anomaly Detection</h3>
 
     <div class="timeline-item">
       <div class="exp-header"><h3>YOLOv11 Radiator Classification (Edge Deployment)</h3><span class="exp-meta">Feb 2026 – Present</span></div>
@@ -512,9 +518,7 @@
     </div>
 
     <!-- Research & XAI -->
-    <div class="timeline-category">
-      <h3 style="color:var(--accent);margin-bottom:1rem;font-size:1.1rem;margin-top:2rem;">Research &amp; Explainable AI</h3>
-    </div>
+    <h3 class="exp-category-title">Research &amp; Explainable AI</h3>
 
     <div class="timeline-item">
       <div class="exp-header"><h3>Active Learning for Medical Image Segmentation</h3><span class="exp-meta">Oct 2020 – Mar 2022</span></div>
@@ -547,9 +551,7 @@
     </div>
 
     <!-- Backend & Full-Stack -->
-    <div class="timeline-category">
-      <h3 style="color:var(--accent);margin-bottom:1rem;font-size:1.1rem;margin-top:2rem;">Backend &amp; Full-Stack Infrastructure</h3>
-    </div>
+    <h3 class="exp-category-title">Backend &amp; Full-Stack Infrastructure</h3>
 
     <div class="timeline-item">
       <div class="exp-header"><h3>Database Migration &amp; Testing Framework</h3><span class="exp-meta">Apr 2019 – Sep 2020</span></div>
@@ -599,11 +601,21 @@
 <section id="certifications">
   <div class="section-label">Credentials</div>
   <h2>Certifications &amp; Education</h2>
-  <div class="cert-grid">
-    <div class="cert-card"><div class="cert-icon">⬡</div><div><h4>SnowPro Core</h4><p>Snowflake · Certified</p></div></div>
-    <div class="cert-card"><div class="cert-icon">⬡</div><div><h4>SnowPro Gen AI</h4><p>Snowflake · Specialty</p></div></div>
-    <div class="cert-card"><div class="cert-icon">🎓</div><div><h4>MSc Digital Engineering</h4><p>Otto-von-Guericke University, Magdeburg 🇩🇪</p></div></div>
-    <div class="cert-card"><div class="cert-icon">🎓</div><div><h4>BTech Information Technology</h4><p>LNMIIT, Jaipur 🇮🇳</p></div></div>
+
+  <div style="margin-bottom:3rem;">
+    <h3 style="font-size:1.1rem;margin-bottom:1.5rem;color:var(--accent);">Certifications</h3>
+    <div class="cert-grid">
+      <div class="cert-card"><div class="cert-icon">⬡</div><div><h4>SnowPro Core</h4><p>Snowflake · Certified</p></div></div>
+      <div class="cert-card"><div class="cert-icon">⬡</div><div><h4>SnowPro Gen AI</h4><p>Snowflake · Specialty</p></div></div>
+    </div>
+  </div>
+
+  <div>
+    <h3 style="font-size:1.1rem;margin-bottom:1.5rem;color:var(--accent);">Education</h3>
+    <div class="cert-grid">
+      <div class="cert-card"><div class="cert-icon">🎓</div><div><h4>MSc Digital Engineering</h4><p>Otto-von-Guericke University, Magdeburg 🇩🇪</p></div></div>
+      <div class="cert-card"><div class="cert-icon">🎓</div><div><h4>BTech Information Technology</h4><p>LNMIIT, Jaipur 🇮🇳</p></div></div>
+    </div>
   </div>
 </section>
 <div class="divider"></div>
@@ -635,6 +647,9 @@
     <a href="mailto:tarungupta.medium@gmail.com" class="contact-card">
       <div class="icon">✉</div><h4>Email</h4><p>tarungupta.medium@gmail.com</p>
     </a>
+    <a href="tel:+917838868072" class="contact-card">
+      <div class="icon">📱</div><h4>Phone</h4><p>+91 7838 868 072</p>
+    </a>
     <a href="https://www.linkedin.com/in/tarun-gupta-in/" target="_blank" rel="noopener" class="contact-card">
       <div class="icon">💼</div><h4>LinkedIn</h4><p>linkedin.com/in/tarun-gupta-in</p>
     </a>
@@ -648,6 +663,23 @@
       <div class="icon">▶</div><h4>YouTube</h4><p>@breathofdatascience</p>
     </a>
   </div>
+
+  <h3 style="margin-top:3rem;margin-bottom:1.5rem;font-size:1.1rem;">Send me a message</h3>
+  <form class="contact-form" action="https://formspree.io/f/xwvzwjaa" method="POST">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required>
+    </div>
+    <div class="form-group">
+      <label for="message">Message</label>
+      <textarea id="message" name="message" required></textarea>
+    </div>
+    <button type="submit" class="form-submit">Send Message</button>
+  </form>
 </section>
 
 <footer>
