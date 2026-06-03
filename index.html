@@ -370,6 +370,28 @@
         <a href="https://github.com/tarunlnmiit/tinyfish_job_engine" target="_blank" rel="noopener">⎋ GitHub</a>
       </div>
     </div>
+    <div class="project-card featured" id="cv-card">
+      <span class="feat-badge">⭐ Featured</span>
+      <h3>AI CV Engine</h3>
+      <p>YAML-driven CV generation pipeline. Single profile source tailored into region-specific (EU/IN) and role-specific variants via Claude AI. Auto-generates DOCX + PDF outputs with versioned history. Eliminates manual CV editing across job applications.</p>
+      <div class="project-visual" id="cv-visual">
+        <svg class="pipeline-svg" id="cv-svg" viewBox="0 0 540 180" preserveAspectRatio="xMidYMid meet"></svg>
+        <div class="pipe-tooltip" id="cv-tooltip"></div>
+      </div>
+      <div class="cm-stats">
+        <div class="cm-stat"><span class="cm-stat-num" data-target="1">0</span><span class="cm-stat-label">Source YAML</span></div>
+        <div class="cm-stat"><span class="cm-stat-num" data-target="4" data-suffix="+">0</span><span class="cm-stat-label">CV Variants</span></div>
+        <div class="cm-stat"><span class="cm-stat-num" data-target="100" data-suffix="%">0</span><span class="cm-stat-label">Automated</span></div>
+        <div class="cm-stat"><span class="cm-stat-num" data-target="0" data-suffix="min">0</span><span class="cm-stat-label">Manual Editing</span></div>
+      </div>
+      <div class="project-stack">
+        <span class="stack-tag">Python</span><span class="stack-tag">Claude AI</span><span class="stack-tag">YAML</span>
+        <span class="stack-tag">python-docx</span><span class="stack-tag">LibreOffice</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/tarunlnmiit/ai-cv-engine" target="_blank" rel="noopener">⎋ GitHub</a>
+      </div>
+    </div>
   </div>
 </section>
 <div class="divider"></div>
@@ -1651,6 +1673,243 @@
   tick();
 
   var card = document.getElementById('mm-card');
+  if (card && 'IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries) {
+      if (!entries[0].isIntersecting) return;
+      obs.disconnect();
+      card.querySelectorAll('.cm-stat-num').forEach(function(el) {
+        var target = parseInt(el.dataset.target, 10);
+        var suffix = el.dataset.suffix || '';
+        var current = 0;
+        var step = Math.max(1, Math.ceil(target / 40));
+        var iv = setInterval(function() {
+          current = Math.min(current + step, target);
+          el.textContent = current + suffix;
+          if (current >= target) clearInterval(iv);
+        }, 35);
+      });
+    }, { threshold: 0.4 });
+    obs.observe(card);
+  }
+})();
+</script>
+<script>
+(function() {
+  var svg = document.getElementById('cv-svg');
+  if (!svg) return;
+  var ns = 'http://www.w3.org/2000/svg';
+
+  /* ── NODES ── */
+  var YAML_X   = 55;
+  var MASTER_X = 165;
+  var CLAUDE_X = 290;
+  var TAILOR_X = 400;
+  var OUT_X    = 505;
+
+  var outputs = [
+    { label: 'EU v3',   y: 30,  color: '#3b82f6', tip: 'EU-format PDF/DOCX — tailored for European job market' },
+    { label: 'EU v2',   y: 72,  color: '#6366f1', tip: 'Previous EU variant with compact layout' },
+    { label: 'IN v3',   y: 114, color: '#10b981', tip: 'India-format CV — localised for Indian recruiters' },
+    { label: 'Compact', y: 150, color: '#f59e0b', tip: 'One-page compact variant for quick-apply submissions' }
+  ];
+
+  /* ── DEFS: glow ── */
+  var defs = document.createElementNS(ns, 'defs');
+  var filt = document.createElementNS(ns, 'filter');
+  filt.setAttribute('id', 'cvglow');
+  filt.setAttribute('x', '-80%'); filt.setAttribute('y', '-80%');
+  filt.setAttribute('width', '260%'); filt.setAttribute('height', '260%');
+  var fe = document.createElementNS(ns, 'feGaussianBlur');
+  fe.setAttribute('stdDeviation', '2.5'); fe.setAttribute('result', 'b');
+  var fm = document.createElementNS(ns, 'feMerge');
+  ['b', 'SourceGraphic'].forEach(function(src) {
+    var mn = document.createElementNS(ns, 'feMergeNode');
+    mn.setAttribute('in', src);
+    fm.appendChild(mn);
+  });
+  filt.appendChild(fe); filt.appendChild(fm);
+  defs.appendChild(filt);
+  svg.appendChild(defs);
+
+  /* ── CONNECTORS ── */
+  [
+    [YAML_X+17, 90, MASTER_X-17, 90, '#1e2044'],
+    [MASTER_X+17, 90, CLAUDE_X-20, 90, '#1e2044'],
+    [CLAUDE_X+20, 90, TAILOR_X-17, 90, '#1e2044']
+  ].forEach(function(c) {
+    var line = document.createElementNS(ns, 'line');
+    line.setAttribute('x1', c[0]); line.setAttribute('y1', c[1]);
+    line.setAttribute('x2', c[2]); line.setAttribute('y2', c[3]);
+    line.setAttribute('stroke', c[4]); line.setAttribute('stroke-width', '2');
+    svg.appendChild(line);
+  });
+
+  /* fan paths tailor → outputs */
+  var fanPaths = outputs.map(function(o) {
+    var path = document.createElementNS(ns, 'path');
+    path.setAttribute('d', 'M '+TAILOR_X+',90 C '+(TAILOR_X+35)+',90 '+(Out_cx(o))+','+(o.y+6)+' '+(Out_cx(o))+','+(o.y+6));
+    path.setAttribute('stroke', o.color);
+    path.setAttribute('stroke-width', '1.5');
+    path.setAttribute('fill', 'none');
+    path.setAttribute('opacity', '0.25');
+    svg.appendChild(path);
+    return path;
+  });
+
+  function Out_cx(o) { return Out_X - 13; }
+
+  /* re-draw fan paths with correct coords */
+  fanPaths.forEach(function(p, i) {
+    var o = outputs[i];
+    var cx = Out_X - 13;
+    p.setAttribute('d', 'M '+(TAILOR_X+17)+',90 C '+(TAILOR_X+55)+',90 '+(cx-20)+','+(o.y+6)+' '+cx+','+(o.y+6));
+  });
+
+  /* ── TOOLTIP ── */
+  var visual  = document.getElementById('cv-visual');
+  var tooltip = document.getElementById('cv-tooltip');
+
+  function showTip(tip, el) {
+    var r  = visual.getBoundingClientRect();
+    var er = el.getBoundingClientRect();
+    tooltip.textContent = tip;
+    tooltip.style.left = Math.max(0, er.left - r.left - 30) + 'px';
+    tooltip.style.top  = Math.max(0, er.top  - r.top  - 30) + 'px';
+    tooltip.style.opacity = '1';
+  }
+
+  /* ── MAIN NODES ── */
+  var mainNodes = [
+    { id: 'yaml',   label: 'Profile\nYAML', x: YAML_X,   r: 17, color: '#3b82f6', tip: 'Single cv_master.yaml — source of truth for all CV variants' },
+    { id: 'master', label: 'CV\nMaster',    x: MASTER_X, r: 17, color: '#8b5cf6', tip: 'Structured Python object model from YAML — normalises experience, skills, education' },
+    { id: 'claude', label: 'Claude\nAI',    x: CLAUDE_X, r: 21, color: '#f59e0b', tip: 'Rewrites bullets, adjusts tone, prioritises skills per role and region' },
+    { id: 'tailor', label: 'Tailor\nEngine',x: TAILOR_X, r: 17, color: '#10b981', tip: 'tailor_cv.py — selects variant config, injects Claude output, renders DOCX + PDF' }
+  ];
+
+  mainNodes.forEach(function(n) {
+    var g = document.createElementNS(ns, 'g');
+    g.setAttribute('class', 'pipe-node');
+    g.setAttribute('transform', 'translate('+n.x+',90)');
+
+    if (n.id === 'claude') {
+      var ring = document.createElementNS(ns, 'circle');
+      ring.setAttribute('r', '26'); ring.setAttribute('fill', 'none');
+      ring.setAttribute('stroke', n.color); ring.setAttribute('stroke-width', '1.5');
+      ring.setAttribute('opacity', '0.35'); ring.setAttribute('class', 'cv-claude-ring');
+      g.appendChild(ring);
+    }
+
+    var circle = document.createElementNS(ns, 'circle');
+    circle.setAttribute('r', n.r);
+    circle.setAttribute('fill', n.color); circle.setAttribute('fill-opacity', '0.14');
+    circle.setAttribute('stroke', n.color); circle.setAttribute('stroke-width', '2');
+    g.appendChild(circle);
+
+    var lines = n.label.split('\n');
+    lines.forEach(function(ln, li) {
+      var t = document.createElementNS(ns, 'text');
+      t.setAttribute('text-anchor', 'middle');
+      t.setAttribute('dy', lines.length === 1 ? '0.35em' : (li === 0 ? '-0.15em' : '1.05em'));
+      t.setAttribute('fill', n.color); t.setAttribute('font-size', '6');
+      t.setAttribute('font-family', 'system-ui,sans-serif'); t.setAttribute('font-weight', '700');
+      t.textContent = ln;
+      g.appendChild(t);
+    });
+
+    var hitCircle = circle;
+    g.addEventListener('mouseenter', function() { showTip(n.tip, hitCircle); });
+    g.addEventListener('mouseleave', function() { tooltip.style.opacity = '0'; });
+    svg.appendChild(g);
+  });
+
+  /* ── OUTPUT NODES ── */
+  outputs.forEach(function(o) {
+    var g = document.createElementNS(ns, 'g');
+    g.setAttribute('class', 'pipe-node');
+
+    var cx = Out_X - 13;
+    var circle = document.createElementNS(ns, 'circle');
+    circle.setAttribute('cx', cx); circle.setAttribute('cy', o.y + 6);
+    circle.setAttribute('r', '14');
+    circle.setAttribute('fill', o.color); circle.setAttribute('fill-opacity', '0.14');
+    circle.setAttribute('stroke', o.color); circle.setAttribute('stroke-width', '1.5');
+    g.appendChild(circle);
+
+    var t = document.createElementNS(ns, 'text');
+    t.setAttribute('x', cx); t.setAttribute('y', o.y + 6);
+    t.setAttribute('text-anchor', 'middle'); t.setAttribute('dy', '0.35em');
+    t.setAttribute('fill', o.color); t.setAttribute('font-size', '6');
+    t.setAttribute('font-family', 'system-ui,sans-serif'); t.setAttribute('font-weight', '700');
+    t.textContent = o.label;
+    g.appendChild(t);
+
+    g.addEventListener('mouseenter', function() { showTip(o.tip, circle); });
+    g.addEventListener('mouseleave', function() { tooltip.style.opacity = '0'; });
+    svg.appendChild(g);
+  });
+
+  /* ── ANIMATED DOTS ── */
+  var straightDots = [
+    { x1: YAML_X+17,   y: 90, x2: MASTER_X-17, color: '#3b82f6', speed: 0.009, t: 0 },
+    { x1: YAML_X+17,   y: 90, x2: MASTER_X-17, color: '#3b82f6', speed: 0.009, t: 0.5 },
+    { x1: MASTER_X+17, y: 90, x2: CLAUDE_X-20, color: '#8b5cf6', speed: 0.009, t: 0.25 },
+    { x1: MASTER_X+17, y: 90, x2: CLAUDE_X-20, color: '#8b5cf6', speed: 0.009, t: 0.75 },
+    { x1: CLAUDE_X+20, y: 90, x2: TAILOR_X-17, color: '#f59e0b', speed: 0.009, t: 0.1 },
+    { x1: CLAUDE_X+20, y: 90, x2: TAILOR_X-17, color: '#f59e0b', speed: 0.009, t: 0.6 }
+  ];
+
+  var fanDots = outputs.map(function(o, i) {
+    return { pathEl: fanPaths[i], color: o.color, speed: 0.005 + i * 0.0008, t: i / outputs.length };
+  });
+
+  var straightEls = straightDots.map(function(d) {
+    var c = document.createElementNS(ns, 'circle');
+    c.setAttribute('r', '2.5'); c.setAttribute('fill', d.color);
+    c.setAttribute('filter', 'url(#cvglow)');
+    svg.appendChild(c);
+    return c;
+  });
+
+  var fanEls = fanDots.map(function(d) {
+    var c = document.createElementNS(ns, 'circle');
+    c.setAttribute('r', '2.5'); c.setAttribute('fill', d.color);
+    c.setAttribute('filter', 'url(#cvglow)');
+    svg.appendChild(c);
+    return c;
+  });
+
+  var claudeRing = svg.querySelector('.cv-claude-ring');
+  var pulseT = 0;
+
+  function tick() {
+    straightDots.forEach(function(d, i) {
+      d.t = (d.t + d.speed) % 1;
+      straightEls[i].setAttribute('cx', d.x1 + (d.x2 - d.x1) * d.t);
+      straightEls[i].setAttribute('cy', d.y);
+      straightEls[i].setAttribute('opacity', Math.sin(d.t * Math.PI));
+    });
+
+    fanDots.forEach(function(d, i) {
+      d.t = (d.t + d.speed) % 1;
+      var len = d.pathEl.getTotalLength();
+      var pt  = d.pathEl.getPointAtLength(d.t * len);
+      fanEls[i].setAttribute('cx', pt.x);
+      fanEls[i].setAttribute('cy', pt.y);
+      fanEls[i].setAttribute('opacity', Math.sin(d.t * Math.PI) * 0.9);
+    });
+
+    pulseT += 0.025;
+    if (claudeRing) {
+      claudeRing.setAttribute('r', 24 + Math.sin(pulseT) * 4);
+      claudeRing.setAttribute('opacity', 0.15 + Math.sin(pulseT) * 0.12);
+    }
+
+    requestAnimationFrame(tick);
+  }
+  tick();
+
+  /* counter animation on scroll */
+  var card = document.getElementById('cv-card');
   if (card && 'IntersectionObserver' in window) {
     var obs = new IntersectionObserver(function(entries) {
       if (!entries[0].isIntersecting) return;
