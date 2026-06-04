@@ -293,21 +293,21 @@
     <div class="project-card featured" id="mm-card">
       <span class="feat-badge">⭐ Featured</span>
       <h3>MindMorph — Adaptive AI Learning Platform</h3>
-      <p>Multi-agent orchestration platform routing learner queries to lesson/content/exercise pipelines via LangGraph + CrewAI. Custom Model Router across GPT/Claude/Gemini. RAG with Pinecone, in-browser JupyterLite execution, Kafka-driven personalization loop.</p>
+      <p>Multi-agent LangGraph platform for adaptive learning. Groq-powered LLaMA 3.3-70B Orchestrator routes queries to three pipelines: SCOUT (Academic + Market + Practical → Consensus → Reviewer → Mermaid Skill Graph), CONTENT (Boost / Builder / Sprint formats), EXERCISE (code challenge + live unit-test grader). Full LangSmith tracing. GitHub MCP tool integration.</p>
       <div class="project-visual" id="mm-visual">
         <svg class="pipeline-svg" id="mm-svg" viewBox="0 0 540 180" preserveAspectRatio="xMidYMid meet"></svg>
         <div class="pipe-tooltip" id="mm-tooltip"></div>
       </div>
       <div class="cm-stats">
-        <div class="cm-stat"><span class="cm-stat-num" data-target="3">0</span><span class="cm-stat-label">LLM Providers</span></div>
-        <div class="cm-stat"><span class="cm-stat-num" data-target="3">0</span><span class="cm-stat-label">Agent Pipelines</span></div>
-        <div class="cm-stat"><span class="cm-stat-num" data-target="9">0</span><span class="cm-stat-label">Stack Layers</span></div>
-        <div class="cm-stat"><span class="cm-stat-num" data-target="100" data-suffix="%">0</span><span class="cm-stat-label">Adaptive</span></div>
+        <div class="cm-stat"><span class="cm-stat-num" data-target="11">0</span><span class="cm-stat-label">Agents</span></div>
+        <div class="cm-stat"><span class="cm-stat-num" data-target="3">0</span><span class="cm-stat-label">Pipelines</span></div>
+        <div class="cm-stat"><span class="cm-stat-num" data-target="3">0</span><span class="cm-stat-label">Content Formats</span></div>
+        <div class="cm-stat"><span class="cm-stat-num" data-target="100" data-suffix="%">0</span><span class="cm-stat-label">Python</span></div>
       </div>
       <div class="project-stack">
-        <span class="stack-tag">LangGraph</span><span class="stack-tag">CrewAI</span><span class="stack-tag">FastAPI</span>
-        <span class="stack-tag">Next.js</span><span class="stack-tag">Pinecone</span><span class="stack-tag">Kafka</span>
-        <span class="stack-tag">K8s (EKS)</span><span class="stack-tag">Snowflake</span><span class="stack-tag">Terraform</span>
+        <span class="stack-tag">LangGraph</span><span class="stack-tag">LangChain</span><span class="stack-tag">Groq / LLaMA 3.3</span>
+        <span class="stack-tag">Streamlit</span><span class="stack-tag">LangSmith</span><span class="stack-tag">MCP</span>
+        <span class="stack-tag">Python</span>
       </div>
       <div class="project-links">
         <a href="https://github.com/tarunlnmiit/MindMorph_Learning_Platform" target="_blank" rel="noopener">⎋ GitHub</a>
@@ -1266,15 +1266,15 @@
   var OUT_X    = 500;
 
   var models = [
-    { label: 'GPT-4',  y: 30,  color: '#10b981', tip: 'OpenAI GPT-4 — reasoning & instruction following' },
-    { label: 'Claude', y: 90,  color: '#f59e0b', tip: 'Anthropic Claude — long-form comprehension & coding' },
-    { label: 'Gemini', y: 150, color: '#3b82f6', tip: 'Google Gemini — multimodal understanding' }
+    { label: 'Groq',      y: 30,  color: '#f97316', tip: 'Groq API — llama-3.3-70b-versatile powers all agents' },
+    { label: 'LangSmith', y: 90,  color: '#3b82f6', tip: 'LangSmith — distributed tracing across all agent invocations' },
+    { label: 'GitHub MCP',y: 150, color: '#10b981', tip: 'GitHub MCP Client — tool calls for code search and repository access' }
   ];
 
   var agents = [
-    { label: 'Lesson',   y: 32,  color: '#3b82f6', tip: 'Lesson Agent — structured curriculum delivery via LangGraph' },
-    { label: 'Content',  y: 90,  color: '#10b981', tip: 'Content Agent — RAG-grounded explanations from Pinecone' },
-    { label: 'Exercise', y: 148, color: '#f97316', tip: 'Exercise Agent — in-browser JupyterLite Python execution' }
+    { label: 'Scout',   y: 32,  color: '#10b981', tip: 'Scout Pipeline — Academic + Market + Practical → Consensus → Reviewer → Mermaid Skill Graph' },
+    { label: 'Content', y: 90,  color: '#3b82f6', tip: 'Content Pipeline — Boost (5 min) / Builder (20 min) / Sprint (2 hr) formats via Factual + Synthesizer' },
+    { label: 'Exercise',y: 148, color: '#f97316', tip: 'Exercise Pipeline — generates coding challenges with live unit-test grading in Streamlit' }
   ];
 
   /* defs: glow filter */
@@ -1312,7 +1312,7 @@
   rLine.setAttribute('stroke', '#1e2044'); rLine.setAttribute('stroke-width', '2');
   svg.appendChild(rLine);
 
-  /* pinecone rag feed line: top → langgraph (dashed) */
+  /* langsmith state feed line: top → langgraph (dashed) */
   var ragLine = document.createElementNS(ns, 'line');
   ragLine.setAttribute('x1', LG_X); ragLine.setAttribute('y1', '27');
   ragLine.setAttribute('x2', LG_X); ragLine.setAttribute('y2', '70');
@@ -1340,10 +1340,10 @@
     svg.appendChild(line);
   });
 
-  /* kafka personalization loop: bottom arc output → router */
+  /* langsmith tracing loop: bottom arc output → orchestrator */
   var kafkaPath = document.createElementNS(ns, 'path');
   kafkaPath.setAttribute('d', 'M '+OUT_X+',95 C '+(OUT_X+12)+',172 '+(ROUTER_X-12)+',172 '+ROUTER_X+',95');
-  kafkaPath.setAttribute('stroke', '#f97316'); kafkaPath.setAttribute('stroke-width', '1.5');
+  kafkaPath.setAttribute('stroke', '#3b82f6'); kafkaPath.setAttribute('stroke-width', '1.5');
   kafkaPath.setAttribute('fill', 'none');
   kafkaPath.setAttribute('stroke-dasharray', '4 3'); kafkaPath.setAttribute('opacity', '0.3');
   svg.appendChild(kafkaPath);
@@ -1352,10 +1352,10 @@
   kafkaLabel.setAttribute('x', String((ROUTER_X + OUT_X) / 2));
   kafkaLabel.setAttribute('y', '177');
   kafkaLabel.setAttribute('text-anchor', 'middle');
-  kafkaLabel.setAttribute('fill', '#f97316'); kafkaLabel.setAttribute('font-size', '5.5');
+  kafkaLabel.setAttribute('fill', '#3b82f6'); kafkaLabel.setAttribute('font-size', '5.5');
   kafkaLabel.setAttribute('font-family', 'system-ui,sans-serif');
   kafkaLabel.setAttribute('font-weight', '600'); kafkaLabel.setAttribute('opacity', '0.45');
-  kafkaLabel.textContent = 'Kafka personalization loop';
+  kafkaLabel.textContent = 'LangSmith tracing loop';
   svg.appendChild(kafkaLabel);
 
   /* ── NODES ── */
@@ -1406,7 +1406,7 @@
   routerC.setAttribute('fill', '#8b5cf6'); routerC.setAttribute('fill-opacity', '0.14');
   routerC.setAttribute('stroke', '#8b5cf6'); routerC.setAttribute('stroke-width', '2');
   routerG.appendChild(routerC);
-  [['Model', '-0.15em'], ['Router', '1.1em']].forEach(function(pair) {
+  [['Orches-', '-0.15em'], ['trator', '1.1em']].forEach(function(pair) {
     var t = document.createElementNS(ns, 'text');
     t.setAttribute('text-anchor', 'middle'); t.setAttribute('dy', pair[1]);
     t.setAttribute('fill', '#8b5cf6'); t.setAttribute('font-size', '6');
@@ -1414,11 +1414,11 @@
     t.textContent = pair[0];
     routerG.appendChild(t);
   });
-  routerG.addEventListener('mouseenter', function() { showTip('Custom router selects optimal LLM per query type — GPT-4 / Claude / Gemini', routerC); });
+  routerG.addEventListener('mouseenter', function() { showTip('Orchestrator Agent — classifies query and routes to SCOUT / CONTENT / EXERCISE pipeline', routerC); });
   routerG.addEventListener('mouseleave', function() { tooltip.style.opacity = '0'; });
   svg.appendChild(routerG);
 
-  /* pinecone rag node (top center) */
+  /* langchain state node (top center) */
   var ragG = document.createElementNS(ns, 'g');
   ragG.setAttribute('class', 'pipe-node');
   var ragC = document.createElementNS(ns, 'circle');
@@ -1431,9 +1431,9 @@
   ragT.setAttribute('text-anchor', 'middle'); ragT.setAttribute('dy', '0.35em');
   ragT.setAttribute('fill', '#06b6d4'); ragT.setAttribute('font-size', '5.5');
   ragT.setAttribute('font-family', 'system-ui,sans-serif'); ragT.setAttribute('font-weight', '700');
-  ragT.textContent = 'Pinecone';
+  ragT.textContent = 'LangChain';
   ragG.appendChild(ragT);
-  ragG.addEventListener('mouseenter', function() { showTip('Pinecone RAG — vector similarity search grounds every agent response', ragC); });
+  ragG.addEventListener('mouseenter', function() { showTip('LangChain — agent base classes, ChatGroq integration, and MCP adapter layer', ragC); });
   ragG.addEventListener('mouseleave', function() { tooltip.style.opacity = '0'; });
   svg.appendChild(ragG);
 
@@ -1453,15 +1453,15 @@
   lgC.setAttribute('fill', '#ec4899'); lgC.setAttribute('fill-opacity', '0.14');
   lgC.setAttribute('stroke', '#ec4899'); lgC.setAttribute('stroke-width', '2');
   lgG.appendChild(lgC);
-  [['LangGraph', '-0.15em'], ['+ CrewAI', '1.1em']].forEach(function(pair) {
+  [['LangGraph', '-0.15em'], ['StateGraph', '1.1em']].forEach(function(pair) {
     var t = document.createElementNS(ns, 'text');
     t.setAttribute('text-anchor', 'middle'); t.setAttribute('dy', pair[1]);
-    t.setAttribute('fill', '#ec4899'); t.setAttribute('font-size', pair[0] === 'LangGraph' ? '6' : '5.5');
+    t.setAttribute('fill', '#ec4899'); t.setAttribute('font-size', '5.5');
     t.setAttribute('font-family', 'system-ui,sans-serif'); t.setAttribute('font-weight', '700');
     t.textContent = pair[0];
     lgG.appendChild(t);
   });
-  lgG.addEventListener('mouseenter', function() { showTip('LangGraph + CrewAI — multi-agent state machine routing queries to specialist pipelines', lgC); });
+  lgG.addEventListener('mouseenter', function() { showTip('LangGraph StateGraph — conditional routing to SCOUT / CONTENT / EXERCISE sub-graphs via TypedDict state', lgC); });
   lgG.addEventListener('mouseleave', function() { tooltip.style.opacity = '0'; });
   svg.appendChild(lgG);
 
@@ -1495,7 +1495,7 @@
   outC.setAttribute('fill', '#6366f1'); outC.setAttribute('fill-opacity', '0.14');
   outC.setAttribute('stroke', '#6366f1'); outC.setAttribute('stroke-width', '2');
   outG.appendChild(outC);
-  [['Jupyter', '-0.15em'], ['Lite', '1.1em']].forEach(function(pair) {
+  [['Stream', '-0.15em'], ['lit', '1.1em']].forEach(function(pair) {
     var t = document.createElementNS(ns, 'text');
     t.setAttribute('text-anchor', 'middle'); t.setAttribute('dy', pair[1]);
     t.setAttribute('fill', '#6366f1'); t.setAttribute('font-size', '5.5');
@@ -1503,7 +1503,7 @@
     t.textContent = pair[0];
     outG.appendChild(t);
   });
-  outG.addEventListener('mouseenter', function() { showTip('JupyterLite — in-browser Python execution for interactive exercises, zero install', outC); });
+  outG.addEventListener('mouseenter', function() { showTip('Streamlit — Mermaid skill graph display, content rendering, exercise submission + live unit-test grading', outC); });
   outG.addEventListener('mouseleave', function() { tooltip.style.opacity = '0'; });
   svg.appendChild(outG);
 
@@ -1540,7 +1540,7 @@
   var routerEls  = routerDots.map(function(d) { return makeDotEl(d.color); });
   var ragDotEl   = makeDotEl('#06b6d4');
   var fanOutEls  = fanOutDots.map(function(d) { return makeDotEl(d.color); });
-  var kafkaDotEl = makeDotEl('#f97316', '3');
+  var kafkaDotEl = makeDotEl('#3b82f6', '3');
   var outDotEl   = makeDotEl('#10b981');
 
   var brainRings   = lgG.querySelectorAll('.mm-brain-ring');
