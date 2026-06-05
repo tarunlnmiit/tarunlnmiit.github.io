@@ -293,21 +293,21 @@
     <div class="project-card featured" id="mm-card">
       <span class="feat-badge">⭐ Featured</span>
       <h3>MindMorph — Adaptive AI Learning Platform</h3>
-      <p>Multi-agent LangGraph platform for adaptive learning. Groq-powered LLaMA 3.3-70B Orchestrator routes queries to three pipelines: SCOUT (Academic + Market + Practical → Consensus → Reviewer → Mermaid Skill Graph), CONTENT (Boost / Builder / Sprint formats), EXERCISE (code challenge + live unit-test grader). Full LangSmith tracing. GitHub MCP tool integration.</p>
+      <p>Multi-agent LangGraph platform with adaptive mastery tracking. Groq-powered LLaMA 3.3-70B Orchestrator routes to 5 graphs: SCOUT (Academic + Market + Practical + Factual → Consensus → Synthesizer → Reviewer → Mermaid Skill Graph), CONTENT (Boost / Builder / Sprint), LEARNING PLAN (mastery-gated node progression, ≥80% mastered), LESSON (structured delivery + DuckDuckGo + job-scraper research), EXERCISE (coding challenges + live unit-test grader via streamlit-ace). Full LangSmith tracing. GitHub MCP.</p>
       <div class="project-visual" id="mm-visual">
-        <svg class="pipeline-svg" id="mm-svg" viewBox="0 0 540 180" preserveAspectRatio="xMidYMid meet"></svg>
+        <svg class="pipeline-svg" id="mm-svg" viewBox="0 0 540 220" preserveAspectRatio="xMidYMid meet"></svg>
         <div class="pipe-tooltip" id="mm-tooltip"></div>
       </div>
       <div class="cm-stats">
         <div class="cm-stat"><span class="cm-stat-num" data-target="11">0</span><span class="cm-stat-label">Agents</span></div>
-        <div class="cm-stat"><span class="cm-stat-num" data-target="3">0</span><span class="cm-stat-label">Pipelines</span></div>
+        <div class="cm-stat"><span class="cm-stat-num" data-target="5">0</span><span class="cm-stat-label">LangGraph Workflows</span></div>
         <div class="cm-stat"><span class="cm-stat-num" data-target="3">0</span><span class="cm-stat-label">Content Formats</span></div>
         <div class="cm-stat"><span class="cm-stat-num" data-target="100" data-suffix="%">0</span><span class="cm-stat-label">Python</span></div>
       </div>
       <div class="project-stack">
         <span class="stack-tag">LangGraph</span><span class="stack-tag">LangChain</span><span class="stack-tag">Groq / LLaMA 3.3</span>
         <span class="stack-tag">Streamlit</span><span class="stack-tag">LangSmith</span><span class="stack-tag">MCP</span>
-        <span class="stack-tag">Python</span>
+        <span class="stack-tag">Streamlit-Ace</span><span class="stack-tag">Python</span>
       </div>
       <div class="project-links">
         <a href="https://github.com/tarunlnmiit/MindMorph_Learning_Platform" target="_blank" rel="noopener">⎋ GitHub</a>
@@ -1266,15 +1266,17 @@
   var OUT_X    = 500;
 
   var models = [
-    { label: 'Groq',      y: 30,  color: '#f97316', tip: 'Groq API — llama-3.3-70b-versatile powers all agents' },
-    { label: 'LangSmith', y: 90,  color: '#3b82f6', tip: 'LangSmith — distributed tracing across all agent invocations' },
-    { label: 'GitHub MCP',y: 150, color: '#10b981', tip: 'GitHub MCP Client — tool calls for code search and repository access' }
+    { label: 'Groq',      y: 35,  color: '#f97316', tip: 'Groq API — llama-3.3-70b-versatile powers all agents' },
+    { label: 'LangSmith', y: 110, color: '#3b82f6', tip: 'LangSmith — distributed tracing across all agent invocations' },
+    { label: 'GitHub MCP',y: 185, color: '#10b981', tip: 'GitHub MCP Client — tool calls for code search and repository access' }
   ];
 
   var agents = [
-    { label: 'Scout',   y: 32,  color: '#10b981', tip: 'Scout Pipeline — Academic + Market + Practical → Consensus → Reviewer → Mermaid Skill Graph' },
-    { label: 'Content', y: 90,  color: '#3b82f6', tip: 'Content Pipeline — Boost (5 min) / Builder (20 min) / Sprint (2 hr) formats via Factual + Synthesizer' },
-    { label: 'Exercise',y: 148, color: '#f97316', tip: 'Exercise Pipeline — generates coding challenges with live unit-test grading in Streamlit' }
+    { label: 'Scout',    y: 22,  color: '#10b981', tip: 'Scout Pipeline — Academic + Market + Practical + Factual → Consensus → Synthesizer → Reviewer → Mermaid Skill Graph' },
+    { label: 'Content',  y: 66,  color: '#3b82f6', tip: 'Content Pipeline — Boost (5 min) / Builder (20 min) / Sprint (2 hr) via Factual + Synthesizer agents' },
+    { label: 'Learn',    y: 110, color: '#f59e0b', tip: 'Learning Plan Graph — mastery-gated node progression (≥80% mastered, ≥50% in-progress) with DuckDuckGo + job-scraper research tools' },
+    { label: 'Lesson',   y: 154, color: '#a855f7', tip: 'Lesson Graph — structured lesson delivery with Mermaid skill graph rendering and per-node mastery tracking' },
+    { label: 'Exercise', y: 198, color: '#f97316', tip: 'Exercise Pipeline — coding challenges with live unit-test grading via streamlit-ace code editor' }
   ];
 
   /* defs: glow filter */
@@ -1298,7 +1300,7 @@
   /* fan-in paths: models → router */
   var fanInPaths = models.map(function(m) {
     var path = document.createElementNS(ns, 'path');
-    path.setAttribute('d', 'M '+(MODEL_X+12)+','+m.y+' C 100,'+m.y+' 110,90 '+(ROUTER_X-22)+',90');
+    path.setAttribute('d', 'M '+(MODEL_X+12)+','+m.y+' C 100,'+m.y+' 110,110 '+(ROUTER_X-22)+',110');
     path.setAttribute('stroke', m.color); path.setAttribute('stroke-width', '1.5');
     path.setAttribute('fill', 'none'); path.setAttribute('opacity', '0.25');
     svg.appendChild(path);
@@ -1307,15 +1309,15 @@
 
   /* straight connector: router → langgraph */
   var rLine = document.createElementNS(ns, 'line');
-  rLine.setAttribute('x1', ROUTER_X+22); rLine.setAttribute('y1', '90');
-  rLine.setAttribute('x2', LG_X-20);    rLine.setAttribute('y2', '90');
+  rLine.setAttribute('x1', ROUTER_X+22); rLine.setAttribute('y1', '110');
+  rLine.setAttribute('x2', LG_X-20);    rLine.setAttribute('y2', '110');
   rLine.setAttribute('stroke', '#1e2044'); rLine.setAttribute('stroke-width', '2');
   svg.appendChild(rLine);
 
   /* langsmith state feed line: top → langgraph (dashed) */
   var ragLine = document.createElementNS(ns, 'line');
   ragLine.setAttribute('x1', LG_X); ragLine.setAttribute('y1', '27');
-  ragLine.setAttribute('x2', LG_X); ragLine.setAttribute('y2', '70');
+  ragLine.setAttribute('x2', LG_X); ragLine.setAttribute('y2', '90');
   ragLine.setAttribute('stroke', '#06b6d4'); ragLine.setAttribute('stroke-width', '1.5');
   ragLine.setAttribute('stroke-dasharray', '3 3'); ragLine.setAttribute('opacity', '0.45');
   svg.appendChild(ragLine);
@@ -1323,7 +1325,7 @@
   /* fan-out paths: langgraph → agents */
   var fanOutPaths = agents.map(function(a) {
     var path = document.createElementNS(ns, 'path');
-    path.setAttribute('d', 'M '+(LG_X+20)+',90 C '+(LG_X+55)+',90 '+(LG_X+55)+','+a.y+' '+(AGENT_X-13)+','+a.y);
+    path.setAttribute('d', 'M '+(LG_X+20)+',110 C '+(LG_X+55)+',110 '+(LG_X+55)+','+a.y+' '+(AGENT_X-13)+','+a.y);
     path.setAttribute('stroke', a.color); path.setAttribute('stroke-width', '1.5');
     path.setAttribute('fill', 'none'); path.setAttribute('opacity', '0.25');
     svg.appendChild(path);
@@ -1334,7 +1336,7 @@
   agents.forEach(function(a) {
     var line = document.createElementNS(ns, 'line');
     line.setAttribute('x1', AGENT_X+13); line.setAttribute('y1', a.y);
-    line.setAttribute('x2', OUT_X-15);   line.setAttribute('y2', '90');
+    line.setAttribute('x2', OUT_X-15);   line.setAttribute('y2', '110');
     line.setAttribute('stroke', a.color); line.setAttribute('stroke-width', '1');
     line.setAttribute('opacity', '0.12');
     svg.appendChild(line);
@@ -1342,7 +1344,7 @@
 
   /* langsmith tracing loop: bottom arc output → orchestrator */
   var kafkaPath = document.createElementNS(ns, 'path');
-  kafkaPath.setAttribute('d', 'M '+OUT_X+',95 C '+(OUT_X+12)+',172 '+(ROUTER_X-12)+',172 '+ROUTER_X+',95');
+  kafkaPath.setAttribute('d', 'M '+OUT_X+',115 C '+(OUT_X+12)+',215 '+(ROUTER_X-12)+',215 '+ROUTER_X+',115');
   kafkaPath.setAttribute('stroke', '#3b82f6'); kafkaPath.setAttribute('stroke-width', '1.5');
   kafkaPath.setAttribute('fill', 'none');
   kafkaPath.setAttribute('stroke-dasharray', '4 3'); kafkaPath.setAttribute('opacity', '0.3');
@@ -1350,7 +1352,7 @@
 
   var kafkaLabel = document.createElementNS(ns, 'text');
   kafkaLabel.setAttribute('x', String((ROUTER_X + OUT_X) / 2));
-  kafkaLabel.setAttribute('y', '177');
+  kafkaLabel.setAttribute('y', '218');
   kafkaLabel.setAttribute('text-anchor', 'middle');
   kafkaLabel.setAttribute('fill', '#3b82f6'); kafkaLabel.setAttribute('font-size', '5.5');
   kafkaLabel.setAttribute('font-family', 'system-ui,sans-serif');
@@ -1395,7 +1397,7 @@
   /* model router node */
   var routerG = document.createElementNS(ns, 'g');
   routerG.setAttribute('class', 'pipe-node');
-  routerG.setAttribute('transform', 'translate('+ROUTER_X+',90)');
+  routerG.setAttribute('transform', 'translate('+ROUTER_X+',110)');
   var routerRing = document.createElementNS(ns, 'circle');
   routerRing.setAttribute('r', '28'); routerRing.setAttribute('fill', 'none');
   routerRing.setAttribute('stroke', '#8b5cf6'); routerRing.setAttribute('stroke-width', '1');
@@ -1414,7 +1416,7 @@
     t.textContent = pair[0];
     routerG.appendChild(t);
   });
-  routerG.addEventListener('mouseenter', function() { showTip('Orchestrator Agent — classifies query and routes to SCOUT / CONTENT / EXERCISE pipeline', routerC); });
+  routerG.addEventListener('mouseenter', function() { showTip('Orchestrator Agent — classifies query and routes to SCOUT / CONTENT / LEARN / LESSON / EXERCISE graph', routerC); });
   routerG.addEventListener('mouseleave', function() { tooltip.style.opacity = '0'; });
   svg.appendChild(routerG);
 
@@ -1440,7 +1442,7 @@
   /* langgraph node (center brain — pulsing rings) */
   var lgG = document.createElementNS(ns, 'g');
   lgG.setAttribute('class', 'pipe-node');
-  lgG.setAttribute('transform', 'translate('+LG_X+',90)');
+  lgG.setAttribute('transform', 'translate('+LG_X+',110)');
   [44, 34, 25].forEach(function(r) {
     var ring = document.createElementNS(ns, 'circle');
     ring.setAttribute('r', r); ring.setAttribute('fill', 'none');
@@ -1461,7 +1463,7 @@
     t.textContent = pair[0];
     lgG.appendChild(t);
   });
-  lgG.addEventListener('mouseenter', function() { showTip('LangGraph StateGraph — conditional routing to SCOUT / CONTENT / EXERCISE sub-graphs via TypedDict state', lgC); });
+  lgG.addEventListener('mouseenter', function() { showTip('LangGraph StateGraph — conditional routing to 5 sub-graphs (Scout/Content/Learn/Lesson/Exercise) via TypedDict state', lgC); });
   lgG.addEventListener('mouseleave', function() { tooltip.style.opacity = '0'; });
   svg.appendChild(lgG);
 
@@ -1489,7 +1491,7 @@
   /* jupyterlite output node (far right) */
   var outG = document.createElementNS(ns, 'g');
   outG.setAttribute('class', 'pipe-node');
-  outG.setAttribute('transform', 'translate('+OUT_X+',90)');
+  outG.setAttribute('transform', 'translate('+OUT_X+',110)');
   var outC = document.createElementNS(ns, 'circle');
   outC.setAttribute('r', '16');
   outC.setAttribute('fill', '#6366f1'); outC.setAttribute('fill-opacity', '0.14');
@@ -1503,7 +1505,7 @@
     t.textContent = pair[0];
     outG.appendChild(t);
   });
-  outG.addEventListener('mouseenter', function() { showTip('Streamlit — Mermaid skill graph display, content rendering, exercise submission + live unit-test grading', outC); });
+  outG.addEventListener('mouseenter', function() { showTip('Streamlit — Mermaid skill graph, content rendering, mastery dashboard, streamlit-ace live code editor + unit-test grading', outC); });
   outG.addEventListener('mouseleave', function() { tooltip.style.opacity = '0'; });
   svg.appendChild(outG);
 
@@ -1514,8 +1516,8 @@
   });
 
   var routerDots = [
-    { x1: ROUTER_X+22, y1: 90, x2: LG_X-20, y2: 90, color: '#8b5cf6', speed: 0.009, t: 0 },
-    { x1: ROUTER_X+22, y1: 90, x2: LG_X-20, y2: 90, color: '#8b5cf6', speed: 0.009, t: 0.5 }
+    { x1: ROUTER_X+22, y1: 110, x2: LG_X-20, y2: 110, color: '#8b5cf6', speed: 0.009, t: 0 },
+    { x1: ROUTER_X+22, y1: 110, x2: LG_X-20, y2: 110, color: '#8b5cf6', speed: 0.009, t: 0.5 }
   ];
 
   var ragDot = { y1: 28, y2: 70, color: '#06b6d4', speed: 0.007, t: 0.4 };
@@ -1526,7 +1528,7 @@
 
   var kafkaDot = { pathEl: kafkaPath, color: '#f97316', speed: 0.003, t: 0 };
 
-  var outDot = { x1: AGENT_X+13, y1: 90, x2: OUT_X-16, y2: 90, color: '#10b981', speed: 0.011, t: 0.2 };
+  var outDot = { x1: AGENT_X+13, y1: 110, x2: OUT_X-16, y2: 110, color: '#10b981', speed: 0.011, t: 0.2 };
 
   function makeDotEl(color, r) {
     var c = document.createElementNS(ns, 'circle');
