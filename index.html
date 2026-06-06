@@ -316,20 +316,21 @@
     <div class="project-card featured" id="cm-card">
       <span class="feat-badge">⭐ Featured</span>
       <h3>AI Content Machine</h3>
-      <p>End-to-end automated content pipeline: Claude AI generates blogs, video scripts, and social posts across 3 niches, then orchestrates publishing to 7 platforms via 45+ Python scripts. 85% reduction in manual work. Analytics pipeline normalising 14K+ data points.</p>
+      <p>Full-stack automated content factory for 3 niches (Data Science · Life · Poetry). 67 Python scripts driven by launchd schedulers and a 9-page Streamlit operator dashboard: RSS/trend research → Notion ideation → Claude AI generation → Remotion video production → Buffer-scheduled publishing across 7 platforms. Closed-loop analytics pipeline.</p>
       <div class="project-visual" id="cm-visual">
         <svg class="pipeline-svg" id="cm-svg" viewBox="0 0 540 180" preserveAspectRatio="xMidYMid meet"></svg>
         <div class="pipe-tooltip" id="cm-tooltip"></div>
       </div>
       <div class="cm-stats">
-        <div class="cm-stat"><span class="cm-stat-num" data-target="200" data-suffix="+">0</span><span class="cm-stat-label">Pieces/Month</span></div>
+        <div class="cm-stat"><span class="cm-stat-num" data-target="67" data-suffix="+">0</span><span class="cm-stat-label">Scripts</span></div>
+        <div class="cm-stat"><span class="cm-stat-num" data-target="3">0</span><span class="cm-stat-label">Niches</span></div>
         <div class="cm-stat"><span class="cm-stat-num" data-target="7">0</span><span class="cm-stat-label">Platforms</span></div>
-        <div class="cm-stat"><span class="cm-stat-num" data-target="45" data-suffix="+">0</span><span class="cm-stat-label">Scripts</span></div>
         <div class="cm-stat"><span class="cm-stat-num" data-target="85" data-suffix="%">0</span><span class="cm-stat-label">Less Manual Work</span></div>
       </div>
       <div class="project-stack">
-        <span class="stack-tag">Python</span><span class="stack-tag">Claude AI</span><span class="stack-tag">FFmpeg</span>
-        <span class="stack-tag">Notion API</span><span class="stack-tag">YouTube API</span><span class="stack-tag">Substack</span>
+        <span class="stack-tag">Python</span><span class="stack-tag">Claude AI</span><span class="stack-tag">Remotion</span>
+        <span class="stack-tag">Streamlit</span><span class="stack-tag">Notion API</span><span class="stack-tag">FFmpeg</span>
+        <span class="stack-tag">Buffer</span><span class="stack-tag">YouTube API</span>
       </div>
       <div class="project-links">
         <a href="https://github.com/tarunlnmiit/ai-content-machine" target="_blank" rel="noopener">⎋ GitHub</a>
@@ -648,21 +649,23 @@
   var ns = 'http://www.w3.org/2000/svg';
 
   var nodes = [
-    { id: 'idea',     label: 'Input',      x: 55,  y: 90, r: 17, color: '#3b82f6', tip: 'Blog ideas, research notes, source material' },
-    { id: 'claude',   label: 'Claude AI',  x: 185, y: 90, r: 21, color: '#f59e0b', tip: 'Generates blogs, scripts, social posts, design briefs' },
-    { id: 'pipeline', label: 'Pipeline',   x: 315, y: 90, r: 17, color: '#6366f1', tip: '45+ Python scripts orchestrate content production' }
+    { id: 'research', label: 'Research',  x: 52,  y: 90, r: 16, color: '#3b82f6', tip: 'RSS feeds · Google Suggest · YouTube & Instagram trend scrapers' },
+    { id: 'claude',   label: 'Claude AI', x: 168, y: 90, r: 21, color: '#f59e0b', tip: '67 Python scripts: ghostwrite blogs, scripts, slides, thumbnails, carousels' },
+    { id: 'produce',  label: 'Remotion',  x: 290, y: 90, r: 16, color: '#a855f7', tip: 'Remotion video production · FFmpeg auto-edit · B-roll generation · Reels & Shorts' },
+    { id: 'schedule', label: 'Schedule',  x: 393, y: 90, r: 15, color: '#10b981', tip: 'Buffer scheduler · Notion status tracker · launchd cron automation' }
   ];
 
   var platforms = [
-    { label: 'YouTube',   y: 18,  color: '#ef4444', tip: 'Video scripts + auto-upload' },
-    { label: 'Substack',  y: 48,  color: '#f97316', tip: 'Long-form newsletters' },
-    { label: 'Twitter',   y: 78,  color: '#38bdf8', tip: 'Threads + micro-content' },
-    { label: 'Instagram', y: 108, color: '#ec4899', tip: 'Carousels + reels' },
-    { label: 'LinkedIn',  y: 138, color: '#0ea5e9', tip: 'Professional posts' },
-    { label: 'Medium',    y: 162, color: '#84cc16', tip: 'Tech + data articles' }
+    { label: 'YouTube',   y: 12,  color: '#ef4444', tip: 'Auto-upload scripts + thumbnails (4 channels)' },
+    { label: 'Medium',    y: 38,  color: '#84cc16', tip: 'Tech + data articles via publish_medium.py' },
+    { label: 'LinkedIn',  y: 63,  color: '#0ea5e9', tip: 'Professional posts via post_linkedin.py' },
+    { label: 'Twitter',   y: 88,  color: '#38bdf8', tip: 'Threads + micro-content via post_twitter.py' },
+    { label: 'Instagram', y: 113, color: '#ec4899', tip: 'Carousels + Reels + Stories' },
+    { label: 'Substack',  y: 138, color: '#f97316', tip: 'Long-form newsletters (3 publications)' },
+    { label: 'Podcast',   y: 162, color: '#8b5cf6', tip: 'Breath of Life + Breath of Poetry on Spotify' }
   ];
 
-  var PLAT_X = 450;
+  var PLAT_X = 487;
 
   /* defs: glow filter */
   var defs = document.createElementNS(ns, 'defs');
@@ -682,18 +685,28 @@
   defs.appendChild(filt);
   svg.appendChild(defs);
 
-  /* straight connector lines */
-  [[80,90,160,90],[210,90,290,90]].forEach(function(c) {
+  /* connector lines between pipeline nodes */
+  [[68,90,147,90],[189,90,274,90],[306,90,378,90]].forEach(function(c) {
     var line = document.createElementNS(ns, 'line');
     ['x1','y1','x2','y2'].forEach(function(a,i){ line.setAttribute(a, c[i]); });
     line.setAttribute('stroke', '#1e2044'); line.setAttribute('stroke-width', '2');
     svg.appendChild(line);
   });
 
-  /* fan paths from pipeline → platforms */
+  /* analytics feedback arc (dashed, bottom curve) */
+  var feedbackPath = document.createElementNS(ns, 'path');
+  feedbackPath.setAttribute('d', 'M 487,87 C 487,158 370,165 220,165 C 100,165 52,148 52,107');
+  feedbackPath.setAttribute('stroke', '#475569');
+  feedbackPath.setAttribute('stroke-width', '1');
+  feedbackPath.setAttribute('stroke-dasharray', '4,3');
+  feedbackPath.setAttribute('fill', 'none');
+  feedbackPath.setAttribute('opacity', '0.35');
+  svg.appendChild(feedbackPath);
+
+  /* fan paths from schedule → platforms */
   var pathEls = platforms.map(function(p) {
     var path = document.createElementNS(ns, 'path');
-    path.setAttribute('d', 'M 340,90 C 390,90 395,'+(p.y+6)+' '+(PLAT_X-25)+','+(p.y+6));
+    path.setAttribute('d', 'M 408,90 C 440,90 445,'+(p.y+6)+' '+(PLAT_X-20)+','+(p.y+6));
     path.setAttribute('stroke', p.color);
     path.setAttribute('stroke-width', '1.5');
     path.setAttribute('fill', 'none');
@@ -702,10 +715,9 @@
     return path;
   });
 
-  /* main nodes */
+  /* tooltip */
   var visual = document.getElementById('cm-visual');
   var tooltip = document.getElementById('cm-tooltip');
-
   function showTip(tip, el) {
     var r = visual.getBoundingClientRect();
     var er = el.getBoundingClientRect();
@@ -715,6 +727,7 @@
     tooltip.style.opacity = '1';
   }
 
+  /* pipeline nodes */
   nodes.forEach(function(n) {
     var g = document.createElementNS(ns, 'g');
     g.setAttribute('class', 'pipe-node');
@@ -736,7 +749,7 @@
 
     var txt = document.createElementNS(ns, 'text');
     txt.setAttribute('text-anchor', 'middle'); txt.setAttribute('dy', '0.35em');
-    txt.setAttribute('fill', n.color); txt.setAttribute('font-size', n.id === 'claude' ? '7' : '7.5');
+    txt.setAttribute('fill', n.color); txt.setAttribute('font-size', '7');
     txt.setAttribute('font-family', 'system-ui,sans-serif'); txt.setAttribute('font-weight', '700');
     txt.textContent = n.label;
     g.appendChild(txt);
@@ -747,7 +760,7 @@
   });
 
   /* platform nodes */
-  platforms.forEach(function(p, i) {
+  platforms.forEach(function(p) {
     var g = document.createElementNS(ns, 'g');
     g.setAttribute('class', 'pipe-node');
 
@@ -771,21 +784,26 @@
     svg.appendChild(g);
   });
 
-  /* animated dots */
+  /* animated dots on pipeline connectors */
   var straightDots = [
-    { x1:80,  y1:90, x2:160, y2:90, color:'#3b82f6', speed:0.009, t:0 },
-    { x1:80,  y1:90, x2:160, y2:90, color:'#3b82f6', speed:0.009, t:0.5 },
-    { x1:210, y1:90, x2:290, y2:90, color:'#f59e0b', speed:0.009, t:0.25 },
-    { x1:210, y1:90, x2:290, y2:90, color:'#f59e0b', speed:0.009, t:0.75 }
+    { x1:68,  y1:90, x2:147, y2:90, color:'#3b82f6', speed:0.009, t:0 },
+    { x1:68,  y1:90, x2:147, y2:90, color:'#3b82f6', speed:0.009, t:0.5 },
+    { x1:189, y1:90, x2:274, y2:90, color:'#f59e0b', speed:0.009, t:0.25 },
+    { x1:189, y1:90, x2:274, y2:90, color:'#f59e0b', speed:0.009, t:0.75 },
+    { x1:306, y1:90, x2:378, y2:90, color:'#a855f7', speed:0.009, t:0.2 },
+    { x1:306, y1:90, x2:378, y2:90, color:'#a855f7', speed:0.009, t:0.7 }
   ];
 
+  var feedbackDot = { pathEl: feedbackPath, color: '#475569', speed: 0.003, t: 0 };
+
   var fanDots = platforms.map(function(p, i) {
-    return { pathEl: pathEls[i], color: p.color, speed: 0.005 + i * 0.0007, t: i / platforms.length };
+    return { pathEl: pathEls[i], color: p.color, speed: 0.005 + i * 0.0006, t: i / platforms.length };
   });
 
-  var allDotEls = straightDots.concat(fanDots).map(function(d) {
+  var allDotEls = straightDots.concat([feedbackDot]).concat(fanDots).map(function(d) {
     var c = document.createElementNS(ns, 'circle');
-    c.setAttribute('r', '3'); c.setAttribute('fill', d.color);
+    c.setAttribute('r', d === feedbackDot ? '2' : '3');
+    c.setAttribute('fill', d.color);
     c.setAttribute('filter', 'url(#cmglow)');
     svg.appendChild(c);
     return c;
@@ -802,11 +820,19 @@
       allDotEls[i].setAttribute('opacity', Math.sin(d.t * Math.PI));
     });
 
+    var fbIdx = straightDots.length;
+    feedbackDot.t = (feedbackDot.t + feedbackDot.speed) % 1;
+    var fbLen = feedbackPath.getTotalLength();
+    var fbPt  = feedbackPath.getPointAtLength(feedbackDot.t * fbLen);
+    allDotEls[fbIdx].setAttribute('cx', fbPt.x);
+    allDotEls[fbIdx].setAttribute('cy', fbPt.y);
+    allDotEls[fbIdx].setAttribute('opacity', Math.sin(feedbackDot.t * Math.PI) * 0.6);
+
     fanDots.forEach(function(d, i) {
       d.t = (d.t + d.speed) % 1;
       var len = d.pathEl.getTotalLength();
       var pt  = d.pathEl.getPointAtLength(d.t * len);
-      var el  = allDotEls[straightDots.length + i];
+      var el  = allDotEls[straightDots.length + 1 + i];
       el.setAttribute('cx', pt.x);
       el.setAttribute('cy', pt.y);
       el.setAttribute('opacity', Math.sin(d.t * Math.PI) * 0.9);
