@@ -358,19 +358,21 @@
         <a href="https://github.com/tarunlnmiit/ai-job-engine" target="_blank" rel="noopener">⎋ GitHub</a>
       </div>
     </div>
-    <div class="project-card featured" id="tf-card">
-      <h3>TinyFish Job Engine</h3>
-      <div class="project-visual" id="tf-visual">
-        <svg class="pipeline-svg" id="tf-svg" viewBox="0 0 540 180" preserveAspectRatio="xMidYMid meet"></svg>
-        <div class="pipe-tooltip" id="tf-tooltip"></div>
+    <div class="project-card featured" id="aj-card">
+      <span class="feat-badge">⭐ Featured</span>
+      <h3>Autopilot Job Hunt</h3>
+      <div class="project-visual" id="aj-visual">
+        <svg class="pipeline-svg" id="aj-svg" viewBox="0 0 540 180" preserveAspectRatio="xMidYMid meet"></svg>
+        <div class="pipe-tooltip" id="aj-tooltip"></div>
       </div>
-      <p>1,000+ job postings scored daily at 70%+ precision. Zero-shot LLM feature extraction across 90+ ATS sources. 60% API cost reduction via multi-provider fallback. ~95% uptime with incremental state management.</p>
+      <p>Open-source AI job agent — <code>pip install autopilot-jobhunt</code>. Scans 130+ company careers pages nightly, scores every role 0–100 against your resume with an LLM, pushes top matches to Telegram, and drafts a tailored resume + cover letter on demand in 60s. Claude Code MCP mode lets you run the whole pipeline in natural language.</p>
       <div class="project-stack">
-        <span class="stack-tag">Python</span><span class="stack-tag">OpenRouter</span><span class="stack-tag">LLM fallback</span>
-        <span class="stack-tag">TinyFish API</span><span class="stack-tag">ETL</span>
+        <span class="stack-tag">Python</span><span class="stack-tag">Claude MCP</span><span class="stack-tag">OpenRouter</span>
+        <span class="stack-tag">TinyFish API</span><span class="stack-tag">Telegram</span><span class="stack-tag">PyPI</span>
       </div>
       <div class="project-links">
-        <a href="https://github.com/tarunlnmiit/tinyfish_job_engine" target="_blank" rel="noopener">⎋ GitHub</a>
+        <a href="https://github.com/tarunlnmiit/autopilot-jobhunt" target="_blank" rel="noopener">⎋ GitHub</a>
+        <a href="https://pypi.org/project/autopilot-jobhunt/" target="_blank" rel="noopener">📦 PyPI</a>
       </div>
     </div>
     <div class="project-card featured" id="cv-card">
@@ -1087,7 +1089,7 @@
 </script>
 <script>
 (function () {
-  var svg = document.getElementById('tf-svg');
+  var svg = document.getElementById('aj-svg');
   if (!svg) return;
   var ns = 'http://www.w3.org/2000/svg';
 
@@ -1097,22 +1099,22 @@
     { label: 'Mistral AI',  y: 64,  color: '#f97316', tip: 'Paris-based frontier AI lab' },
     { label: 'DeepMind',    y: 92,  color: '#ec4899', tip: 'Google DeepMind — London & remote' },
     { label: 'HuggingFace', y: 120, color: '#10b981', tip: 'Open-source AI — remote EU' },
-    { label: '+135 more',   y: 148, color: '#64748b', tip: '140 companies across EU / NZ / Remote' }
+    { label: '+125 more',   y: 148, color: '#64748b', tip: '130 companies across EU / NZ / Remote' }
   ];
 
   var COMP_X = 42;
 
   var mainNodes = [
-    { id: 'crawler', label: 'TinyFish',   x: 165, y: 90, r: 20, color: '#3b82f6', tip: 'Crawls 140 company ATS pages via TinyFish API' },
-    { id: 'llm',     label: 'LLM Scorer', x: 285, y: 90, r: 18, color: '#f59e0b', tip: 'Zero-shot scoring: title, stack, location, fit reason (0–100)' },
-    { id: 'notify',  label: 'Telegram',   x: 390, y: 90, r: 17, color: '#6366f1', tip: "Sends ranked matches → reply 'apply to #N' to draft" },
-    { id: 'drafter', label: 'Drafter',    x: 490, y: 90, r: 16, color: '#22c55e', tip: 'Generates tailored resume + cover letter per JD' }
+    { id: 'crawler', label: 'TinyFish',   x: 165, y: 90, r: 20, color: '#3b82f6', tip: 'Scans 130+ company careers pages via TinyFish API' },
+    { id: 'llm',     label: 'LLM Scorer', x: 285, y: 90, r: 18, color: '#f59e0b', tip: 'Scores every role 0–100 against your resume; explains fit in one sentence' },
+    { id: 'notify',  label: 'Telegram',   x: 390, y: 90, r: 17, color: '#6366f1', tip: 'Sends top N matches to Telegram nightly at 2:30 AM' },
+    { id: 'drafter', label: 'CV Drafter', x: 490, y: 90, r: 16, color: '#22c55e', tip: 'Drafts tailored resume + cover letter per JD in 60s' }
   ];
 
   /* glow filter */
   var defs = document.createElementNS(ns, 'defs');
   var filt = document.createElementNS(ns, 'filter');
-  filt.setAttribute('id', 'tfglow');
+  filt.setAttribute('id', 'ajglow');
   filt.setAttribute('x', '-80%'); filt.setAttribute('y', '-80%');
   filt.setAttribute('width', '260%'); filt.setAttribute('height', '260%');
   var fe = document.createElementNS(ns, 'feGaussianBlur');
@@ -1154,8 +1156,8 @@
   });
 
   /* tooltip helpers */
-  var visual = document.getElementById('tf-visual');
-  var tooltip = document.getElementById('tf-tooltip');
+  var visual = document.getElementById('aj-visual');
+  var tooltip = document.getElementById('aj-tooltip');
 
   function showTip(tip, el) {
     var r = visual.getBoundingClientRect();
@@ -1201,7 +1203,7 @@
       var ring = document.createElementNS(ns, 'circle');
       ring.setAttribute('r', '25'); ring.setAttribute('fill', 'none');
       ring.setAttribute('stroke', n.color); ring.setAttribute('stroke-width', '1.5');
-      ring.setAttribute('opacity', '0.35'); ring.setAttribute('class', 'tf-llm-ring');
+      ring.setAttribute('opacity', '0.35'); ring.setAttribute('class', 'aj-llm-ring');
       g.appendChild(ring);
     }
 
@@ -1243,12 +1245,12 @@
     var c = document.createElementNS(ns, 'circle');
     c.setAttribute('r', '3');
     c.setAttribute('fill', d.color);
-    c.setAttribute('filter', 'url(#tfglow)');
+    c.setAttribute('filter', 'url(#ajglow)');
     svg.appendChild(c);
     return c;
   });
 
-  var llmRing = svg.querySelector('.tf-llm-ring');
+  var llmRing = svg.querySelector('.aj-llm-ring');
   var pulseT = 0;
 
   function tick() {
