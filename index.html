@@ -613,24 +613,24 @@
     <div class="project-card featured" id="cm-card">
       <span class="feat-badge">⭐ Featured</span>
       <h3>AI Content Machine</h3>
-      <p>Full-stack automated content factory for 3 niches (Data Science · Life · Poetry). 67 Python scripts driven by launchd schedulers and a 9-page Streamlit operator dashboard: RSS/trend research → Notion ideation → Claude AI generation → Remotion video production → Buffer-scheduled publishing across 7 platforms. Closed-loop analytics pipeline.</p>
+      <p>Autonomous content studio for 3 niches (Data Science · Life · Poetry). 150 Python scripts on the Claude CLI with per-task model routing (Fable 5 · Sonnet 5 · Opus 4.8 · Haiku): idea scoring → one-run blog pipeline (posts, carousels, decks, worksheets, reel briefs) → V2 video pipeline (storyboard → HyperFrames → FFmpeg, word-synced captions) → APScheduler daemon auto-publishing from SQLite across 7 platforms. 32-file virality knowledge base + closed-loop analytics with UTM star attribution.</p>
       <div class="project-visual" id="cm-visual">
         <svg class="pipeline-svg" id="cm-svg" viewBox="0 0 540 180" preserveAspectRatio="xMidYMid meet"></svg>
         <div class="pipe-tooltip" id="cm-tooltip"></div>
       </div>
       <div class="cm-stats">
         <div class="cm-stat"><span class="cm-stat-num" data-target="200" data-suffix="+">0</span><span class="cm-stat-label">Pieces/Month</span></div>
-        <div class="cm-stat"><span class="cm-stat-num" data-target="67" data-suffix="+">0</span><span class="cm-stat-label">Scripts</span></div>
+        <div class="cm-stat"><span class="cm-stat-num" data-target="150">0</span><span class="cm-stat-label">Python Scripts</span></div>
         <div class="cm-stat"><span class="cm-stat-num" data-target="7">0</span><span class="cm-stat-label">Platforms</span></div>
-        <div class="cm-stat"><span class="cm-stat-num" data-target="85" data-suffix="%">0</span><span class="cm-stat-label">Less Manual Work</span></div>
+        <div class="cm-stat"><span class="cm-stat-num" data-target="4">0</span><span class="cm-stat-label">YouTube Channels</span></div>
       </div>
       <div class="project-stack">
-        <span class="stack-tag">Python</span><span class="stack-tag">Claude AI</span><span class="stack-tag">Remotion</span>
-        <span class="stack-tag">Streamlit</span><span class="stack-tag">Notion API</span><span class="stack-tag">FFmpeg</span>
-        <span class="stack-tag">Buffer</span><span class="stack-tag">YouTube API</span>
+        <span class="stack-tag">Python</span><span class="stack-tag">Claude CLI · Model Routing</span><span class="stack-tag">HyperFrames</span>
+        <span class="stack-tag">FFmpeg</span><span class="stack-tag">APScheduler</span><span class="stack-tag">Meta Graph API</span>
+        <span class="stack-tag">SQLite</span><span class="stack-tag">launchd</span>
       </div>
       <div class="project-links">
-        <a href="https://github.com/tarunlnmiit/ai-content-machine" target="_blank" rel="noopener">⎋ GitHub</a>
+        <a href="https://github.com/tarunlnmiit/content-machine" target="_blank" rel="noopener">⎋ GitHub</a>
         <a href="case-studies/ai-content-machine.html">→ Case Study</a>
       </div>
     </div>
@@ -1078,19 +1078,19 @@
   var ns = 'http://www.w3.org/2000/svg';
 
   var nodes = [
-    { id: 'research', label: 'Research',  x: 52,  y: 90, r: 16, color: '#3b82f6', tip: 'RSS feeds · Google Suggest · YouTube & Instagram trend scrapers' },
-    { id: 'claude',   label: 'Claude AI', x: 168, y: 90, r: 21, color: '#f59e0b', tip: '67 Python scripts: ghostwrite blogs, scripts, slides, thumbnails, carousels' },
-    { id: 'produce',  label: 'Remotion',  x: 290, y: 90, r: 16, color: '#a855f7', tip: 'Remotion video production · FFmpeg auto-edit · B-roll generation · Reels & Shorts' },
-    { id: 'schedule', label: 'Schedule',  x: 393, y: 90, r: 15, color: '#10b981', tip: 'Buffer scheduler · Notion status tracker · launchd cron automation' }
+    { id: 'research', label: 'Ideate',    x: 52,  y: 90, r: 16, color: '#3b82f6', tip: 'Idea scorer + weekly project reels · 32-file virality knowledge base · 90-day no-repeat tracker' },
+    { id: 'claude',   label: 'Claude',    x: 168, y: 90, r: 21, color: '#f59e0b', tip: '150 Python scripts on Claude CLI · per-task model routing: Fable 5 / Sonnet 5 / Opus 4.8 / Haiku' },
+    { id: 'produce',  label: 'Render',    x: 290, y: 90, r: 16, color: '#a855f7', tip: 'V2 video pipeline: storyboard → HyperFrames per-beat compositions → FFmpeg · word-synced captions · B-roll montage' },
+    { id: 'schedule', label: 'Scheduler', x: 393, y: 90, r: 15, color: '#10b981', tip: 'APScheduler daemon fires pending posts from SQLite · launchd automation · UTM star-attribution analytics loop' }
   ];
 
   var platforms = [
-    { label: 'YouTube',   y: 12,  color: '#ef4444', tip: 'Auto-upload scripts + thumbnails (4 channels)' },
-    { label: 'Medium',    y: 38,  color: '#84cc16', tip: 'Tech + data articles via publish_medium.py' },
-    { label: 'LinkedIn',  y: 63,  color: '#0ea5e9', tip: 'Professional posts via post_linkedin.py' },
-    { label: 'Twitter',   y: 88,  color: '#38bdf8', tip: 'Threads + micro-content via post_twitter.py' },
-    { label: 'Instagram', y: 113, color: '#ec4899', tip: 'Carousels + Reels + Stories' },
-    { label: 'Substack',  y: 138, color: '#f97316', tip: 'Long-form newsletters (3 publications)' },
+    { label: 'YouTube',   y: 12,  color: '#ef4444', tip: 'Long-form + Shorts across 4 channels' },
+    { label: 'Medium',    y: 38,  color: '#84cc16', tip: 'Hero blogs + publication crossposts' },
+    { label: 'LinkedIn',  y: 63,  color: '#0ea5e9', tip: 'Posts + polls + pinned-comment CTAs' },
+    { label: 'Instagram', y: 88,  color: '#ec4899', tip: 'Reels + carousels via Meta Graph API' },
+    { label: 'Threads',   y: 113, color: '#38bdf8', tip: 'Micro-content via Meta Graph API' },
+    { label: 'Facebook',  y: 138, color: '#f97316', tip: 'Mirrors Instagram via Meta Graph API' },
     { label: 'Podcast',   y: 162, color: '#8b5cf6', tip: 'Breath of Life + Breath of Poetry on Spotify' }
   ];
 

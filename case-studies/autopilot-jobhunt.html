@@ -35,7 +35,10 @@
 <div class="actions"><a class="btn btn-primary" href="https://github.com/tarunlnmiit/autopilot-jobhunt" target="_blank" rel="noopener">⎋ View on GitHub</a><a class="btn btn-outline" href="https://pypi.org/project/autopilot-jobhunt/" target="_blank" rel="noopener">📦 PyPI</a><a class="btn btn-outline" href="../index.html#contact">Discuss this project</a></div>
 <h2><span class="num">01</span>Why it exists</h2>
 <p class="body">Job hunting is a nightly grind of opening the same careers pages, skimming the same irrelevant listings, and guessing whether a role actually fits. Keyword alerts are noise: they match words, not careers. The interesting question is "how well does this <strong>whole role</strong> match my <strong>whole resume</strong>?" — and that is an LLM question, not a keyword question.</p>
-<h2><span class="num">02</span>How it works</h2>
+<h2><span class="num">02</span>See it run</h2>
+<p class="body">Recorded against the bundled demo fixtures — the exact <code style="font-family:var(--font-mono);font-size:0.85em;background:var(--tag-bg);border:1px solid var(--border);border-radius:5px;padding:0.1em 0.4em;">autopilot scan → draft → export</code> flow:</p>
+<video src="../assets/autopilot-demo.mp4" autoplay loop muted playsinline style="width:100%;border-radius:14px;border:1px solid var(--border-hi);margin:0.4rem 0 1rem;display:block;" aria-label="autopilot-jobhunt terminal demo: nightly scan of 141 companies, LLM scoring, drafting a tailored resume and cover letter, exporting top matches"></video>
+<h2><span class="num">03</span>How it works</h2>
 <ol class="steps">
 <li><b>Nightly scan</b>An autonomous agent walks 130+ company careers pages on a schedule — not job boards, the primary sources — and normalises every posting.</li>
 <li><b>LLM fit scoring</b>Every role is scored 0–100 against the full resume, not keywords. A 4-model OpenRouter fallback chain keeps the pipeline running at zero API cost.</li>
@@ -43,7 +46,7 @@
 <li><b>On-demand documents</b>One command drafts a role-tailored resume + cover letter in about 60 seconds.</li>
 <li><b>MCP mode</b>Runs as an MCP server (publicly listed on Glama) — the whole pipeline drives from natural language inside Claude Code or Claude Desktop.</li>
 </ol>
-<h2><span class="num">03</span>Results</h2>
+<h2><span class="num">04</span>Results</h2>
 <div class="stat-row"><div class="stat"><b>100+</b><span>GitHub stars</span></div><div class="stat"><b>130+</b><span>careers pages nightly</span></div><div class="stat"><b>0–100</b><span>LLM fit score</span></div><div class="stat"><b>$0</b><span>LLM API cost</span></div></div>
 <ul class="wins">
 <li><strong>100+ GitHub stars · 29 forks</strong> — validated by strangers with the same problem</li>
@@ -51,7 +54,7 @@
 <li><strong>pip-installable</strong> and deployed 24/7 on a Raspberry Pi — Docker + GitHub Actions CI/CD</li>
 <li>MCP server publicly hosted and listed on Glama</li>
 </ul>
-<h2><span class="num">04</span>Stack</h2>
+<h2><span class="num">05</span>Stack</h2>
 <div class="stack"><span>Python</span><span>OpenRouter (4-model fallback)</span><span>Claude MCP</span><span>Telegram Bot API</span><span>TinyFish API</span><span>Docker</span><span>GitHub Actions</span><span>PyPI</span><span>Raspberry Pi</span></div>
 <div class="next"><a href="../index.html#projects">← All projects</a><a href="mindmorph.html">Next: MindMorph — Adaptive AI Learning Platform →</a></div>
 </main>

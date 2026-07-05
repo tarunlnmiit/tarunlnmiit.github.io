@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI Content Machine — Case Study · Tarun Gupta</title>
-  <meta name="description" content="Automated content factory: 67 Python scripts publishing 200+ pieces/month across 7 platforms with closed-loop analytics." />
+  <meta name="description" content="Autonomous content studio: 150 Python scripts on Claude CLI with per-task model routing, HyperFrames video pipeline, APScheduler auto-publishing across 7 platforms." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -30,29 +30,29 @@
 <main>
 <div class="crumb">Case Study · Automation at Scale</div>
 <h1>AI Content Machine</h1>
-<p class="lede">A full-stack content factory that publishes <strong>200+ pieces a month across 7 platforms</strong> for 3 distinct niches — run by 67 Python scripts, launchd schedulers, and one operator dashboard.</p>
-<div class="meta-row"><span class="chip gold">200+ pieces/month</span><span class="chip">7 platforms</span><span class="chip">67 scripts</span><span class="chip">85% less manual work</span></div>
-<div class="actions"><a class="btn btn-primary" href="https://github.com/tarunlnmiit/ai-content-machine" target="_blank" rel="noopener">⎋ View on GitHub</a><a class="btn btn-outline" href="../index.html#contact">Discuss this project</a></div>
+<p class="lede">An autonomous content studio publishing <strong>200+ pieces a month across 7 platforms</strong> for 3 distinct niches — 150 Python scripts on the Claude CLI with per-task model routing, a HyperFrames video pipeline, and a scheduler daemon that fires posts while the operator sleeps.</p>
+<div class="meta-row"><span class="chip gold">200+ pieces/month</span><span class="chip">150 Python scripts</span><span class="chip">7 platforms</span><span class="chip">4 YouTube channels</span><span class="chip gold">Model-routed: Fable 5 · Sonnet 5 · Opus 4.8 · Haiku</span></div>
+<div class="actions"><a class="btn btn-primary" href="https://github.com/tarunlnmiit/content-machine" target="_blank" rel="noopener">⎋ View on GitHub</a><a class="btn btn-outline" href="../index.html#contact">Discuss this project</a></div>
 <h2><span class="num">01</span>Why it exists</h2>
-<p class="body">Consistent multi-platform publishing is a full-time job: research, drafting, design, video, scheduling, repurposing, analytics. Doing it for <strong>three niches</strong> (Data Science · Life · Poetry) manually is impossible. The machine treats content as a pipeline problem: every stage scripted, scheduled, and measured.</p>
+<p class="body">Consistent multi-platform publishing is a full-time job: research, drafting, design, video, scheduling, repurposing, analytics. Doing it for <strong>three niches</strong> (Data Science · Life · Poetry) manually is impossible. The machine treats content as an engineering problem: every stage scripted, model-routed, scheduled, and measured — with hard rules like a 90-day no-repeat tracker and an honesty guardrail baked into generation.</p>
 <h2><span class="num">02</span>How it works</h2>
 <ol class="steps">
-<li><b>Research</b>RSS feeds, Google Suggest, and YouTube/Instagram trend scrapers surface what is worth covering.</li>
-<li><b>Ideation in Notion</b>Ideas land in a Notion pipeline with status tracking — the single source of truth for what is in flight.</li>
-<li><b>Generation with Claude</b>67 Python scripts ghostwrite blogs, video scripts, slides, thumbnails, and carousels per niche voice.</li>
-<li><b>Video production</b>Remotion renders videos programmatically; FFmpeg auto-edits; B-roll generated for Reels and Shorts.</li>
-<li><b>Publish & learn</b>Buffer schedules everything across YouTube, LinkedIn, Medium, Instagram, Twitter, Substack, and podcasts. A closed-loop analytics pipeline feeds performance back into topic selection.</li>
+<li><b>Ideate & score</b>An idea scorer ranks candidates weekly; a 32-file virality knowledge base injects hooks, CTAs, and guardrails into every generator, routed per niche. An annual tracker enforces no repeated angles within 90 days.</li>
+<li><b>Generate with model routing</b>All pipeline calls run through the Claude CLI on subscription OAuth. A single routing table assigns the right model per task: Fable 5 for hero blogs, Sonnet 5 as the workhorse, Opus 4.8 for storyboards, Haiku for mechanical classification only.</li>
+<li><b>One-run blog pipeline</b>One idempotent command turns a blog into every derivative: platform posts, social images, carousel, deck, reel brief, thumbnail, and a gated worksheet — then stages them for publishing.</li>
+<li><b>V2 video pipeline</b>Raw footage → trim → storyboard → HyperFrames per-beat compositions → FFmpeg composite, with word-synced captions, B-roll montage, and screen-zoom effects. A voiceover-first lane builds long-form + portrait Shorts from audio alone.</li>
+<li><b>Auto-publish & learn</b>An APScheduler daemon fires pending posts from SQLite across YouTube (4 channels), Medium, LinkedIn, and Instagram/Threads/Facebook via the Meta Graph API. Analytics collect star deltas via UTM attribution and feed the next week's ideas.</li>
 </ol>
 <h2><span class="num">03</span>Results</h2>
-<div class="stat-row"><div class="stat"><b>200+</b><span>pieces / month</span></div><div class="stat"><b>7</b><span>platforms</span></div><div class="stat"><b>67</b><span>python scripts</span></div><div class="stat"><b>85%</b><span>less manual work</span></div></div>
+<div class="stat-row"><div class="stat"><b>200+</b><span>pieces / month</span></div><div class="stat"><b>150</b><span>python scripts</span></div><div class="stat"><b>7</b><span>platforms</span></div><div class="stat"><b>4</b><span>youtube channels</span></div></div>
 <ul class="wins">
 <li><strong>200+ published pieces/month</strong> sustained across 7 platforms and 3 niches</li>
-<li><strong>85% reduction</strong> in manual repurposing work</li>
-<li>9-page Streamlit operator dashboard — one person runs the whole factory</li>
-<li>603-node knowledge graph prevents repeat coverage across niches</li>
+<li><strong>150 Python scripts</strong> orchestrated end-to-end — human touchpoints reduced to recording, a ~10-minute approval pass, and community replies</li>
+<li><strong>Per-task LLM model routing</strong> from one config: quality where it pays, cheap models for mechanical work, zero API key for pipeline calls</li>
+<li>Closed loop: UTM star attribution ties content directly to GitHub stars on the open-source tools it promotes</li>
 </ul>
 <h2><span class="num">04</span>Stack</h2>
-<div class="stack"><span>Python</span><span>Claude API</span><span>Remotion</span><span>FFmpeg</span><span>Streamlit</span><span>Notion API</span><span>Buffer</span><span>YouTube API</span><span>launchd</span><span>n8n</span></div>
+<div class="stack"><span>Python</span><span>Claude CLI (OAuth)</span><span>Model routing (Fable 5 / Sonnet 5 / Opus 4.8 / Haiku)</span><span>HyperFrames</span><span>FFmpeg</span><span>APScheduler</span><span>SQLite</span><span>Meta Graph API</span><span>launchd</span></div>
 <div class="next"><a href="../index.html#projects">← All projects</a><a href="ai-job-engine.html">Next: AI Job Engine →</a></div>
 </main>
 <footer>Tarun Gupta · AI Systems Architect · LLM &amp; MLOps Consultant</footer>
