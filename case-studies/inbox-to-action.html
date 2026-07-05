@@ -35,7 +35,10 @@
 <div class="actions"><a class="btn btn-primary" href="https://github.com/tarunlnmiit/inbox-to-action" target="_blank" rel="noopener">⎋ View on GitHub</a><a class="btn btn-outline" href="https://pypi.org/project/inbox-to-action/" target="_blank" rel="noopener">📦 PyPI</a><a class="btn btn-outline" href="../index.html#contact">Discuss this project</a></div>
 <h2><span class="num">01</span>Why it exists</h2>
 <p class="body">Most people process email with <strong>four separate tools</strong>: a client to read, a task manager to capture to-dos, a calendar to block time, and an AI summarizer for long threads. Every message gets handled four times. inbox-to-action collapses all four into one agentic pass — from the terminal, with hard safety guarantees.</p>
-<h2><span class="num">02</span>How it works</h2>
+<h2><span class="num">02</span>See it run</h2>
+<p class="body">One command against the bundled mock inbox — <code style="font-family:var(--font-mono);font-size:0.85em;background:var(--tag-bg);border:1px solid var(--border);border-radius:5px;padding:0.1em 0.4em;">uvx inbox-to-action run --mock</code> — zero install, zero setup:</p>
+<img src="../assets/inbox-to-action-demo.gif" alt="inbox-to-action demo — one command triages the inbox into a report, drafts, and tasks" style="width:100%;border-radius:14px;border:1px solid var(--border-hi);margin:0.4rem 0 1rem;" loading="lazy" />
+<h2><span class="num">03</span>How it works</h2>
 <ol class="steps">
 <li><b>Fetch</b>Pulls unread Gmail (last 24h by default) using only the readonly + compose scopes — there is no send scope and no send API call anywhere in the codebase, enforced by a test.</li>
 <li><b>Classify</b>Each message is triaged into action_needed · fyi · newsletter · noise by whichever LLM provider you bring.</li>
@@ -44,7 +47,7 @@
 <li><b>Pick your provider — BYOK</b>Ollama (fully local, nothing leaves your machine), keyless Claude Code session, OpenRouter, OpenAI, NVIDIA NIM, or Anthropic. Privacy posture is a config choice, documented per provider.</li>
 <li><b>Run it anywhere</b>pip / pipx / uvx zero-install trial, Docker image on GHCR, MCP server for Claude Code + a packaged Claude skill. Registry manifests for the Official MCP Registry, Smithery, and Glama ship in the repo.</li>
 </ol>
-<h2><span class="num">03</span>Results</h2>
+<h2><span class="num">04</span>Results</h2>
 <div class="stat-row"><div class="stat"><b>6</b><span>LLM providers</span></div><div class="stat"><b>4→1</b><span>tools collapsed</span></div><div class="stat"><b>0</b><span>emails auto-sent</span></div><div class="stat"><b>100%</b><span>local option</span></div></div>
 <ul class="wins">
 <li><strong>4 tools collapsed into 1</strong> agentic pass — read, triage, tasks, drafts</li>
@@ -52,7 +55,7 @@
 <li><strong>True BYOK</strong>: 6 providers, including a fully-local path (Ollama) and a keyless path (Claude Code)</li>
 <li>Distribution done properly: PyPI, Docker/GHCR, MCP server, CI on every push, MIT license, mock inbox for zero-setup trial</li>
 </ul>
-<h2><span class="num">04</span>Stack</h2>
+<h2><span class="num">05</span>Stack</h2>
 <div class="stack"><span>Python 3.11+</span><span>Gmail API (readonly + compose)</span><span>Ollama</span><span>OpenRouter</span><span>Claude Code (keyless)</span><span>NVIDIA NIM</span><span>MCP</span><span>Docker / GHCR</span><span>GitHub Actions</span><span>pytest</span></div>
 <div class="next"><a href="../index.html#projects">← All projects</a><a href="autopilot-jobhunt.html">Next: Autopilot Job Hunt →</a></div>
 </main>

@@ -368,6 +368,31 @@
     .oss-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.9rem; margin-top: 1.4rem; }
     @media (max-width: 768px) { .pkg-grid { grid-template-columns: 1fr; } }
 
+    /* ---------- RESEARCH & WRITING ---------- */
+    .pub-list { display: grid; gap: 0.9rem; }
+    .pub-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+      padding: 1.4rem 1.6rem; display: flex; gap: 1.2rem; align-items: flex-start;
+      text-decoration: none; color: inherit;
+      transition: border-color 0.25s, transform 0.25s var(--ease-out);
+    }
+    .pub-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .pub-kind { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); border: 1px solid rgba(240,180,41,0.3); background: rgba(240,180,41,0.07); border-radius: 999px; padding: 0.22rem 0.65rem; white-space: nowrap; margin-top: 0.15rem; }
+    .pub-card h4 { font-family: var(--font-display); font-size: 0.98rem; font-weight: 700; color: var(--bright); margin-bottom: 0.25rem; letter-spacing: -0.01em; }
+    .pub-card p { font-size: 0.84rem; color: var(--muted); line-height: 1.6; }
+    .pub-card p strong { color: var(--text); }
+    .write-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .write-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.4rem;
+      text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 0.5rem;
+      transition: border-color 0.25s, transform 0.25s var(--ease-out);
+    }
+    .write-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .write-card .kicker { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+    .write-card h4 { font-family: var(--font-display); font-size: 0.96rem; font-weight: 700; color: var(--bright); line-height: 1.4; letter-spacing: -0.01em; }
+    .write-card .read { margin-top: auto; font-family: var(--font-mono); font-size: 0.72rem; color: var(--faint); }
+    .write-card:hover .read { color: var(--accent); }
+
     /* ---------- LIGHT THEME ---------- */
     html[data-theme="light"] {
       --bg: #f6f7fb; --bg2: #edeff7; --card: #ffffff; --card-hi: #f4f6fc;
@@ -918,21 +943,82 @@
 </section>
 <div class="divider"></div>
 
-<section>
+<section id="research">
+  <div class="section-label">Peer-reviewed &amp; presented</div>
+  <h2>Research &amp; Publications</h2>
+  <div class="pub-list">
+    <a class="pub-card" href="https://ieeexplore.ieee.org/document/9582666" target="_blank" rel="noopener">
+      <span class="pub-kind">IEEE Paper</span>
+      <div>
+        <h4>IRTEX — Image Retrieval with Textual Explanations (XAI)</h4>
+        <p>Explainable image retrieval with heatmaps + saliency maps at set and individual level. <strong>80% majority user approval</strong> (85% global, 65% local explanations), validated via user studies. Published at IEEE — ieeexplore.ieee.org/document/9582666.</p>
+      </div>
+    </a>
+    <div class="pub-card">
+      <span class="pub-kind">Research</span>
+      <div>
+        <h4>Active Learning on Medical Imaging (BraTS2017) — Universitätsklinikum Magdeburg</h4>
+        <p>Query-By-Committee (KLD · JSD · Entropy): <strong>7% improvement</strong> in informative sample selection over random; precision fluctuation reduced <strong>12% → 1%</strong> — cutting medical-image annotation cost.</p>
+      </div>
+    </div>
+    <div class="pub-card">
+      <span class="pub-kind">Research</span>
+      <div>
+        <h4>Explainable Deep Reinforcement Learning — Data Efficiency over Data Volume</h4>
+        <p>Dropout DQN + saliency maps on MNIST / Space Invaders: <strong>3–6% performance improvement using only 2.5–10% of training data</strong> via MMD-Critic sample selection.</p>
+      </div>
+    </div>
+    <div class="pub-card">
+      <span class="pub-kind">MSc Thesis</span>
+      <div>
+        <h4>Human Brain Simulation — VisMem Cognitive Model on Nengo</h4>
+        <p>MSc Digital Engineering thesis, Otto-von-Guericke-Universität Magdeburg — computational cognitive modelling of visual memory.</p>
+      </div>
+    </div>
+    <div class="pub-card">
+      <span class="pub-kind">Live Demo</span>
+      <div>
+        <h4>Real-Time Gesture AI — WETEX Dubai</h4>
+        <p>Live demonstration of real-time human gesture tracking (OpenCV + pose estimation, <strong>sub-100ms latency</strong>) at WETEX Dubai, a major Middle East energy exhibition.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="writing">
   <div class="section-label">Thought Leadership</div>
-  <h2>Content &amp; Community</h2>
+  <h2>Writing &amp; Content</h2>
+  <div class="write-grid">
+    <a class="write-card" href="https://ai.plainenglish.io/youre-still-paying-200-month-for-ai-tools-you-could-replace-with-a-free-local-setup-tonight-dab4314a0990" target="_blank" rel="noopener">
+      <span class="kicker">AI in Plain English</span>
+      <h4>You're Still Paying $200/Month for AI Tools You Could Replace With a Free Local Setup Tonight</h4>
+      <span class="read">Read on Medium →</span>
+    </a>
+    <a class="write-card" href="https://medium.com/technology-hits/python-silently-lied-to-you-and-you-didnt-notice-2393bcab9c79" target="_blank" rel="noopener">
+      <span class="kicker">Technology Hits</span>
+      <h4>Python Silently Lied to You (And You Didn't Notice)</h4>
+      <span class="read">Read on Medium →</span>
+    </a>
+    <a class="write-card" href="https://medium.com/illumination/i-stopped-googling-travel-guides-i-interrogated-an-ai-instead-heres-the-exact-prompt-that-worked-ed0c7812bf56" target="_blank" rel="noopener">
+      <span class="kicker">Illumination</span>
+      <h4>I Stopped Googling Travel Guides. I Interrogated an AI Instead — the Exact Prompt That Worked</h4>
+      <span class="read">Read on Medium →</span>
+    </a>
+  </div>
   <div class="stats">
     <a href="https://tarun-gupta.medium.com" target="_blank" rel="noopener" class="stat-card stat-link">
       <div class="stat-num">50+</div>
-      <div class="stat-label">Articles on Medium</div>
+      <div class="stat-label">Technical Articles on Medium — published across AI in Plain English, Technology Hits, Illumination &amp; more</div>
     </a>
     <a href="https://www.youtube.com/@breathofdatascience" target="_blank" rel="noopener" class="stat-card stat-link">
       <div class="stat-num">▶</div>
-      <div class="stat-label">Breath of Data Science · YouTube</div>
+      <div class="stat-label">Breath of Data Science — YouTube channel · practitioner guides</div>
     </a>
     <div class="stat-card">
-      <div class="stat-num">🎤</div>
-      <div class="stat-label">Live Demo at WETEX Dubai — Gesture AI</div>
+      <div class="stat-num">200+</div>
+      <div class="stat-label">Pieces/Month Published via My Own AI Content Machine — this content pipeline is itself a project</div>
     </div>
   </div>
 </section>
