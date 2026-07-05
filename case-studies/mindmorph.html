@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MindMorph — Adaptive AI Learning Platform — Case Study · Tarun Gupta</title>
+  <meta name="description" content="Multi-agent LangGraph learning platform: 11 agents across 5 graphs with adaptive mastery gating, live code grading, and full LangSmith tracing." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="case.css" />
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme');
+      if (t === 'light' || (!t && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+</head>
+<body>
+<nav><div class="inner">
+  <a href="../index.html">← Tarun Gupta</a>
+  <div style="display:flex;gap:1.6rem;align-items:center;">
+    <a href="../index.html#projects">All Projects</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark theme">&#9681;</button>
+  </div>
+</div></nav>
+<main>
+<div class="crumb">Case Study · Multi-Agent Systems</div>
+<h1>MindMorph — Adaptive AI Learning Platform</h1>
+<p class="lede">A multi-agent learning platform where <strong>11 specialised agents across 5 LangGraph workflows</strong> teach, plan, quiz, and grade — and a learner only advances when mastery is proven, not when a video ends.</p>
+<div class="meta-row"><span class="chip">11 agents</span><span class="chip">5 LangGraph workflows</span><span class="chip gold">Mastery-gated ≥80%</span><span class="chip">LangSmith traced</span></div>
+<div class="actions"><a class="btn btn-primary" href="https://github.com/tarunlnmiit/MindMorph_Learning_Platform" target="_blank" rel="noopener">⎋ View on GitHub</a><a class="btn btn-outline" href="../index.html#contact">Discuss this project</a></div>
+<h2><span class="num">01</span>Why it exists</h2>
+<p class="body">Online learning platforms optimise for completion, not competence. Content is static, sequencing is linear, and nothing checks whether you actually understood before moving on. MindMorph inverts that: the curriculum is generated per learner, and progression is <strong>gated on demonstrated mastery</strong>.</p>
+<h2><span class="num">02</span>How it works</h2>
+<ol class="steps">
+<li><b>Orchestrator routing</b>A Groq-powered LLaMA 3.3-70B orchestrator classifies every learner query and routes it to one of 5 LangGraph graphs.</li>
+<li><b>SCOUT — research</b>Academic + Market + Practical + Factual agents research a topic in parallel → Consensus → Synthesizer → Reviewer → a Mermaid skill graph.</li>
+<li><b>CONTENT & LEARNING PLAN</b>Boost / Builder / Sprint content modes; node progression through the skill graph is mastery-gated at ≥80% before anything unlocks.</li>
+<li><b>LESSON delivery</b>Structured lessons grounded with live DuckDuckGo + job-scraper research, so material tracks what the market actually asks for.</li>
+<li><b>EXERCISE — live grading</b>Coding challenges run in-browser via streamlit-ace with a live unit-test grader. Full LangSmith tracing over every agent hop; GitHub MCP integration.</li>
+</ol>
+<h2><span class="num">03</span>Results</h2>
+<div class="stat-row"><div class="stat"><b>11</b><span>agents</span></div><div class="stat"><b>5</b><span>LangGraph graphs</span></div><div class="stat"><b>≥80%</b><span>mastery gate</span></div><div class="stat"><b>100%</b><span>Python</span></div></div>
+<ul class="wins">
+<li><strong>1 orchestrator, 11 agents, 5 graphs</strong> — clean separation between routing, research, planning, teaching, and assessment</li>
+<li>Mastery gating (≥80%) makes progression <strong>evidence-based</strong> rather than time-based</li>
+<li>Live unit-test grader closes the loop: learn → attempt → graded feedback in one surface</li>
+<li>Full LangSmith observability across every workflow</li>
+</ul>
+<h2><span class="num">04</span>Stack</h2>
+<div class="stack"><span>LangGraph</span><span>LangChain</span><span>Groq / LLaMA 3.3-70B</span><span>Streamlit</span><span>streamlit-ace</span><span>LangSmith</span><span>MCP</span><span>DuckDuckGo Search</span><span>Python</span></div>
+<div class="next"><a href="../index.html#projects">← All projects</a><a href="ai-content-machine.html">Next: AI Content Machine →</a></div>
+</main>
+<footer>Tarun Gupta · AI Systems Architect · LLM &amp; MLOps Consultant</footer>
+<script>
+(function () {{
+  var btn = document.getElementById('theme-toggle');
+  if (btn) btn.addEventListener('click', function () {{
+    var root = document.documentElement;
+    var light = root.getAttribute('data-theme') === 'light';
+    if (light) {{ root.removeAttribute('data-theme'); localStorage.setItem('theme', 'dark'); }}
+    else {{ root.setAttribute('data-theme', 'light'); localStorage.setItem('theme', 'light'); }}
+  }});
+}})();
+</script>
+</body>
+</html>

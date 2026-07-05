@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inbox to Action — Agentic Email Triage — Case Study · Tarun Gupta</title>
+  <meta name="description" content="One-pass agentic inbox triage on PyPI: classify, summarize, extract tasks, draft replies — never sends. BYOK across 6 LLM providers including fully-local Ollama. MCP server included." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="case.css" />
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme');
+      if (t === 'light' || (!t && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+</head>
+<body>
+<nav><div class="inner">
+  <a href="../index.html">← Tarun Gupta</a>
+  <div style="display:flex;gap:1.6rem;align-items:center;">
+    <a href="../index.html#projects">All Projects</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark theme">&#9681;</button>
+  </div>
+</div></nav>
+<main>
+<div class="crumb">Case Study · Open Source · BYOK</div>
+<h1>Inbox to Action — Agentic Email Triage</h1>
+<p class="lede">One command, one agentic pass: your inbox classified, summarized, turned into tasks, and replies drafted — <strong>pip install inbox-to-action</strong>. It never sends an email, and with the Ollama provider your mail never leaves your machine.</p>
+<div class="meta-row"><span class="chip">PyPI</span><span class="chip gold">BYOK · 6 providers</span><span class="chip">MCP server</span><span class="chip">Docker / GHCR</span><span class="chip">MIT</span><span class="chip gold">Drafts only — never sends</span></div>
+<div class="actions"><a class="btn btn-primary" href="https://github.com/tarunlnmiit/inbox-to-action" target="_blank" rel="noopener">⎋ View on GitHub</a><a class="btn btn-outline" href="https://pypi.org/project/inbox-to-action/" target="_blank" rel="noopener">📦 PyPI</a><a class="btn btn-outline" href="../index.html#contact">Discuss this project</a></div>
+<h2><span class="num">01</span>Why it exists</h2>
+<p class="body">Most people process email with <strong>four separate tools</strong>: a client to read, a task manager to capture to-dos, a calendar to block time, and an AI summarizer for long threads. Every message gets handled four times. inbox-to-action collapses all four into one agentic pass — from the terminal, with hard safety guarantees.</p>
+<h2><span class="num">02</span>How it works</h2>
+<ol class="steps">
+<li><b>Fetch</b>Pulls unread Gmail (last 24h by default) using only the readonly + compose scopes — there is no send scope and no send API call anywhere in the codebase, enforced by a test.</li>
+<li><b>Classify</b>Each message is triaged into action_needed · fyi · newsletter · noise by whichever LLM provider you bring.</li>
+<li><b>Summarize & extract</b>Long threads become summaries; actionable messages become tasks (optional Todoist push); calendar-relevant mail gets flagged.</li>
+<li><b>Draft, never send</b>Replies are drafted and saved to Gmail drafts for human review. Worst case under prompt injection: a draft you choose not to send.</li>
+<li><b>Pick your provider — BYOK</b>Ollama (fully local, nothing leaves your machine), keyless Claude Code session, OpenRouter, OpenAI, NVIDIA NIM, or Anthropic. Privacy posture is a config choice, documented per provider.</li>
+<li><b>Run it anywhere</b>pip / pipx / uvx zero-install trial, Docker image on GHCR, MCP server for Claude Code + a packaged Claude skill. Registry manifests for the Official MCP Registry, Smithery, and Glama ship in the repo.</li>
+</ol>
+<h2><span class="num">03</span>Results</h2>
+<div class="stat-row"><div class="stat"><b>6</b><span>LLM providers</span></div><div class="stat"><b>4→1</b><span>tools collapsed</span></div><div class="stat"><b>0</b><span>emails auto-sent</span></div><div class="stat"><b>100%</b><span>local option</span></div></div>
+<ul class="wins">
+<li><strong>4 tools collapsed into 1</strong> agentic pass — read, triage, tasks, drafts</li>
+<li><strong>Security by construction</strong>: no send scope exists; drafts-only is enforced by test, not policy</li>
+<li><strong>True BYOK</strong>: 6 providers, including a fully-local path (Ollama) and a keyless path (Claude Code)</li>
+<li>Distribution done properly: PyPI, Docker/GHCR, MCP server, CI on every push, MIT license, mock inbox for zero-setup trial</li>
+</ul>
+<h2><span class="num">04</span>Stack</h2>
+<div class="stack"><span>Python 3.11+</span><span>Gmail API (readonly + compose)</span><span>Ollama</span><span>OpenRouter</span><span>Claude Code (keyless)</span><span>NVIDIA NIM</span><span>MCP</span><span>Docker / GHCR</span><span>GitHub Actions</span><span>pytest</span></div>
+<div class="next"><a href="../index.html#projects">← All projects</a><a href="autopilot-jobhunt.html">Next: Autopilot Job Hunt →</a></div>
+</main>
+<footer>Tarun Gupta · AI Systems Architect · LLM &amp; MLOps Consultant</footer>
+<script>
+(function () {{
+  var btn = document.getElementById('theme-toggle');
+  if (btn) btn.addEventListener('click', function () {{
+    var root = document.documentElement;
+    var light = root.getAttribute('data-theme') === 'light';
+    if (light) {{ root.removeAttribute('data-theme'); localStorage.setItem('theme', 'dark'); }}
+    else {{ root.setAttribute('data-theme', 'light'); localStorage.setItem('theme', 'light'); }}
+  }});
+}})();
+</script>
+</body>
+</html>

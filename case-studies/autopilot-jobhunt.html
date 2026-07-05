@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Autopilot Job Hunt — Case Study · Tarun Gupta</title>
+  <meta name="description" content="Autonomous AI job-search agent: nightly scans of 130+ careers pages, LLM fit scoring 0-100, Telegram alerts, on-demand tailored resume and cover letter. pip install autopilot-jobhunt." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="case.css" />
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme');
+      if (t === 'light' || (!t && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+</head>
+<body>
+<nav><div class="inner">
+  <a href="../index.html">← Tarun Gupta</a>
+  <div style="display:flex;gap:1.6rem;align-items:center;">
+    <a href="../index.html#projects">All Projects</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark theme">&#9681;</button>
+  </div>
+</div></nav>
+<main>
+<div class="crumb">Case Study · Open Source · 100+ GitHub Stars</div>
+<h1>Autopilot Job Hunt</h1>
+<p class="lede">An autonomous AI agent that hunts jobs while you sleep — <strong>pip install autopilot-jobhunt</strong>. It scans 130+ company careers pages nightly, scores every role 0–100 against your full resume, and pushes the best matches to Telegram before breakfast.</p>
+<div class="meta-row"><span class="chip gold">100+ GitHub stars</span><span class="chip gold">29 forks</span><span class="chip">MIT License</span><span class="chip">PyPI</span><span class="chip">MCP server on Glama</span></div>
+<div class="actions"><a class="btn btn-primary" href="https://github.com/tarunlnmiit/autopilot-jobhunt" target="_blank" rel="noopener">⎋ View on GitHub</a><a class="btn btn-outline" href="https://pypi.org/project/autopilot-jobhunt/" target="_blank" rel="noopener">📦 PyPI</a><a class="btn btn-outline" href="../index.html#contact">Discuss this project</a></div>
+<h2><span class="num">01</span>Why it exists</h2>
+<p class="body">Job hunting is a nightly grind of opening the same careers pages, skimming the same irrelevant listings, and guessing whether a role actually fits. Keyword alerts are noise: they match words, not careers. The interesting question is "how well does this <strong>whole role</strong> match my <strong>whole resume</strong>?" — and that is an LLM question, not a keyword question.</p>
+<h2><span class="num">02</span>How it works</h2>
+<ol class="steps">
+<li><b>Nightly scan</b>An autonomous agent walks 130+ company careers pages on a schedule — not job boards, the primary sources — and normalises every posting.</li>
+<li><b>LLM fit scoring</b>Every role is scored 0–100 against the full resume, not keywords. A 4-model OpenRouter fallback chain keeps the pipeline running at zero API cost.</li>
+<li><b>Telegram delivery</b>Top matches land in Telegram with score and reasoning. No dashboard to remember to check.</li>
+<li><b>On-demand documents</b>One command drafts a role-tailored resume + cover letter in about 60 seconds.</li>
+<li><b>MCP mode</b>Runs as an MCP server (publicly listed on Glama) — the whole pipeline drives from natural language inside Claude Code or Claude Desktop.</li>
+</ol>
+<h2><span class="num">03</span>Results</h2>
+<div class="stat-row"><div class="stat"><b>100+</b><span>GitHub stars</span></div><div class="stat"><b>130+</b><span>careers pages nightly</span></div><div class="stat"><b>0–100</b><span>LLM fit score</span></div><div class="stat"><b>$0</b><span>LLM API cost</span></div></div>
+<ul class="wins">
+<li><strong>100+ GitHub stars · 29 forks</strong> — validated by strangers with the same problem</li>
+<li><strong>$0 LLM API cost</strong> via the 4-model OpenRouter fallback chain</li>
+<li><strong>pip-installable</strong> and deployed 24/7 on a Raspberry Pi — Docker + GitHub Actions CI/CD</li>
+<li>MCP server publicly hosted and listed on Glama</li>
+</ul>
+<h2><span class="num">04</span>Stack</h2>
+<div class="stack"><span>Python</span><span>OpenRouter (4-model fallback)</span><span>Claude MCP</span><span>Telegram Bot API</span><span>TinyFish API</span><span>Docker</span><span>GitHub Actions</span><span>PyPI</span><span>Raspberry Pi</span></div>
+<div class="next"><a href="../index.html#projects">← All projects</a><a href="mindmorph.html">Next: MindMorph — Adaptive AI Learning Platform →</a></div>
+</main>
+<footer>Tarun Gupta · AI Systems Architect · LLM &amp; MLOps Consultant</footer>
+<script>
+(function () {{
+  var btn = document.getElementById('theme-toggle');
+  if (btn) btn.addEventListener('click', function () {{
+    var root = document.documentElement;
+    var light = root.getAttribute('data-theme') === 'light';
+    if (light) {{ root.removeAttribute('data-theme'); localStorage.setItem('theme', 'dark'); }}
+    else {{ root.setAttribute('data-theme', 'light'); localStorage.setItem('theme', 'light'); }}
+  }});
+}})();
+</script>
+</body>
+</html>
