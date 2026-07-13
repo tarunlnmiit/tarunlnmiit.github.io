@@ -2670,10 +2670,10 @@ Promise.all([
     fetch(form.action, { method: 'POST', headers: { Accept: 'application/json' }, body: new FormData(form) })
       .then(function (r) { return r.json().catch(function () { return { status: 'success' }; }); })
       .then(function (d) {
-        if (d && d.status === 'failed') {
-          status.textContent = (d.errors && d.errors.messages && d.errors.messages[0]) || 'Something went wrong. Try again.';
+        if (d && d.status === 'success') {
+          form.innerHTML = '<p class="notes-done" role="status">Thanks — you’re subscribed.</p>';
         } else {
-          form.innerHTML = '<p class="notes-done" role="status">Thanks — check your inbox to confirm.</p>';
+          status.textContent = (d && d.errors && d.errors.messages && d.errors.messages[0]) || 'Something went wrong. Try again in a moment.';
         }
       })
       .catch(function () {
