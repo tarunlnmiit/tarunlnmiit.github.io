@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fable Mode — Fable-Class Behavior for Any Claude Model — Case Study · Tarun Gupta</title>
+  <meta name="description" content="An open-source Claude Code plugin that injects an always-on discipline ruleset into every session and subagent, making Opus, Sonnet, and Haiku behave like Fable 5 — install with /plugin marketplace add tarunlnmiit/fable-mode." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📖</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="case.css" />
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme');
+      if (t === 'light' || (!t && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+</head>
+<body>
+<nav><div class="inner">
+  <a href="../index.html">← Tarun Gupta</a>
+  <div style="display:flex;gap:1.6rem;align-items:center;">
+    <a href="../index.html#projects">All Projects</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark theme">&#9681;</button>
+  </div>
+</div></nav>
+<main>
+<div class="crumb">Case Study · Claude Code · Open Source</div>
+<h1>Fable Mode</h1>
+<p class="lede">Fable 5 left the Claude subscriptions — but what made it feel different was never raw intelligence, it was <strong>discipline</strong>. Fable Mode distills that discipline into an always-on ruleset, injected at the start of every session and every subagent, so <strong>Opus, Sonnet, and Haiku</strong> all pick up the same habits.</p>
+<div class="meta-row"><span class="chip">MIT</span><span class="chip">Claude Code Plugin</span><span class="chip gold">SessionStart Hook</span><span class="chip gold">On by default</span></div>
+<div class="actions"><a class="btn btn-primary" href="https://github.com/tarunlnmiit/fable-mode" target="_blank" rel="noopener">⎋ View on GitHub</a><a class="btn btn-outline" href="../index.html#contact">Discuss this project</a></div>
+<h2><span class="num">01</span>Why it exists</h2>
+<p class="body">When Fable 5 left the Claude subscriptions, what people missed wasn't a smarter model — it was a more <strong>disciplined</strong> one: answers that led with the outcome, work that covered the whole request, and a model that acted instead of asking permission for reversible steps. That discipline is learnable and portable. Fable Mode packages it as <code style="font-family:var(--font-mono);font-size:0.85em;background:var(--tag-bg);border:1px solid var(--border);border-radius:5px;padding:0.1em 0.4em;">rules/FABLE.md</code>, an always-on ruleset injected into every session so any Claude model — Opus, Sonnet, or Haiku — behaves like Fable 5 by default.</p>
+<h2><span class="num">02</span>What it does</h2>
+<p class="body">Five failure modes show up reliably across models. Fable Mode fixes each with a standing rule:</p>
+<ol class="steps">
+<li><b>Verbose preamble</b>§1 — lead with the outcome, no filler or narration before getting to the answer.</li>
+<li><b>Missed scope</b>§2 — enumerate what "done" includes, trace the blast radius of a change, re-read the original request before declaring done.</li>
+<li><b>Asking instead of acting</b>§3 — act on reversible work; ask only for destructive, outward-facing, or scope-changing actions.</li>
+<li><b>Over-engineering</b>§4 — build exactly what was asked, the simplest solution that works (YAGNI).</li>
+<li><b>False confidence</b>§5 — never claim tested or done without having actually run it; read files instead of guessing.</li>
+</ol>
+<p class="body">A sixth rule, §6, applies specifically on Haiku and Sonnet: at high-leverage moments — architectural decisions, being stuck, or reviewing a plan — offer to consult a stronger model (Fable, else Opus), then execute the work itself rather than handing it off.</p>
+<h2><span class="num">03</span>How it works</h2>
+<ol class="steps">
+<li><b>Hook into every session</b>A <code style="font-family:var(--font-mono);font-size:0.85em;background:var(--tag-bg);border:1px solid var(--border);border-radius:5px;padding:0.1em 0.4em;">SessionStart</code> and <code style="font-family:var(--font-mono);font-size:0.85em;background:var(--tag-bg);border:1px solid var(--border);border-radius:5px;padding:0.1em 0.4em;">SubagentStart</code> hook fires <code style="font-family:var(--font-mono);font-size:0.85em;background:var(--tag-bg);border:1px solid var(--border);border-radius:5px;padding:0.1em 0.4em;">activate.js</code>, which prints <code style="font-family:var(--font-mono);font-size:0.85em;background:var(--tag-bg);border:1px solid var(--border);border-radius:5px;padding:0.1em 0.4em;">rules/FABLE.md</code> into context — for the main session and for every subagent it spawns, so discipline doesn't stop at the first delegation.</li>
+<li><b>Zero config</b>Fable Mode is on by default the moment it's installed — nothing to run, no flag to set.</li>
+<li><b>Conversational controls</b><code style="font-family:var(--font-mono);font-size:0.85em;background:var(--tag-bg);border:1px solid var(--border);border-radius:5px;padding:0.1em 0.4em;">/fable</code> for a summary, <code style="font-family:var(--font-mono);font-size:0.85em;background:var(--tag-bg);border:1px solid var(--border);border-radius:5px;padding:0.1em 0.4em;">fable status</code> to check state, <code style="font-family:var(--font-mono);font-size:0.85em;background:var(--tag-bg);border:1px solid var(--border);border-radius:5px;padding:0.1em 0.4em;">stop fable mode</code> / <code style="font-family:var(--font-mono);font-size:0.85em;background:var(--tag-bg);border:1px solid var(--border);border-radius:5px;padding:0.1em 0.4em;">fable off</code> to disable, <code style="font-family:var(--font-mono);font-size:0.85em;background:var(--tag-bg);border:1px solid var(--border);border-radius:5px;padding:0.1em 0.4em;">fable on</code> to resume.</li>
+<li><b>Install</b><code style="font-family:var(--font-mono);font-size:0.85em;background:var(--tag-bg);border:1px solid var(--border);border-radius:5px;padding:0.1em 0.4em;">/plugin marketplace add tarunlnmiit/fable-mode</code> then <code style="font-family:var(--font-mono);font-size:0.85em;background:var(--tag-bg);border:1px solid var(--border);border-radius:5px;padding:0.1em 0.4em;">/plugin install fable-mode@fable-mode</code>.</li>
+</ol>
+<h2><span class="num">04</span>What changes</h2>
+<div class="stat-row"><div class="stat"><b>5</b><span>failure modes fixed</span></div><div class="stat"><b>6</b><span>rule sections</span></div><div class="stat"><b>3</b><span>models covered</span></div><div class="stat"><b>0</b><span>config needed</span></div></div>
+<ul class="wins">
+<li>Answers lead with the result, not preamble</li>
+<li>Subagents inherit the same discipline as the main session</li>
+<li>No permission-asking on reversible work</li>
+<li>Never claims tested or done without actually running it</li>
+</ul>
+<h2><span class="num">05</span>Stack</h2>
+<div class="stack"><span>Claude Code</span><span>Plugin API</span><span>SessionStart Hook</span><span>JavaScript</span><span>Marketplace</span><span>MIT</span></div>
+<div class="next"><a href="../index.html#projects">← All projects</a><a href="inbox-to-action.html">Next: Inbox to Action — Agentic Email Triage →</a></div>
+</main>
+<footer>Tarun Gupta · AI Systems Architect · LLM &amp; MLOps Consultant</footer>
+<script>
+(function () {{
+  var btn = document.getElementById('theme-toggle');
+  if (btn) btn.addEventListener('click', function () {{
+    var root = document.documentElement;
+    var light = root.getAttribute('data-theme') === 'light';
+    if (light) {{ root.removeAttribute('data-theme'); localStorage.setItem('theme', 'dark'); }}
+    else {{ root.setAttribute('data-theme', 'light'); localStorage.setItem('theme', 'light'); }}
+  }});
+}})();
+</script>
+</body>
+</html>
