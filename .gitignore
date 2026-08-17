@@ -1,1 +1,10 @@
 css/font*
+
+# Local browser profile — holds session cookies. Never commit.
+chrome_user_data/
+
+# Tool artifacts written by scripts run from this directory
+.serena/
+graphify-out/
+state/
+data/
